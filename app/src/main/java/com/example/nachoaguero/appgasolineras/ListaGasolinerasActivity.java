@@ -71,8 +71,12 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 Gasolinera gasolinera = gasolineras.get(position);
                 //get the inflater and inflate the XML layout for each item
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-                //Hay que poner el layout de la gasolinera individual
+
+                /**
+                 * CÓDIGO DEPENDIENTE DE LOS PARÁMETROS DEL LAYOUT
+                 *
                 View view = inflater.inflate(R.layout.gasolinera_layout, null);
+
                 TextView nombre = (TextView) view.findViewById(R.id.nombre);
                 TextView calle = (TextView) view.findViewById(R.id.address);
                 TextView diesel = (TextView) view.findViewById(R.id.diesel);
@@ -89,7 +93,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
                 } else {
                     imagen.setImageResource(imageID);
-                }
+                }**/
 
                 return view;
             }
