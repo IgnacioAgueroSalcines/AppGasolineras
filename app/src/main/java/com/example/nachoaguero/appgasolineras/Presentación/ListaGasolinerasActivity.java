@@ -31,11 +31,10 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         Context context;
 
 
-        public Hilo (Context context){
-            this.context=context;
+        public Hilo(Context context) {
+            this.context = context;
 
         }
-
 
 
         @Override
@@ -47,12 +46,12 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean b) {
             if (b) {
-                List<Gasolinera> gas=datosGasolineras.getListaGasolineras();
-                ArrayAdapter<Gasolinera> adapter=new gasolineraArrayAdapter(context,0,gas);
+                List<Gasolinera> gas = datosGasolineras.getListaGasolineras();
+                ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(context, 0, gas);
 
                 list.setAdapter(adapter);
             } else {
-               // Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -76,36 +75,38 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 /**
                  * CÓDIGO DEPENDIENTE DE LOS PARÁMETROS DEL LAYOUT
                  *
-                View view = inflater.inflate(R.layout.gasolinera_layout, null);
+                 View view = inflater.inflate(R.layout.gasolinera_layout, null);
 
-                TextView nombre = (TextView) view.findViewById(R.id.nombre);
-                TextView calle = (TextView) view.findViewById(R.id.address);
-                TextView diesel = (TextView) view.findViewById(R.id.diesel);
-                TextView gasolina = (TextView) view.findViewById(R.id.gasolina);
-                ImageView imagen = (ImageView) view.findViewById(R.id.image);
+                 TextView nombre = (TextView) view.findViewById(R.id.nombre);
+                 TextView calle = (TextView) view.findViewById(R.id.address);
+                 TextView diesel = (TextView) view.findViewById(R.id.diesel);
+                 TextView gasolina = (TextView) view.findViewById(R.id.gasolina);
+                 ImageView imagen = (ImageView) view.findViewById(R.id.image);
 
-                nombre.setText(gasolinera.getRotulo());
-                calle.setText(gasolinera.getDireccion());
-                diesel.setText("Diesel: " + String.valueOf(gasolinera.getGasoleo_a()) + "€");
-                gasolina.setText("Gasolina: " + String.valueOf(gasolinera.getGasolina_95()) + "€");
-                int imageID = context.getResources().getIdentifier(gasolinera.getRotulo().toLowerCase().trim(), "drawable", context.getPackageName());
-                if (imageID == 0) {
-                    imagen.setImageResource(Integer.valueOf(R.drawable.por_defecto));
+                 nombre.setText(gasolinera.getRotulo());
+                 calle.setText(gasolinera.getDireccion());
+                 diesel.setText("Diesel: " + String.valueOf(gasolinera.getGasoleo_a()) + "€");
+                 gasolina.setText("Gasolina: " + String.valueOf(gasolinera.getGasolina_95()) + "€");
+                 int imageID = context.getResources().getIdentifier(gasolinera.getRotulo().toLowerCase().trim(), "drawable", context.getPackageName());
+                 if (imageID == 0) {
+                 imagen.setImageResource(Integer.valueOf(R.drawable.por_defecto));
 
-                } else {
-                    imagen.setImageResource(imageID);
-                }**/
+                 } else {
+                 imagen.setImageResource(imageID);
+                 }**/
 
                 return view;
             }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        list=(ListView)findViewById(R.id.listview);
-        Hilo a=new Hilo (this);
-        a.execute();
+            @Override
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.activity_main);
+                //a la espera del layout
+               // list = (ListView) findViewById(R.id.listview);
+                Hilo a = new Hilo(this);
+                a.execute();
+            }
+        }
     }
 }
