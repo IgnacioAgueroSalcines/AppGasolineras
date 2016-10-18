@@ -130,15 +130,6 @@
         android:layout_marginTop="26dp" />
 
     <TextView
-        android:text="Horario  :"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/RouteButton"
-        android:layout_alignLeft="@+id/direccionGasolinera"
-        android:layout_alignStart="@+id/direccionGasolinera"
-        android:id="@+id/textView11" />
-
-    <TextView
         android:text="No disponible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -148,12 +139,39 @@
         android:id="@+id/direccionGasolinera_valor" />
 
     <TextView
+        android:text="Horario  :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/horario"
+        android:layout_alignBaseline="@+id/24h_valor"
+        android:layout_alignBottom="@+id/24h_valor"
+        android:layout_alignLeft="@+id/direccionGasolinera"
+        android:layout_alignStart="@+id/direccionGasolinera" />
+
+    <TextView
+        android:text="Coordenadas :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/coordenadas"
+        android:layout_alignBottom="@+id/RouteButton"
+        android:layout_alignLeft="@+id/horario"
+        android:layout_alignStart="@+id/horario" />
+
+    <TextView
         android:text="No disponible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/24h_valor"
-        android:layout_alignBaseline="@+id/textView11"
-        android:layout_alignBottom="@+id/textView11"
-        android:layout_alignLeft="@+id/direccionGasolinera_valor"
-        android:layout_alignStart="@+id/direccionGasolinera_valor" />
+        android:layout_above="@+id/RouteButton"
+        android:layout_toRightOf="@+id/coordenadas"
+        android:layout_toEndOf="@+id/coordenadas" />
+
+    <TextView
+        android:text="No disponible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/coordenadas"
+        android:layout_alignLeft="@+id/rotuloGasolinera"
+        android:layout_alignStart="@+id/rotuloGasolinera"
+        android:id="@+id/coordenadas_valor" />
 </RelativeLayout>
