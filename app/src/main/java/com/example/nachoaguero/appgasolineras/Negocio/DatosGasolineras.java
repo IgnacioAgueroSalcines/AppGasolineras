@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.List;
 import com.example.nachoaguero.appgasolineras.*;
 import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
+import com.example.nachoaguero.appgasolineras.Datos.ParserJSON;
+import com.example.nachoaguero.appgasolineras.Datos.RemoteFetch;
 
 
 public class DatosGasolineras {

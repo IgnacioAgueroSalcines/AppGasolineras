@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AppGasolineras</string>
+    <string name="datos_no_obtenidos">Datos no obtenidos</string>
 </resources>

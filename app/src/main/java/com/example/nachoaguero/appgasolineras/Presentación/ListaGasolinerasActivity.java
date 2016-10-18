@@ -55,6 +55,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             }
 
         }
+    }
 
         class gasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
 
@@ -72,41 +73,38 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 //get the inflater and inflate the XML layout for each item
                 LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-                /**
-                 * CÓDIGO DEPENDIENTE DE LOS PARÁMETROS DEL LAYOUT
-                 *
-                 View view = inflater.inflate(R.layout.gasolinera_layout, null);
+
+                View view = inflater.inflate(R.layout.interfaz_lista, null);
+
 
                  TextView nombre = (TextView) view.findViewById(R.id.nombre);
-                 TextView calle = (TextView) view.findViewById(R.id.address);
-                 TextView diesel = (TextView) view.findViewById(R.id.diesel);
-                 TextView gasolina = (TextView) view.findViewById(R.id.gasolina);
+                 TextView gasolina = (TextView) view.findViewById(R.id.precio);
                  ImageView imagen = (ImageView) view.findViewById(R.id.image);
 
-                 nombre.setText(gasolinera.getRotulo());
-                 calle.setText(gasolinera.getDireccion());
-                 diesel.setText("Diesel: " + String.valueOf(gasolinera.getGasoleo_a()) + "€");
+
                  gasolina.setText("Gasolina: " + String.valueOf(gasolinera.getGasolina_95()) + "€");
                  int imageID = context.getResources().getIdentifier(gasolinera.getRotulo().toLowerCase().trim(), "drawable", context.getPackageName());
+                //El nombre (referencia de la marca de la gasolinera) sólo se muestra si la marca es desconocida.
                  if (imageID == 0) {
                  imagen.setImageResource(Integer.valueOf(R.drawable.por_defecto));
+                 nombre.setText(gasolinera.getRotulo());
 
                  } else {
                  imagen.setImageResource(imageID);
-                 }**/
+                 }
 
                 return view;
             }
+        }
 
             @Override
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_main);
-                //a la espera del layout
-               // list = (ListView) findViewById(R.id.listview);
+
+                list = (ListView) findViewById(R.id.customListView);
                 Hilo a = new Hilo(this);
                 a.execute();
             }
         }
-    }
-}
+
