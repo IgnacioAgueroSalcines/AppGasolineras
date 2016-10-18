@@ -1,4 +1,4 @@
-package com.example.nachoaguero.appgasolineras;
+package com.example.nachoaguero.appgasolineras.Presentación;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.DatosGasolineras;
+import com.example.nachoaguero.appgasolineras.R;
 
 import java.util.ArrayList;
 import java.util.List;
