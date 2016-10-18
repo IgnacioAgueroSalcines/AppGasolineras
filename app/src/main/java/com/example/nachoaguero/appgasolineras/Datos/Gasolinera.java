@@ -1,10 +1,12 @@
 package com.example.nachoaguero.appgasolineras.Datos;
 
+import java.util.Comparator;
+
 /**
  * Created by deivid on 18/10/16.
  */
 
-public class Gasolinera {
+public class Gasolinera implements Comparable<Gasolinera> {
 
     private int IDEESS;
     private String localidad;
