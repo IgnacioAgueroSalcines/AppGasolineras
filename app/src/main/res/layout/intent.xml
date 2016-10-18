@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/por_defecto"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="22dp"
+        android:id="@+id/imageView" />
+
+    <TextView
+        android:text="Precio diésel :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_marginTop="40dp"
+        android:id="@+id/precioDiesel" />
+
+    <TextView
+        android:text="Precio gasolina 95 :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/precioDiesel"
+        android:layout_alignLeft="@+id/precioDiesel"
+        android:layout_alignStart="@+id/precioDiesel"
+        android:layout_marginTop="36dp"
+        android:id="@+id/precioGasolina95" />
+
+    <TextView
+        android:text="No disponible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/precioGasolinera_valor"
+        android:layout_alignBaseline="@+id/precioGasolina95"
+        android:layout_alignBottom="@+id/precioGasolina95"
+        android:layout_alignLeft="@+id/precioDieselSuper_valor"
+        android:layout_alignStart="@+id/precioDieselSuper_valor" />
+
+    <TextView
+        android:text="Precio gasolina 98 :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/precioGasolina95"
+        android:layout_alignLeft="@+id/precioGasolina95"
+        android:layout_alignStart="@+id/precioGasolina95"
+        android:layout_marginTop="32dp"
+        android:id="@+id/precioGasolina98" />
+
+    <TextView
+        android:text="Precio Diésel Super :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/precioDieselSuper"
+        android:layout_marginTop="29dp"
+        android:layout_below="@+id/precioGasolina98"
+        android:layout_alignLeft="@+id/precioGasolina98"
+        android:layout_alignStart="@+id/precioGasolina98" />
+
+    <TextView
+        android:text="No disponible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/precioDieselSuper_valor"
+        android:layout_alignBaseline="@+id/precioDieselSuper"
+        android:layout_alignBottom="@+id/precioDieselSuper"
+        android:layout_toRightOf="@+id/rotuloGasolinera"
+        android:layout_toEndOf="@+id/rotuloGasolinera" />
+
+    <TextView
+        android:text="No disponible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/precioGasolina98_valor"
+        android:layout_alignBaseline="@+id/precioGasolina98"
+        android:layout_alignBottom="@+id/precioGasolina98"
+        android:layout_alignLeft="@+id/precioDieselSuper_valor"
+        android:layout_alignStart="@+id/precioDieselSuper_valor" />
+
+    <TextView
+        android:text="No disponible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/precioDiesel_valor"
+        android:layout_above="@+id/precioGasolina95"
+        android:layout_alignLeft="@+id/precioGasolinera_valor"
+        android:layout_alignStart="@+id/precioGasolinera_valor" />
+
+    <TextView
+        android:text="Dirección :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/direccionGasolinera"
+        android:layout_marginTop="86dp"
+        android:layout_below="@+id/precioDieselSuper"
+        android:layout_alignLeft="@+id/precioDieselSuper"
+        android:layout_alignStart="@+id/precioDieselSuper" />
+
+    <Button
+        android:text="Ruta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="19dp"
+        android:id="@+id/RouteButton" />
+
+    <TextView
+        android:text="No disponible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="19dp"
+        android:layout_marginStart="19dp"
+        android:id="@+id/rotuloGasolinera"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_toRightOf="@+id/precioDiesel"
+        android:layout_toEndOf="@+id/precioDiesel"
+        android:layout_marginTop="26dp" />
+
+    <TextView
+        android:text="Horario  :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/RouteButton"
+        android:layout_alignLeft="@+id/direccionGasolinera"
+        android:layout_alignStart="@+id/direccionGasolinera"
+        android:id="@+id/textView11" />
+
+    <TextView
+        android:text="No disponible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/direccionGasolinera"
+        android:layout_toRightOf="@+id/precioDiesel"
+        android:layout_toEndOf="@+id/precioDiesel"
+        android:id="@+id/direccionGasolinera_valor" />
+
+    <TextView
+        android:text="No disponible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/24h_valor"
+        android:layout_alignBaseline="@+id/textView11"
+        android:layout_alignBottom="@+id/textView11"
+        android:layout_alignLeft="@+id/direccionGasolinera_valor"
+        android:layout_alignStart="@+id/direccionGasolinera_valor" />
+</RelativeLayout>
