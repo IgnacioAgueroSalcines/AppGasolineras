@@ -9,6 +9,8 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.List;
+import com.example.nachoaguero.appgasolineras.*;
+import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 
 
 public class DatosGasolineras {
