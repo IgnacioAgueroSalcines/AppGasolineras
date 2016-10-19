@@ -74,23 +74,25 @@ public class ParserJSON{
 
             if (name.equals("Rótulo") && reader.peek() != JsonToken.NULL) {
                 rotulo = reader.nextString();
-            }else if (name.equals("Localidad")) {
+            }else if (name.equals("Localidad") && reader.peek() != JsonToken.NULL) {
                 localidad = reader.nextString();
-            }else if(name.equals("Provincia")){
+            }else if(name.equals("Provincia")&& reader.peek() != JsonToken.NULL){
                 provincia = reader.nextString();
-            }else if(name.equals("IDEESS")){
+            }else if(name.equals("IDEESS")&& reader.peek() != JsonToken.NULL){
                 id = reader.nextInt();
-            }else if(name.equals("Precio Gasoleo A")) {
+            }else if(name.equals("Precio Gasoleo A") && reader.peek() != JsonToken.NULL) {
                 gasoleoA = Double.parseDouble(reader.nextString().replace(",","."));
-            }else if(name.equals("Precio Gasolina 95 Protección")) {
+            }else if(name.equals("Precio Gasolina 95 Protección")&& reader.peek() != JsonToken.NULL) {
                 sinplomo95 = Double.parseDouble(reader.nextString().replace(",", "."));
-            }else if(name.equals("Dirección")){
+
+            }else if(name.equals("Dirección")&& reader.peek() != JsonToken.NULL){
                 direccion = reader.nextString();
             }else{
                 reader.skipValue();
             }//if
 
         }// while
+
         reader.endObject();
         return new Gasolinera(id,localidad,provincia,direccion,gasoleoA, sinplomo95,rotulo);
     }// readGasolinera

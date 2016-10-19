@@ -23,7 +23,7 @@ import java.util.List;
 public class ListaGasolinerasActivity extends AppCompatActivity {
     ListView list;
     DatosGasolineras datosGasolineras=new DatosGasolineras();
-    private List<Gasolinera> gasolineras=new ArrayList<>();
+
 
     private class Hilo   extends AsyncTask<Void, Void, Boolean> {
         Context context;
