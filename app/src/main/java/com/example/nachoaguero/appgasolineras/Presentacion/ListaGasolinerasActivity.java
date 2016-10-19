@@ -37,23 +37,51 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            return datosGasolineras.obtenGasolineras();
+            Boolean res= datosGasolineras.obtenGasolineras();
+            return res;
 
         }
 
         @Override
         protected void onPostExecute(Boolean b) {
             if (b) {
-                List<Gasolinera> gas = datosGasolineras.getListaGasolineras();
-                ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(context, 0, gas);
+                HiloLectura hilolectura=new HiloLectura(context);
+                hilolectura.execute();
 
-                list.setAdapter(adapter);
             } else {
-                // Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_SHORT).show();
             }
 
         }
     }
+
+    private class HiloLectura extends AsyncTask<Void,Void,ArrayAdapter> {
+        Context context;
+
+
+        public HiloLectura(Context context) {
+            this.context = context;
+
+        }
+
+        @Override
+        protected ArrayAdapter<Gasolinera> doInBackground(Void...voids) {
+            List<Gasolinera> gas = datosGasolineras.getListaGasolineras();
+            ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(context, 0, gas);
+            return adapter;
+
+
+        }
+
+        @Override
+        protected void onPostExecute(ArrayAdapter adapter){
+            list.setAdapter(adapter);
+        }
+
+
+    }
+
+
 
         class gasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
 

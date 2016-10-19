@@ -18,7 +18,7 @@ package com.example.nachoaguero.appgasolineras.Datos;
         import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 
 /**
- * Created by alejandro on 27/09/16.
+ *
  * Clase que contiene los metodos necesarios para parsear el JSON que devuelve el servicio REST con
  * las estaciones de servicios.
  */
