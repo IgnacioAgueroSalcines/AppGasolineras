@@ -66,6 +66,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
         @Override
         protected ArrayAdapter<Gasolinera> doInBackground(Void...voids) {
+            datosGasolineras.ordenaGasolinerasPorPrecio();
             List<Gasolinera> gas = datosGasolineras.getListaGasolineras();
             ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(context, 0, gas);
             return adapter;
