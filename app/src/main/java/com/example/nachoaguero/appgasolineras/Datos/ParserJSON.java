@@ -67,7 +67,7 @@ public class ParserJSON{
         boolean add = false;
         String rotulo="", localidad ="", provincia="",direccion="";
         int id = -1;
-        double gasoleoA = 0.0, sinplomo95 =0.0;
+        double gasoleoA = 0.0, sinplomo95 =10000.0;
 
         while(reader.hasNext()){
             String name = reader.nextName();
@@ -94,6 +94,7 @@ public class ParserJSON{
         }// while
 
         reader.endObject();
+
         return new Gasolinera(id,localidad,provincia,direccion,gasoleoA, sinplomo95,rotulo);
     }// readGasolinera
 }//ParserJSON
