@@ -8,11 +8,24 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.nachoaguero.appgasolineras.Presentación.ListaGasolinerasActivity">
+    tools:context="com.example.nachoaguero.appgasolineras.Presentacion.ListaGasolinerasActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Actualizado"
+        android:textSize="17sp"
+        android:id="@+id/textFechaActualizacion"
+        android:layout_alignParentTop="true"
+        />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/customListView"/>
+        android:id="@+id/customListView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textFechaActualizacion"/>
 
 </RelativeLayout>

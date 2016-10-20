@@ -17,13 +17,15 @@ import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.DatosGasolineras;
 import com.example.nachoaguero.appgasolineras.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListaGasolinerasActivity extends AppCompatActivity {
     ListView list;
     DatosGasolineras datosGasolineras=new DatosGasolineras();
-    private List<Gasolinera> gasolineras=new ArrayList<>();
+
 
     private class Hilo   extends AsyncTask<Void, Void, Boolean> {
         Context context;
@@ -37,23 +39,52 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            return datosGasolineras.obtenGasolineras();
+            Boolean res= datosGasolineras.obtenGasolineras();
+            return res;
 
         }
 
         @Override
         protected void onPostExecute(Boolean b) {
             if (b) {
-                List<Gasolinera> gas = datosGasolineras.getListaGasolineras();
-                ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(context, 0, gas);
+                HiloLectura hilolectura=new HiloLectura(context);
+                hilolectura.execute();
 
-                list.setAdapter(adapter);
             } else {
-                // Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_SHORT).show();
             }
 
         }
     }
+
+    private class HiloLectura extends AsyncTask<Void,Void,ArrayAdapter> {
+        Context context;
+
+
+        public HiloLectura(Context context) {
+            this.context = context;
+
+        }
+
+        @Override
+        protected ArrayAdapter<Gasolinera> doInBackground(Void...voids) {
+            datosGasolineras.ordenaGasolinerasPorPrecio();
+            List<Gasolinera> gas = datosGasolineras.getListaGasolineras();
+            ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(context, 0, gas);
+            return adapter;
+
+
+        }
+
+        @Override
+        protected void onPostExecute(ArrayAdapter adapter){
+            list.setAdapter(adapter);
+        }
+
+
+    }
+
+
 
         class gasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
 
@@ -78,10 +109,15 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                  TextView nombre = (TextView) view.findViewById(R.id.nombre);
                  TextView gasolina = (TextView) view.findViewById(R.id.precio);
                  ImageView imagen = (ImageView) view.findViewById(R.id.image);
+                 TextView actualizado = (TextView) view.findViewById(R.id.textFechaActualizacion);
 
-
-                 gasolina.setText("Gasolina: " + String.valueOf(gasolinera.getGasolina_95()) + "€");
+                  if(gasolinera.getGasolina_95()==0.0){
+                     gasolina.setText("Gasolina: "+"Información no disponible");
+                 } else {
+                     gasolina.setText("Gasolina: " + String.valueOf(gasolinera.getGasolina_95()) + "€");
+                 }
                  int imageID = context.getResources().getIdentifier(gasolinera.getRotulo().toLowerCase().trim(), "drawable", context.getPackageName());
+
                 //El nombre (referencia de la marca de la gasolinera) sólo se muestra si la marca es desconocida.
                  if (imageID == 0) {
                  imagen.setImageResource(Integer.valueOf(R.drawable.por_defecto));
@@ -103,6 +139,8 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 list = (ListView) findViewById(R.id.customListView);
                 Hilo a = new Hilo(this);
                 a.execute();
+
+                list.setClickable(true);
             }
         }
 
