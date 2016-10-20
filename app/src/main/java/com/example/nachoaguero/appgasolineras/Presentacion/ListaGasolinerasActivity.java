@@ -17,6 +17,8 @@ import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.DatosGasolineras;
 import com.example.nachoaguero.appgasolineras.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,13 +109,15 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                  TextView nombre = (TextView) view.findViewById(R.id.nombre);
                  TextView gasolina = (TextView) view.findViewById(R.id.precio);
                  ImageView imagen = (ImageView) view.findViewById(R.id.image);
+                 TextView actualizado = (TextView) view.findViewById(R.id.textFechaActualizacion);
 
-                 if(gasolinera.getGasolina_95()==0.0){
+                  if(gasolinera.getGasolina_95()==0.0){
                      gasolina.setText("Gasolina: "+"Información no disponible");
                  } else {
                      gasolina.setText("Gasolina: " + String.valueOf(gasolinera.getGasolina_95()) + "€");
                  }
                  int imageID = context.getResources().getIdentifier(gasolinera.getRotulo().toLowerCase().trim(), "drawable", context.getPackageName());
+
                 //El nombre (referencia de la marca de la gasolinera) sólo se muestra si la marca es desconocida.
                  if (imageID == 0) {
                  imagen.setImageResource(Integer.valueOf(R.drawable.por_defecto));
@@ -135,6 +139,8 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 list = (ListView) findViewById(R.id.customListView);
                 Hilo a = new Hilo(this);
                 a.execute();
+
+                list.setClickable(true);
             }
         }
 
