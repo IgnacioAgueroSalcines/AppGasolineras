@@ -54,7 +54,6 @@ public class RemoteFetch {
         //BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
         bufferedDataGasolineras =  new BufferedInputStream(urlConnection.getInputStream());
         //Comprobamos que el archivo JSON se ha leido con éxito
-        comprobarLecturaJson();
         //gasolineraList = ParserJSON.readJsonStream(new BufferedInputStream(urlConnection.getInputStream()));
     }//getJSON
 
@@ -67,11 +66,6 @@ public class RemoteFetch {
         return bufferedDataGasolineras;
     }//getBufferedDataGasolineras
 
-    public void comprobarLecturaJson() throws IOException{
-        // COMPROBAR QUE LA LECTURA DEL JSON SE HA REALIZADO CON ÉXITO
-        if(bufferedDataGasolineras==null){
-            throw new IOException("La lectura de los datos no se ha producido");
-        }
-    }
+
 
 }//RemoteFetch
