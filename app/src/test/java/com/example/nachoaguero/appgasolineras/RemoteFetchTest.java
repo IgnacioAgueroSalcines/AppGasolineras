@@ -3,12 +3,14 @@ package com.example.nachoaguero.appgasolineras;
 import java.io.IOException;
 import com.example.nachoaguero.appgasolineras.Datos.RemoteFetch;
 
+import org.junit.Test;
+
 /**
  * Created by malda on 20/10/2016.
  */
 
 public class RemoteFetchTest {
-
+    @Test
     public void comprobarLecturaJson() throws NullPointerException {
         RemoteFetch r=new RemoteFetch();
         // COMPROBAR QUE LA LECTURA DEL JSON SE HA REALIZADO CON ÉXITO
