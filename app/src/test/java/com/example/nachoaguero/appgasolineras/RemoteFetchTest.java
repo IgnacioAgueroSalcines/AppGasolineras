@@ -10,9 +10,11 @@ import org.junit.Test;
  */
 
 public class RemoteFetchTest {
+    RemoteFetch r=new RemoteFetch();
+
     @Test
-    public void comprobarLecturaJson() throws NullPointerException {
-        RemoteFetch r=new RemoteFetch();
+    public void comprobarLecturaJson() throws NullPointerException, IOException {
+       r.getJSON();
         // COMPROBAR QUE LA LECTURA DEL JSON SE HA REALIZADO CON ÉXITO
         if(r.getBufferedDataGasolineras()==null){
             throw new NullPointerException("La lectura de los datos no se ha producido");
