@@ -111,9 +111,9 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                  TextView actualizado = (TextView) view.findViewById(R.id.textFechaActualizacion);
 
                   if(gasolinera.getGasolina_95()==10000.0){
-                     gasolina.setText("Gasolina: "+"No disponible");
+                     gasolina.setText("No disponible");
                  } else {
-                     gasolina.setText("Gasolina: " + String.valueOf(gasolinera.getGasolina_95()) + "€/L");
+                     gasolina.setText(String.valueOf(gasolinera.getGasolina_95()) + "€/L");
                  }
                  int imageID = context.getResources().getIdentifier("drawable/"+gasolinera.getRotulo().toLowerCase().trim(), null, context.getPackageName());
 
