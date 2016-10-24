@@ -1,7 +1,7 @@
 package com.example.nachoaguero.appgasolineras;
 
 import java.io.IOException;
-import com.example.nachoaguero.appgasolineras.Datos.RemoteFetch;
+import com.example.nachoaguero.appgasolineras.Utilities.RemoteFetch;
 
 import org.junit.Test;
 
