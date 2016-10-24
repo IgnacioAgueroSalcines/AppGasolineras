@@ -15,17 +15,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
-import com.example.nachoaguero.appgasolineras.Negocio.DatosGasolineras;
+import com.example.nachoaguero.appgasolineras.Negocio.GestionGasolinera;
+import com.example.nachoaguero.appgasolineras.Negocio.IGestionGasolinera;
 import com.example.nachoaguero.appgasolineras.R;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListaGasolinerasActivity extends AppCompatActivity {
     ListView list;
-    DatosGasolineras datosGasolineras=new DatosGasolineras();
+    IGestionGasolinera gestionGasolinera =new GestionGasolinera();
 
 
     private class Hilo   extends AsyncTask<Void, Void, Boolean> {
@@ -40,7 +38,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            Boolean res= datosGasolineras.obtenGasolineras();
+            Boolean res= gestionGasolinera.obtenGasolineras();
             return res;
 
         }
@@ -69,8 +67,8 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
         @Override
         protected ArrayAdapter<Gasolinera> doInBackground(Void...voids) {
-            datosGasolineras.ordenaGasolinerasPorPrecio();
-            List<Gasolinera> gas = datosGasolineras.getListaGasolineras();
+            gestionGasolinera.ordenaGasolinerasPorPrecio();
+            List<Gasolinera> gas = gestionGasolinera.getListaGasolineras();
             ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(context, 0, gas);
             return adapter;
 

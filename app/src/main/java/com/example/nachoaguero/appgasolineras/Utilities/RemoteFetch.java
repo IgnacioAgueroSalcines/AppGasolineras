@@ -1,4 +1,4 @@
-package com.example.nachoaguero.appgasolineras.Datos;
+package com.example.nachoaguero.appgasolineras.Utilities;
 
 /**
  * Created by Alexandru on 18/10/2016.
@@ -8,6 +8,9 @@ package com.example.nachoaguero.appgasolineras.Datos;
 
 
         import android.util.Log;
+
+        import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
+
         import java.io.BufferedInputStream;
         import java.io.IOException;
         import java.net.HttpURLConnection;

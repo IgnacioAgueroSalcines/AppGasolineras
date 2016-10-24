@@ -1,4 +1,4 @@
-package com.example.nachoaguero.appgasolineras.Datos;
+package com.example.nachoaguero.appgasolineras.Utilities;
 
 /**
  * Created by Alexandru on 18/10/2016.
