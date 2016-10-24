@@ -112,12 +112,12 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                  ImageView imagen = (ImageView) view.findViewById(R.id.image);
                  TextView actualizado = (TextView) view.findViewById(R.id.textFechaActualizacion);
 
-                  if(gasolinera.getGasolina_95()==0.0){
-                     gasolina.setText("Gasolina: "+"Información no disponible");
+                  if(gasolinera.getGasolina_95()==10000.0){
+                     gasolina.setText("Gasolina: "+"No disponible");
                  } else {
-                     gasolina.setText("Gasolina: " + String.valueOf(gasolinera.getGasolina_95()) + "€");
+                     gasolina.setText("Gasolina: " + String.valueOf(gasolinera.getGasolina_95()) + "€/L");
                  }
-                 int imageID = context.getResources().getIdentifier(gasolinera.getRotulo().toLowerCase().trim(), "drawable", context.getPackageName());
+                 int imageID = context.getResources().getIdentifier("drawable/"+gasolinera.getRotulo().toLowerCase().trim(), null, context.getPackageName());
 
                 //El nombre (referencia de la marca de la gasolinera) sólo se muestra si la marca es desconocida.
                  if (imageID == 0) {
