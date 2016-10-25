@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -27,23 +28,16 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class ListaGasolinerasActivityTestSinInternet {
+public class ListaGasolinerasActivityTest2 {
 
     @Rule
     public ActivityTestRule<ListaGasolinerasActivity> mActivityTestRule = new ActivityTestRule<>(ListaGasolinerasActivity.class);
 
     @Test
-    public void listaGasolinerasActivityTestSinInternet() {
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.textFechaActualizacion), withText("No Actualizado. Sin acceso a internet"),
-                        childAtPosition(
-                                allOf(withId(R.id.activity_main),
-                                        childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                1),
-                        isDisplayed()));
-        textView.check(matches(withText("No Actualizado. Sin acceso a internet")));
+    public void listaGasolinerasActivityTest2() {
+       onView(withId(R.id.textFechaActualizacion)).check(matches(childAtPosition(hasDescendant
+                (withText("No Actualizado. Sin acceso a internet")),0)));
+
 
     }
 

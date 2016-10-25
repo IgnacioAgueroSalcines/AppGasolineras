@@ -9,45 +9,43 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
+import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static android.support.test.espresso.action.ViewActions.*;
+import static android.support.test.espresso.assertion.ViewAssertions.*;
+import static android.support.test.espresso.matcher.ViewMatchers.*;
+
 import com.example.nachoaguero.appgasolineras.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class ListaGasolinerasActivityTestSinAccesoALosDatos {
+public class ListaGasolinerasActivityTest3 {
 
     @Rule
     public ActivityTestRule<ListaGasolinerasActivity> mActivityTestRule = new ActivityTestRule<>(ListaGasolinerasActivity.class);
 
     @Test
-    public void listaGasolinerasActivityTestSinAccesoALosDatos() {
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.textFechaActualizacion), withText("No Actualizado. Sin acceso a los datos"),
-                        childAtPosition(
-                                allOf(withId(R.id.activity_main),
-                                        childAtPosition(
-                                                withId(android.R.id.content),
-                                                0)),
-                                1),
-                        isDisplayed()));
-        textView.check(matches(withText("No Actualizado. Sin acceso a los datos")));
+    public void listaGasolinerasActivityTest3() {
 
-    }
+        onView(withId(R.id.textFechaActualizacion)).check(matches(childAtPosition(hasDescendant
+                (withText("No Actualizado. Sin acceso a los datos")),0)));
 
-    private static Matcher<View> childAtPosition(
+        }
+
+        private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {
 
         return new TypeSafeMatcher<View>() {
@@ -61,8 +59,8 @@ public class ListaGasolinerasActivityTestSinAccesoALosDatos {
             public boolean matchesSafely(View view) {
                 ViewParent parent = view.getParent();
                 return parent instanceof ViewGroup && parentMatcher.matches(parent)
-                        && view.equals(((ViewGroup) parent).getChildAt(position));
+                        && view.equals(((ViewGroup)parent).getChildAt(position));
             }
         };
     }
-}
+    }
