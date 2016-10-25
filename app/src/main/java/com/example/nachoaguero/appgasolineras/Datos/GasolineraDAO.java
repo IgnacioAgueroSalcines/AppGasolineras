@@ -27,11 +27,14 @@ public class GasolineraDAO implements IGasolineraDAO{
             listaGasolineras = ParserJSON.readJsonStream(remoteFetch.getBufferedDataGasolineras());
             Log.d("ENTRA", "Obten gasolineras:"+listaGasolineras.size());
             return true;
-        }catch(Exception e){
+        }catch(RuntimeException e){
             Log.e("ERROR","Error en la obtención de gasolineras: "+e.getMessage());
             e.printStackTrace();
-            return false;
+            throw e;
         }//try
+        catch(Exception e){
+            throw new RuntimeException(e);
+        }
     }//obtenGasolineras
 
 

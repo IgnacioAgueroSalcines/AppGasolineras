@@ -190,10 +190,10 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                  ImageView imagen = (ImageView) view.findViewById(R.id.image);
 
 
-                  if(gasolinera.getGasolina_95()==10000.0){
-                     gasolina.setText("Gasolina: "+"No disponible");
+                  if(((Double) gasolinera.getGasolina_95()).equals(10000.0)){
+                     gasolina.setText("No disponible");
                  } else {
-                     gasolina.setText("Gasolina: " + String.valueOf(gasolinera.getGasolina_95()) + "€/L");
+                     gasolina.setText(String.valueOf(gasolinera.getGasolina_95()) + "€/L");
                  }
                  int imageID = context.getResources().getIdentifier("drawable/"+gasolinera.getRotulo().toLowerCase().trim(), null, context.getPackageName());
 
