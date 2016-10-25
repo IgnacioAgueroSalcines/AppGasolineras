@@ -92,7 +92,7 @@ public class Gasolinera implements Comparable<Gasolinera> {
         this.gasolina_95 = gasolina_95;
     }
 
-
+    @Override
     public int compareTo(Gasolinera another) {
 
             if(this.getGasolina_95()>another.getGasolina_95())
@@ -103,6 +103,7 @@ public class Gasolinera implements Comparable<Gasolinera> {
                 return 0;
 
     }
+
 }
 
 
