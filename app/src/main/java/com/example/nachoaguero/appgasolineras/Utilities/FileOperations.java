@@ -1,8 +1,6 @@
 package com.example.nachoaguero.appgasolineras.Utilities;
 
-/**
- * Created by deivid on 25/10/16.
- */
+
 
 import android.content.Context;
 import java.io.File;
