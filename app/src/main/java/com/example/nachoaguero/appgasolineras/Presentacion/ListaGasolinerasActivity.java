@@ -115,10 +115,22 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 hilolectura.execute();
 
             } else {
-                TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
-                actualizado.setText("No Actualizado");
+                if (conectadoDatos() || conectadoWifi()) {
+                    TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
+                    actualizado.setText("No Actualizado. Sin acceso a los datos");
+                    TextView gasolina=(TextView) findViewById(R.id.textTipoGasolina);
+                    gasolina.setText(" ");
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_SHORT).show();
 
-          Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_SHORT).show();
+                } else {
+                    TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
+                    actualizado.setText("No Actualizado. Sin acceso a internet");
+                    TextView gasolina=(TextView) findViewById(R.id.textTipoGasolina);
+                    gasolina.setText(" ");
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_SHORT).show();
+
+
+                }
             }
 
         }

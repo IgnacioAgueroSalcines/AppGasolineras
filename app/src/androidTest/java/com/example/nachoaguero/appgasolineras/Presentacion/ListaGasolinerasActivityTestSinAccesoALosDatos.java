@@ -27,15 +27,15 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class ListaGasolinerasActivityTestSinInternetInicial {
+public class ListaGasolinerasActivityTestSinAccesoALosDatos {
 
     @Rule
     public ActivityTestRule<ListaGasolinerasActivity> mActivityTestRule = new ActivityTestRule<>(ListaGasolinerasActivity.class);
 
     @Test
-    public void listaGasolinerasActivityTestSinInternetInicial() {
+    public void listaGasolinerasActivityTestSinAccesoALosDatos() {
         ViewInteraction textView = onView(
-                allOf(withId(R.id.textFechaActualizacion), withText("No Actualizado"),
+                allOf(withId(R.id.textFechaActualizacion), withText("No Actualizado. Sin acceso a los datos"),
                         childAtPosition(
                                 allOf(withId(R.id.activity_main),
                                         childAtPosition(
@@ -43,7 +43,7 @@ public class ListaGasolinerasActivityTestSinInternetInicial {
                                                 0)),
                                 1),
                         isDisplayed()));
-        textView.check(matches(withText("No Actualizado")));
+        textView.check(matches(withText("No Actualizado. Sin acceso a los datos")));
 
     }
 

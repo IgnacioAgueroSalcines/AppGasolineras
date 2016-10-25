@@ -35,15 +35,15 @@ public class ListaGasolinerasActivityTestSinInternet {
     @Test
     public void listaGasolinerasActivityTestSinInternet() {
         ViewInteraction textView = onView(
-                allOf(withId(R.id.textFechaActualizacion), withText("No Actualizado\nSin acceso a internet"),
+                allOf(withId(R.id.textFechaActualizacion), withText("No Actualizado. Sin acceso a internet"),
                         childAtPosition(
                                 allOf(withId(R.id.activity_main),
                                         childAtPosition(
                                                 withId(android.R.id.content),
                                                 0)),
-                                0),
+                                1),
                         isDisplayed()));
-        textView.check(matches(withText("No Actualizado Sin acceso a internet")));
+        textView.check(matches(withText("No Actualizado. Sin acceso a internet")));
 
     }
 
