@@ -1,12 +1,16 @@
 package com.example.nachoaguero.appgasolineras.Presentacion;
 
 import android.app.Activity;
+
+
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +26,7 @@ import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.GestionGasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.IGestionGasolinera;
 import com.example.nachoaguero.appgasolineras.R;
+
 
 import java.util.List;
 
@@ -65,7 +70,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivity != null) {
             NetworkInfo info = connectivity.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            if (info != null) {
+              if (info != null) {
                 if (info.isConnected()) {
                     return true;
                 }
@@ -90,11 +95,17 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             } else {
                 if(conectadoDatos()){
                     res = gestionGasolinera.obtenGasolineras();
+                } else{
+
+
                 }
 
             }
             return res;
         }
+
+
+
 
         @Override
         protected void onPostExecute(Boolean b) {
@@ -104,7 +115,10 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 hilolectura.execute();
 
             } else {
-               Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_SHORT).show();
+                TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
+                actualizado.setText("No Actualizado");
+
+          Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -162,7 +176,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                  TextView nombre = (TextView) view.findViewById(R.id.nombre);
                  TextView gasolina = (TextView) view.findViewById(R.id.precio);
                  ImageView imagen = (ImageView) view.findViewById(R.id.image);
-                 TextView actualizado = (TextView) view.findViewById(R.id.textFechaActualizacion);
+
 
                   if(gasolinera.getGasolina_95()==10000.0){
                      gasolina.setText("Gasolina: "+"No disponible");
@@ -188,6 +202,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_main);
+
 
                 list = (ListView) findViewById(R.id.customListView);
                 Hilo a = new Hilo(this);
