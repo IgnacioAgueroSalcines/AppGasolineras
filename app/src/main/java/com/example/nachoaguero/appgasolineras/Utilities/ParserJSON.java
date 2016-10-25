@@ -25,6 +25,8 @@ package com.example.nachoaguero.appgasolineras.Utilities;
 
 public class ParserJSON{
 
+    public static String estadoLectura="";
+
     /**
      * @param in Inputsream que contiene los datos del JSON
      * @return Retorno de una lista de gasolineras en la que se guardarán las estaciones de servicio
@@ -40,9 +42,24 @@ public class ParserJSON{
         }
     }
 
+    public static String checkStatus (InputStream in) throws IOException{
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        reader.beginObject();
+        String status="";
+        while(reader.hasNext()){
+            String name = reader.nextName();
+            if(name.equals("ResultadoConsulta")){
+                status = reader.nextString().trim();
+            }else{
+                reader.skipValue();
+            }//if
+        }//while
+        reader.endObject();
+        return status;
+    }//checkStatus
+
     public static List readArrayGasolineras (JsonReader reader) throws IOException {
         List<Gasolinera> listGasolineras = new ArrayList<Gasolinera>();
-
         reader.beginObject();
         while(reader.hasNext()){
             String name = reader.nextName();
@@ -53,9 +70,11 @@ public class ParserJSON{
                     listGasolineras.add(readGasolinera(reader));
                 }//while
                 reader.endArray();
+            }else if(name.equals("ResultadoConsulta")){
+                estadoLectura=reader.nextString();
+                //if
             }else{
                 reader.skipValue();
-                //if
             }
         }//while
         reader.endObject();
@@ -97,5 +116,11 @@ public class ParserJSON{
 
         return new Gasolinera(id,localidad,provincia,direccion,gasoleoA, sinplomo95,rotulo);
     }// readGasolinera
+
+    public static String getEstadoLectura(){
+        return estadoLectura.trim();
+    }
+
+
 }//ParserJSON
 
