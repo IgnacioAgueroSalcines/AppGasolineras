@@ -45,10 +45,11 @@
 
         <TextView
             android:id="@+id/direccion"
+            android:textColor="@color/colorDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <RelativeLayout

@@ -188,6 +188,9 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                  TextView nombre = (TextView) view.findViewById(R.id.nombre);
                  TextView gasolina = (TextView) view.findViewById(R.id.precio);
                  ImageView imagen = (ImageView) view.findViewById(R.id.image);
+                 TextView localidad = (TextView) view.findViewById(R.id.direccion);
+
+                localidad.setText(gasolinera.getProvincia()+", "+gasolinera.getLocalidad());
 
 
                   if(((Double) gasolinera.getGasolina_95()).equals(10000.0)){
@@ -204,6 +207,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
                  } else {
                  imagen.setImageResource(imageID);
+                 nombre.setText(gasolinera.getRotulo());
                  }
 
                 return view;
