@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -227,13 +228,14 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
             return view;
         }
-    }
 
+
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         list = (ListView) findViewById(R.id.customListView);
         Hilo a = new Hilo(this);
@@ -244,9 +246,31 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object listItem = list.getItemAtPosition(position);
+                Intent intent;
+                intent=new Intent(getApplicationContext(),VistaDetalleActivity.class);
+                Gasolinera listItem = (Gasolinera) list.getItemAtPosition(position);
+                String direccion=listItem.getDireccion();
+                double precioDiesel=listItem.getGasoleo_a();
+                double precioGasolina=listItem.getGasolina_95();
+                String horario=listItem.getHorario();
+                double precioGasolina98=listItem.getGasolina_98();
+                double precioGasoleoSuper= listItem.getGasoleoSuper();
+                double longitud=listItem.getLongitud();
+                double latitud=listItem.getLatitud();
+                String rotulo=listItem.getRotulo();
+                intent.putExtra("direccion",direccion);
+                intent.putExtra("horario", horario);
+                intent.putExtra("longitud",longitud);
+                intent.putExtra("latitud", latitud);
+                intent.putExtra("precioDiesel", precioDiesel);
+                intent.putExtra("precioGasolina", precioGasolina);
+                intent.putExtra("precioGasolina98", precioGasolina98);
+                intent.putExtra("precioGasoleoSuper", precioGasoleoSuper);
+                intent.putExtra("rotulo", rotulo);
+                startActivity(intent);
             }
         });
     }
+
 }
 
