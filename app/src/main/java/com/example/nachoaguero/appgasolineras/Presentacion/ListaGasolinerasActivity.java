@@ -113,6 +113,11 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             if (b) {
                 HiloLectura hilolectura=new HiloLectura(context);
                 hilolectura.execute();
+                if(conectadoDatos()==false && conectadoWifi()==false){
+                    TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
+                    actualizado.setText("No Actualizado. Datos previos");
+
+                }
 
             } else {
                 if (conectadoDatos() || conectadoWifi()) {
