@@ -1,12 +1,16 @@
 package com.example.nachoaguero.appgasolineras.Presentacion;
 
 import android.app.Activity;
+
+
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,17 +27,14 @@ import com.example.nachoaguero.appgasolineras.Negocio.GestionGasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.IGestionGasolinera;
 import com.example.nachoaguero.appgasolineras.R;
 
+
 import java.util.List;
 
 public class ListaGasolinerasActivity extends AppCompatActivity {
     ListView list;
-    Context context;
-    IGestionGasolinera gestionGasolinera ;
+    IGestionGasolinera gestionGasolinera =new GestionGasolinera(this);
 
-    public ListaGasolinerasActivity(){
-        context=this;
-        gestionGasolinera=new GestionGasolinera(context);
-    }
+
 
     private class Hilo   extends AsyncTask<Void, Void, Boolean> {
         Context context;
@@ -88,21 +89,23 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
 
             boolean res=false;
-
             if(conectadoWifi()) {
 
                 res = gestionGasolinera.obtenGasolineras();
             } else {
                 if(conectadoDatos()){
                     res = gestionGasolinera.obtenGasolineras();
-                }else{
-                    res=gestionGasolinera.obtenGasolinerasSinconexion();
+                } else{
 
+                    res=gestionGasolinera.obtenGasolinerasSinconexion();
                 }
 
             }
             return res;
         }
+
+
+
 
         @Override
         protected void onPostExecute(Boolean b) {
@@ -110,9 +113,32 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             if (b) {
                 HiloLectura hilolectura=new HiloLectura(context);
                 hilolectura.execute();
+                if(conectadoDatos()==false && conectadoWifi()==false){
+                    TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
+                    actualizado.setText("No Actualizado. Datos previos");
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_obtenidos), Toast.LENGTH_SHORT).show();
+                }
 
             } else {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_SHORT).show();
+                if (conectadoDatos() || conectadoWifi()) {
+                    TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
+                    actualizado.setText("No Actualizado. Sin acceso a los datos");
+                    TextView gasolina=(TextView) findViewById(R.id.textTipoGasolina);
+                    gasolina.setText(" ");
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_SHORT).show();
+
+                } else {
+                    TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
+                    actualizado.setText("No Actualizado. Sin acceso a internet");
+                    TextView gasolina=(TextView) findViewById(R.id.textTipoGasolina);
+                    gasolina.setText(" ");
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_SHORT).show();
+
+
+                }
             }
 
         }
@@ -128,7 +154,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         }
 
         @Override
-        protected ArrayAdapter<Gasolinera> doInBackground(Void...voids) {
+        protected ArrayAdapter<Gasolinera> doInBackground(Void... voids) {
             gestionGasolinera.ordenaGasolinerasPorPrecio();
             List<Gasolinera> gas = gestionGasolinera.getListaGasolineras();
             ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(context, 0, gas);
@@ -138,11 +164,18 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(ArrayAdapter adapter){
+        protected void onPostExecute(ArrayAdapter adapter) {
+            if (adapter.isEmpty()) {
+                TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
+                actualizado.setText("Actualizado. No existen datos para esta búsqueda");
+                TextView gasolina=(TextView) findViewById(R.id.textTipoGasolina);
+                gasolina.setText(" ");
+
+            }
             list.setAdapter(adapter);
+
+
         }
-
-
     }
 
 
@@ -170,12 +203,15 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             TextView nombre = (TextView) view.findViewById(R.id.nombre);
             TextView gasolina = (TextView) view.findViewById(R.id.precio);
             ImageView imagen = (ImageView) view.findViewById(R.id.image);
-            TextView actualizado = (TextView) view.findViewById(R.id.textFechaActualizacion);
+            TextView localidad = (TextView) view.findViewById(R.id.direccion);
 
-            if(gasolinera.getGasolina_95()==10000.0){
-                gasolina.setText("Gasolina: "+"No disponible");
+            localidad.setText(gasolinera.getProvincia()+", "+gasolinera.getLocalidad());
+
+
+            if(((Double) gasolinera.getGasolina_95()).equals(10000.0)){
+                gasolina.setText("No disponible");
             } else {
-                gasolina.setText("Gasolina: " + String.valueOf(gasolinera.getGasolina_95()) + "€/L");
+                gasolina.setText(String.valueOf(gasolinera.getGasolina_95()) + "€/L");
             }
             int imageID = context.getResources().getIdentifier("drawable/"+gasolinera.getRotulo().toLowerCase().trim(), null, context.getPackageName());
 
@@ -186,6 +222,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
             } else {
                 imagen.setImageResource(imageID);
+                nombre.setText(gasolinera.getRotulo());
             }
 
             return view;
@@ -196,6 +233,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         list = (ListView) findViewById(R.id.customListView);
         Hilo a = new Hilo(this);
