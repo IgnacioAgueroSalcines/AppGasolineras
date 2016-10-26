@@ -30,7 +30,7 @@ import static org.hamcrest.Matchers.allOf;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 /**
- * Clase de Test para verificar el
+ * Clase de Test para verificar el comportamiento de la aplicación en su caso de éxito.
  */
 public class ListaGasolinerasActivityTest {
 

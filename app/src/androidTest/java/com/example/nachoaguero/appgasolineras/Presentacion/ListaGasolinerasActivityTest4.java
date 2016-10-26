@@ -30,6 +30,13 @@ import static org.hamcrest.Matchers.allOf;
 @RunWith(AndroidJUnit4.class)
 public class ListaGasolinerasActivityTest4 {
 
+    /**
+     * Clase de Test para verificar "teóricamente" el caso de fallo en el que no se completa la descarga
+     * de datos pero existen datos previos para mostrar. Esta comprobación requiere una apertura de la
+     * app con acceso a internet, y una segunda apertura sin acceso, y nos es imposible generar esa
+     * "interacción" a través de este test.
+     */
+
     @Rule
     public ActivityTestRule<ListaGasolinerasActivity> mActivityTestRule = new ActivityTestRule<>(ListaGasolinerasActivity.class);
 

@@ -117,6 +117,8 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                     TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
                     actualizado.setText("No Actualizado. Datos previos");
 
+                } else {
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_obtenidos), Toast.LENGTH_SHORT).show();
                 }
 
             } else {
@@ -151,7 +153,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         }
 
         @Override
-        protected ArrayAdapter<Gasolinera> doInBackground(Void...voids) {
+        protected ArrayAdapter<Gasolinera> doInBackground(Void... voids) {
             gestionGasolinera.ordenaGasolinerasPorPrecio();
             List<Gasolinera> gas = gestionGasolinera.getListaGasolineras();
             ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(context, 0, gas);
@@ -161,11 +163,18 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(ArrayAdapter adapter){
+        protected void onPostExecute(ArrayAdapter adapter) {
+            if (adapter.isEmpty()) {
+                TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
+                actualizado.setText("Actualizado. No existen datos para esta búsqueda");
+                TextView gasolina=(TextView) findViewById(R.id.textTipoGasolina);
+                gasolina.setText(" ");
+
+            }
             list.setAdapter(adapter);
+
+
         }
-
-
     }
 
 
