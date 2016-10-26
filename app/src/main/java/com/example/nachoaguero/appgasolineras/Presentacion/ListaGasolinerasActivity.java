@@ -1,7 +1,10 @@
 package com.example.nachoaguero.appgasolineras.Presentacion;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.GestionGasolinera;
@@ -26,31 +30,81 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
     IGestionGasolinera gestionGasolinera =new GestionGasolinera();
 
 
+
     private class Hilo   extends AsyncTask<Void, Void, Boolean> {
         Context context;
+        ProgressDialog progress;
 
 
         public Hilo(Context context) {
             this.context = context;
+            progress=new ProgressDialog(context);
+            progress.setMessage("Cargando datos de las gasolineras");
+
+        }
+
+        protected  Boolean conectadoWifi(){
+
+            ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (connectivity != null) {
+                NetworkInfo info = connectivity.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                if (info != null) {
+                    if (info.isConnected()) {
+
+                        return true;
+
+                    }
+                }
+            }
+
+            return false;
+
+        }
+
+        protected  Boolean conectadoDatos(){
+        ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo info = connectivity.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            if (info != null) {
+                if (info.isConnected()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+        @Override
+        protected void onPreExecute(){
+            progress.show();
 
         }
 
 
-        @Override
+    @Override
         protected Boolean doInBackground(Void... params) {
-            Boolean res= gestionGasolinera.obtenGasolineras();
-            return res;
 
+            boolean res=false;
+            if(conectadoWifi()) {
+
+                res = gestionGasolinera.obtenGasolineras();
+            } else {
+                if(conectadoDatos()){
+                    res = gestionGasolinera.obtenGasolineras();
+                }
+
+            }
+            return res;
         }
 
         @Override
         protected void onPostExecute(Boolean b) {
+            progress.dismiss();
             if (b) {
                 HiloLectura hilolectura=new HiloLectura(context);
                 hilolectura.execute();
 
             } else {
-              //  Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_SHORT).show();
+               Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_SHORT).show();
             }
 
         }
