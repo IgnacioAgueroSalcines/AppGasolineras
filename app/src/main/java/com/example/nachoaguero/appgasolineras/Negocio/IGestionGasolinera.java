@@ -10,6 +10,7 @@ import java.util.List;
 public interface IGestionGasolinera {
     boolean obtenGasolineras()//obtenGasolineras
     ;
+     boolean obtenGasolinerasSinconexion();
 
     List<Gasolinera> getListaGasolineras()//getListadoGasolineras
     ;

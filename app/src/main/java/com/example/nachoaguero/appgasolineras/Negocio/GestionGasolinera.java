@@ -3,6 +3,7 @@ package com.example.nachoaguero.appgasolineras.Negocio;
 /**
  * Created by deivid on 18/10/16.
  */
+import android.content.Context;
 import android.util.Log;
 
 import java.util.Collections;
@@ -19,8 +20,9 @@ public class GestionGasolinera implements IGestionGasolinera {
 
     private IGasolineraDAO gasolineraDAO;
 
-    public GestionGasolinera(){
-        gasolineraDAO=new GasolineraDAO();
+    public GestionGasolinera(Context context){
+
+        gasolineraDAO=new GasolineraDAO(context);
     }
 
     @Override
@@ -37,4 +39,6 @@ public class GestionGasolinera implements IGestionGasolinera {
     public void ordenaGasolinerasPorPrecio(){
         Collections.sort(getListaGasolineras());
     }
+
+    public boolean obtenGasolinerasSinconexion(){return gasolineraDAO.obtenGasolinerasSinconexion();}
 }

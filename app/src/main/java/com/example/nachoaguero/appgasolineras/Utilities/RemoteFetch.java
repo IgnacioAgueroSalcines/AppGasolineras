@@ -7,12 +7,22 @@ package com.example.nachoaguero.appgasolineras.Utilities;
 
 
 
+        import android.content.Context;
         import android.util.Log;
 
         import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 
         import java.io.BufferedInputStream;
+        import java.io.BufferedOutputStream;
+        import java.io.DataInputStream;
+        import java.io.File;
+        import java.io.FileInputStream;
+        import java.io.FileOutputStream;
+        import java.io.FileReader;
+        import java.io.FileWriter;
         import java.io.IOException;
+        import java.io.InputStream;
+        import java.io.OutputStream;
         import java.net.HttpURLConnection;
         import java.net.MalformedURLException;
         import java.net.URL;
@@ -24,6 +34,7 @@ package com.example.nachoaguero.appgasolineras.Utilities;
  */
 
 public class RemoteFetch {
+
     //URL para obtener todas las gasolineras
     //private static final String URL_GASOLINERAS_SPAIN="https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/";
 
@@ -69,6 +80,19 @@ public class RemoteFetch {
         return bufferedDataGasolineras;
     }//getBufferedDataGasolineras
 
+    public void writeBuffer(Context context) throws IOException {
+        URL url = new URL(URL_GASOLINERAS_CANTABRIA);
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.addRequestProperty("Accept", "application/json");
+        FilesOperations.writeInputStream(new BufferedInputStream(urlConnection.getInputStream()),context);
 
+    }//writebuffer
+
+
+    public void readBuffer(Context context){
+        InputStream res=FilesOperations.readInputStream(context);
+        bufferedDataGasolineras= new BufferedInputStream(res);
+
+    }//readbuffer
 
 }//RemoteFetch

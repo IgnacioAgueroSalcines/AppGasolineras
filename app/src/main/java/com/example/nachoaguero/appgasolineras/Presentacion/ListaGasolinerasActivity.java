@@ -32,7 +32,7 @@ import java.util.List;
 
 public class ListaGasolinerasActivity extends AppCompatActivity {
     ListView list;
-    IGestionGasolinera gestionGasolinera =new GestionGasolinera();
+    IGestionGasolinera gestionGasolinera =new GestionGasolinera(this);
 
 
 
@@ -97,7 +97,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                     res = gestionGasolinera.obtenGasolineras();
                 } else{
 
-
+                    res=gestionGasolinera.obtenGasolinerasSinconexion();
                 }
 
             }
