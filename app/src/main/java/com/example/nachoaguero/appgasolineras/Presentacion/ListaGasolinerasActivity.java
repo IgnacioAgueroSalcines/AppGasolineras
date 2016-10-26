@@ -2,6 +2,7 @@ package com.example.nachoaguero.appgasolineras.Presentacion;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import java.util.List;
 public class ListaGasolinerasActivity extends AppCompatActivity {
     ListView list;
     IGestionGasolinera gestionGasolinera =new GestionGasolinera();
+    Context context=this;
 
 
     private class Hilo   extends AsyncTask<Void, Void, Boolean> {
@@ -109,10 +111,9 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                  TextView gasolina = (TextView) view.findViewById(R.id.precio);
                  ImageView imagen = (ImageView) view.findViewById(R.id.image);
                  TextView actualizado = (TextView) view.findViewById(R.id.textFechaActualizacion);
-
-                  if(gasolinera.getGasolina_95()==10000.0){
-                     gasolina.setText("Gasolina: "+"No disponible");
-                 } else {
+                    if(java.lang.Double.compare(gasolinera.getGasolina_95(), 10000.0)==0){
+                        gasolina.setText("Gasolina: "+"No disponible");
+                    }else {
                      gasolina.setText("Gasolina: " + String.valueOf(gasolinera.getGasolina_95()) + "€/L");
                  }
                  int imageID = context.getResources().getIdentifier("drawable/"+gasolinera.getRotulo().toLowerCase().trim(), null, context.getPackageName());
@@ -144,7 +145,28 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Object listItem = list.getItemAtPosition(position);
+                        Intent intent;
+                        intent=new Intent(context.getApplicationContext(),VistaDetalleActivity.class);
+                        Gasolinera listItem = (Gasolinera) list.getItemAtPosition(position);
+                        String direccion=listItem.getDireccion();
+                        double precioDiesel=listItem.getGasoleo_a();
+                        double precioGasolina=listItem.getGasolina_95();
+                        String horario=listItem.getHorario();
+                        double precioGasolina98=listItem.getGasolina_98();
+                        double precioGasoleoSuper= listItem.getGasoleoSuper();
+                        double longitud=listItem.getLongitud();
+                        double latitud=listItem.getLatitud();
+                        String rotulo=listItem.getRotulo();
+                        intent.putExtra("direccion",direccion);
+                        intent.putExtra("horario", horario);
+                        intent.putExtra("longitud",longitud);
+                        intent.putExtra("latitud", latitud);
+                        intent.putExtra("precioDiesel", precioDiesel);
+                        intent.putExtra("precioGasolina", precioGasolina);
+                        intent.putExtra("precioGasolina98", precioGasolina98);
+                        intent.putExtra("precioGasoleoSuper", precioGasoleoSuper);
+                        intent.putExtra("rotulo", rotulo);
+                        startActivity(intent);
                     }
                 });
             }

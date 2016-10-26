@@ -16,6 +16,10 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".Presentacion.VistaDetalleActivity"
+            android:label="Vista detalle">
+        </activity>
+
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

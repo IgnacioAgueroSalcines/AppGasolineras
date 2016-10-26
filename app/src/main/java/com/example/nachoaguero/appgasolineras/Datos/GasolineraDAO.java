@@ -28,8 +28,7 @@ public class GasolineraDAO implements IGasolineraDAO{
             Log.d("ENTRA", "Obten gasolineras:"+listaGasolineras.size());
             return true;
         }catch(Exception e){
-            Log.e("ERROR","Error en la obtención de gasolineras: "+e.getMessage());
-            e.printStackTrace();
+            Log.e("ERROR","Error en la obtención de gasolineras: ",e);
             return false;
         }//try
     }//obtenGasolineras

@@ -43,7 +43,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void useAppContext() throws Exception {
+    public void useAppContext() throws IOException {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 

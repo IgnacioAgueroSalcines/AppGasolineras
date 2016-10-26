@@ -95,16 +95,6 @@
         android:layout_alignLeft="@+id/precioGasolinera_valor"
         android:layout_alignStart="@+id/precioGasolinera_valor" />
 
-    <TextView
-        android:text="Dirección :"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/direccionGasolinera"
-        android:layout_marginTop="86dp"
-        android:layout_below="@+id/precioDieselSuper"
-        android:layout_alignLeft="@+id/precioDieselSuper"
-        android:layout_alignStart="@+id/precioDieselSuper" />
-
     <Button
         android:text="Ruta"
         android:layout_width="wrap_content"
@@ -175,4 +165,14 @@
         android:layout_alignBottom="@+id/direccionGasolinera"
         android:layout_alignLeft="@+id/horario_valor"
         android:layout_alignStart="@+id/horario_valor" />
+
+    <TextView
+        android:text="Dirección :"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/direccionGasolinera"
+        android:layout_below="@+id/precioDieselSuper"
+        android:layout_alignLeft="@+id/precioDieselSuper"
+        android:layout_alignStart="@+id/precioDieselSuper"
+        android:layout_marginTop="40dp" />
 </RelativeLayout>
