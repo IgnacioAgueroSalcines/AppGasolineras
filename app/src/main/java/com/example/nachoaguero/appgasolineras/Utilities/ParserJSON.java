@@ -106,7 +106,7 @@ public class ParserJSON{
 
             }else if(name.equals("Dirección")&& reader.peek() != JsonToken.NULL){
                 direccion = reader.nextString();
-            }else if(name.equals("Precio Gasolina 98")&& reader.peek() != JsonToken.NULL) {
+            }else if(name.equals("Precio Gasolina  98")&& reader.peek() != JsonToken.NULL) {
                 gasolina98=Double.parseDouble(reader.nextString().replace(",", "."));
             } else if (name.equals("Horario")&& reader.peek() != JsonToken.NULL) {
                 horario=reader.nextString();
