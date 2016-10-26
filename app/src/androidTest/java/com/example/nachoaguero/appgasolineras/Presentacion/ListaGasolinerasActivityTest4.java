@@ -20,7 +20,6 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -29,18 +28,23 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-/**
- * Clase de Test para verificar el
- */
-public class ListaGasolinerasActivityTest {
+public class ListaGasolinerasActivityTest4 {
 
     @Rule
     public ActivityTestRule<ListaGasolinerasActivity> mActivityTestRule = new ActivityTestRule<>(ListaGasolinerasActivity.class);
 
     @Test
-    public void listaGasolinerasActivityTest() {
-        onView(withId(R.id.textFechaActualizacion)).check(matches(childAtPosition(hasDescendant
-                (withText("Actualizado")),0)));
+    public void listaGasolinerasActivityTest4() {
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.textFechaActualizacion), withText("No Actualizado. Datos previos"),
+                        childAtPosition(
+                                allOf(withId(R.id.activity_main),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0)),
+                                1),
+                        isDisplayed()));
+        textView.check(matches(withText("No Actualizado. Datos previos")));
 
         ViewInteraction imageView = onView(
                 allOf(withId(R.id.image), withContentDescription("Logo"),
@@ -52,9 +56,15 @@ public class ListaGasolinerasActivityTest {
                         isDisplayed()));
         imageView.check(matches(isDisplayed()));
 
-
-        onView(withId(R.id.textFechaActualizacion)).check(matches(childAtPosition(hasDescendant
-                (isDisplayed()),0)));
+        ViewInteraction linearLayout = onView(
+                allOf(withId(R.id.infoSection),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.customListView),
+                                        0),
+                                1),
+                        isDisplayed()));
+        linearLayout.check(matches(isDisplayed()));
 
     }
 
