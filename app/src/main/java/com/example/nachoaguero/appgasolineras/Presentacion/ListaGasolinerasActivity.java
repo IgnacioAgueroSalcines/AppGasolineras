@@ -111,10 +111,9 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                  TextView gasolina = (TextView) view.findViewById(R.id.precio);
                  ImageView imagen = (ImageView) view.findViewById(R.id.image);
                  TextView actualizado = (TextView) view.findViewById(R.id.textFechaActualizacion);
-
-                  if(gasolinera.getGasolina_95()==10000.0){
-                     gasolina.setText("Gasolina: "+"No disponible");
-                 } else {
+                    if(java.lang.Double.compare(gasolinera.getGasolina_95(), 10000.0)==0){
+                        gasolina.setText("Gasolina: "+"No disponible");
+                    }else {
                      gasolina.setText("Gasolina: " + String.valueOf(gasolinera.getGasolina_95()) + "€/L");
                  }
                  int imageID = context.getResources().getIdentifier("drawable/"+gasolinera.getRotulo().toLowerCase().trim(), null, context.getPackageName());
@@ -143,9 +142,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
                 list.setClickable(true);
 
-                list.setOnItemClickListener(    new AdapterView.OnItemClickListener() {
-
-
+                list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent;
@@ -169,10 +166,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                         intent.putExtra("precioGasolina98", precioGasolina98);
                         intent.putExtra("precioGasoleoSuper", precioGasoleoSuper);
                         intent.putExtra("rotulo", rotulo);
-
                         startActivity(intent);
-
-
                     }
                 });
             }

@@ -142,7 +142,7 @@ public class Gasolinera implements Comparable<Gasolinera> {
         this.longitud = longitud;
     }
 
-
+    @Override
     public int compareTo(Gasolinera another) {
 
             if(this.getGasolina_95()>another.getGasolina_95())

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import java.lang.Double.*;
 import com.example.nachoaguero.appgasolineras.R;
 
 /**
@@ -42,24 +42,38 @@ public class VistaDetalleActivity extends AppCompatActivity {
             double latitud=(double) extras.get("latitud");
             coordenadas.setText("Latitud:"+String.valueOf(latitud)+"\n"+"Longitud:"+String.valueOf(longitud));
             double precioDieselValor=(double) extras.get("precioDiesel");
-            if(precioDieselValor!=0.0) {
-                precioDiesel.setText(String.valueOf(precioDieselValor) + "€");
+            String unidadesPrecio="€/L";
+            if(Double.compare(precioDieselValor,0.0)!=0){
+                precioDiesel.setText(String.valueOf(precioDieselValor) + unidadesPrecio);
             }
             double precioGasolina95Valor=(double) extras.get("precioGasolina");
-            if(precioGasolina95Valor!=10000.0) {
-                precioGasolina95.setText(String.valueOf(precioGasolina95Valor) + "€");
+            if(Double.compare(precioGasolina95Valor,0.0)!=0){
+                if(java.lang.Double.compare(precioGasolina95Valor,10000.0)==0){
+                    precioGasolina95.setText("No disponible");
+                }else {
+                    precioGasolina95.setText(String.valueOf(precioGasolina95Valor) + unidadesPrecio);
+                }
             }
-
             double precioGasolina98Valor=(double) extras.get("precioGasolina98");
-            if(precioGasolina98Valor!=0.0) {
-                precioGasolina98.setText(String.valueOf(precioGasolina98Valor) + "€");
+            if(Double.compare(precioGasolina98Valor,0.0)==0){
+
+                    precioGasolina98.setText("No disponible");
+
+            }else{
+
+                    precioGasolina98.setText(String.valueOf(precioGasolina98Valor) + unidadesPrecio);
+
             }
             double precioDieselSuperValor=(double) extras.get("precioGasoleoSuper");
-            if (precioDieselSuperValor!=0.0) {
-                precioDieselSuper.setText(String.valueOf(precioDieselSuperValor) + "€");
+            if(Double.compare(precioDieselSuperValor,0.0)!=0){
+                if(java.lang.Double.compare(precioDieselSuperValor,10000.0)==0){
+                    precioDieselSuper.setText("No disponible");
+                }else {
+                    precioDieselSuper.setText(String.valueOf(precioDieselSuperValor) + unidadesPrecio);
+                }
             }
             String rotuloValor=(String) extras.get("rotulo");
-            int imageID = context.getResources().getIdentifier(rotuloValor.toLowerCase().trim(), "drawable", context.getPackageName());
+            int imageID = context.getResources().getIdentifier("drawable/"+rotuloValor.toLowerCase().trim(), null, context.getPackageName());
             if (imageID == 0) {
                 imagen.setImageResource(Integer.valueOf(R.drawable.por_defecto));
 
