@@ -57,21 +57,6 @@ public class ParserJSON{
         return status;
     }//checkStatus
 
-    public static String checkStatus (InputStream in) throws IOException{
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        reader.beginObject();
-        String status="";
-        while(reader.hasNext()){
-            String name = reader.nextName();
-            if(name.equals("ResultadoConsulta")){
-                status = reader.nextString().trim();
-            }else{
-                reader.skipValue();
-            }//if
-        }//while
-        reader.endObject();
-        return status;
-    }//checkStatus
 
     public static List readArrayGasolineras (JsonReader reader) throws IOException {
         List<Gasolinera> listGasolineras = new ArrayList<Gasolinera>();

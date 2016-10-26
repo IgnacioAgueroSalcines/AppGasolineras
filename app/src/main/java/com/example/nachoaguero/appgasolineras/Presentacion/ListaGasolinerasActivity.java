@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ListaGasolinerasActivity extends AppCompatActivity {
     ListView list;
-    IGestionGasolinera gestionGasolinera =new GestionGasolinera();
+    IGestionGasolinera gestionGasolinera =new GestionGasolinera(this);
     Context context=this;
 
 
