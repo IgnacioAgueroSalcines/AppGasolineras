@@ -18,16 +18,23 @@ import java.util.List;
 public class GasolineraDAO implements IGasolineraDAO{
     private List<Gasolinera> listaGasolineras;
     private RemoteFetch remoteFetch;
+    private Context context;
 
 
     public GasolineraDAO(){
+    public GasolineraDAO(Context _context){
         remoteFetch = new RemoteFetch();
+        context=_context;
     }
 
     public boolean obtenGasolineras(){
         try {
             remoteFetch.getJSON();
             listaGasolineras = ParserJSON.readJsonStream(remoteFetch.getBufferedDataGasolineras());
+            remoteFetch.writeBuffer(context);
+
+
+
             Log.d("ENTRA", "Obten gasolineras:"+listaGasolineras.size());
             return true;
         }catch(RuntimeException e){
