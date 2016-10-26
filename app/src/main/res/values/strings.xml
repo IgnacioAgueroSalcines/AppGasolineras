@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AppGasolineras</string>
     <string name="datos_no_obtenidos">Datos no obtenidos</string>
+    <string name="no_conexion">No hay conexión disponible para obtener los datos</string>
 </resources>
