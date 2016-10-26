@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="100dp"
+        android:layout_width="70dp"
         android:layout_height="100dp"
         android:contentDescription="Logo"
         android:layout_alignBottom="@+id/lowSection"
@@ -45,6 +45,15 @@
 
         <TextView
             android:id="@+id/direccion"
+            android:textColor="@color/colorDireccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/distancia"
+            android:text="Distancia:"
             android:textColor="@color/colorDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
