@@ -1,0 +1,13 @@
+pass: appGasolineras
+key
+	alias	gasolineras
+	pass	gasolineras
+	validity	25
+	Certificate
+		First and last name	AppGasolineras certificate
+		organization unit
+		organization
+		city or locality
+		state or province
+		country code
+
