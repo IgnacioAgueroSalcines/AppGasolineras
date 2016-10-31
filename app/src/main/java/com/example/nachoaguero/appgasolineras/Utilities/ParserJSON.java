@@ -41,7 +41,6 @@ public class ParserJSON{
             reader.close();
         }
     }
-
     public static String checkStatus (InputStream in) throws IOException{
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         reader.beginObject();
@@ -57,6 +56,7 @@ public class ParserJSON{
         reader.endObject();
         return status;
     }//checkStatus
+
 
     public static List readArrayGasolineras (JsonReader reader) throws IOException {
         List<Gasolinera> listGasolineras = new ArrayList<Gasolinera>();
@@ -84,9 +84,9 @@ public class ParserJSON{
     public static Gasolinera readGasolinera (JsonReader reader) throws IOException {
         reader.beginObject();
         boolean add = false;
-        String rotulo="", localidad ="", provincia="",direccion="";
+        String rotulo="", localidad ="", provincia="",direccion="", horario="";
         int id = -1;
-        double gasoleoA = 0.0, sinplomo95 =10000.0;
+        double gasoleoA = 0.0, sinplomo95 =10000.0, gasoleoSuper=0.0, gasolina98=0.0,longitud=0.0, latitud=0.0;
 
         while(reader.hasNext()){
             String name = reader.nextName();
@@ -106,7 +106,18 @@ public class ParserJSON{
 
             }else if(name.equals("Dirección")&& reader.peek() != JsonToken.NULL){
                 direccion = reader.nextString();
-            }else{
+            }else if(name.equals("Precio Gasolina  98")&& reader.peek() != JsonToken.NULL) {
+                gasolina98=Double.parseDouble(reader.nextString().replace(",", "."));
+            } else if (name.equals("Horario")&& reader.peek() != JsonToken.NULL) {
+                horario=reader.nextString();
+            } else if(name.equals("Latitud")&& reader.peek() != JsonToken.NULL) {
+                latitud=Double.parseDouble(reader.nextString().replace(",", "."));
+            } else if (name.equals("Longitud (WGS84)" )&& reader.peek() != JsonToken.NULL) {
+                longitud=Double.parseDouble(reader.nextString().replace(",", "."));
+            } else if(name.equals("Precio Nuevo Gasoleo A")&& reader.peek() != JsonToken.NULL) {
+                gasoleoSuper=Double.parseDouble(reader.nextString().replace(",", "."));
+            } else {
+
                 reader.skipValue();
             }//if
 
@@ -114,7 +125,7 @@ public class ParserJSON{
 
         reader.endObject();
 
-        return new Gasolinera(id,localidad,provincia,direccion,gasoleoA, sinplomo95,rotulo);
+        return new Gasolinera(id,localidad,provincia,direccion,gasoleoA, sinplomo95,rotulo,gasolina98,horario, gasoleoSuper, longitud, latitud);
     }// readGasolinera
 
     public static String getEstadoLectura(){
