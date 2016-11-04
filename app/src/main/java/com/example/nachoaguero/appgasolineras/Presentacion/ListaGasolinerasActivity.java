@@ -27,6 +27,7 @@ import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.GestionGasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.IGestionGasolinera;
 import com.example.nachoaguero.appgasolineras.R;
+import com.example.nachoaguero.appgasolineras.Utilities.Posicion;
 
 
 import java.util.List;
@@ -205,6 +206,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             TextView gasolina = (TextView) view.findViewById(R.id.precio);
             ImageView imagen = (ImageView) view.findViewById(R.id.image);
             TextView localidad = (TextView) view.findViewById(R.id.direccion);
+            TextView distancia = (TextView) view.findViewById(R.id.distancia);
 
             localidad.setText(gasolinera.getProvincia()+", "+gasolinera.getLocalidad());
 
@@ -225,6 +227,12 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 imagen.setImageResource(imageID);
                 nombre.setText(gasolinera.getRotulo());
             }
+
+            //Posicion ayuntamiento santander: 43.462175, -3.809989
+            //Posicion actual facultad de ciencias(de prueba): 43.471528, -3.801128
+            Posicion santander = new Posicion(43.462175F, -3.809989F);
+            Posicion gas = new Posicion(gasolinera.getLatitud(), gasolinera.getLongitud());
+            distancia.setText((int) gas.DistanciaKm(santander, gas));
 
             return view;
         }
