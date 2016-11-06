@@ -230,9 +230,10 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
             //Posicion ayuntamiento santander: 43.462175, -3.809989
             //Posicion actual facultad de ciencias(de prueba): 43.471528, -3.801128
-            Posicion santander = new Posicion(43.462175F, -3.809989F);
+            //Posicion santander = new Posicion(43.462175, -3.809989);
             Posicion gas = new Posicion(gasolinera.getLatitud(), gasolinera.getLongitud());
-            distancia.setText((int) gas.DistanciaKm(santander, gas));
+            distancia.setText(String.format("%.2f",gas.DistanciaKm(43.462175, -3.809989,
+                    gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
 
             return view;
         }
