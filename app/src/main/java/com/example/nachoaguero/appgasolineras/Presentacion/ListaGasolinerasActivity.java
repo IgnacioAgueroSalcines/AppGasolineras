@@ -1,7 +1,7 @@
 package com.example.nachoaguero.appgasolineras.Presentacion;
 
 import android.app.Activity;
-
+import android.util.Log;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,6 +12,24 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +53,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
     ListView list;
     IGestionGasolinera gestionGasolinera =new GestionGasolinera(this);
 
-
-
+    private TextView t;
     private class Hilo   extends AsyncTask<Void, Void, Boolean> {
         Context context;
         ProgressDialog progress;
@@ -230,6 +247,29 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         }
 
 
+    }
+
+
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_activity_actions, menu);
+        return true; /** true -> el menú ya está visible */
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+
+        switch (menuItem.getItemId()) {
+            case R.id.detectar_ubicacion:
+                //metodoAdd()
+                Intent i= new Intent(this,ObtenPosicionActualActivity.class);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
 
     }
     @Override
@@ -237,11 +277,17 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         list = (ListView) findViewById(R.id.customListView);
         Hilo a = new Hilo(this);
         a.execute();
 
-        list.setClickable(true);
+
+
+
+
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -272,5 +318,11 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         });
     }
 
+
+
+
+
+
 }
+
 
