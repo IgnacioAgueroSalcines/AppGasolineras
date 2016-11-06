@@ -8,31 +8,43 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="70dp"
-        android:layout_height="100dp"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
         android:contentDescription="Logo"
         android:layout_alignBottom="@+id/lowSection"
         android:layout_alignParentTop="true" />
 
     <TextView
         android:id="@+id/precio"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:textAlignment="textEnd"
         android:gravity="end"
         android:textColor="@color/colorPrice"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:contentDescription="Precio"
         android:layout_alignBottom="@+id/lowSection"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true" />
+    <TextView
+        android:id="@+id/distancia"
+        android:text="Distancia:"
+        android:textAlignment="textEnd"
+        android:gravity="end"
+        android:textColor="@color/colorDireccion"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lowSection"
+        android:layout_alignParentRight="true"
+        android:textSize="12sp" />
 
     <LinearLayout
         android:id="@+id/infoSection"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:orientation="vertical"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/image"
         android:layout_toLeftOf="@+id/precio">
 
@@ -40,7 +52,7 @@
             android:id="@+id/nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             android:textSize="15sp" />
 
         <TextView
@@ -48,17 +60,8 @@
             android:textColor="@color/colorDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
-        <TextView
-            android:id="@+id/distancia"
-            android:text="Distancia:"
-            android:textColor="@color/colorDireccion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="12sp" />
     </LinearLayout>
 
     <RelativeLayout
