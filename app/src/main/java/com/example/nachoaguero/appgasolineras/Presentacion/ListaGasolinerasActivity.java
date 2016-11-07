@@ -50,8 +50,18 @@ import com.example.nachoaguero.appgasolineras.R;
 import java.util.List;
 
 public class ListaGasolinerasActivity extends AppCompatActivity {
+
+    //atributos de la activity principal
     ListView list;
     IGestionGasolinera gestionGasolinera =new GestionGasolinera(this);
+
+    //bloque ubicacion
+    private LocationManager locationManager;
+    private LocationListener listener;
+    private double latitud;
+    private double longitud;
+
+
 
     private TextView t;
     private class Hilo   extends AsyncTask<Void, Void, Boolean> {
@@ -199,7 +209,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
 
 
-    class gasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
+    public class gasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
 
         private Context context;
         private List<Gasolinera> gasolineras;
@@ -274,14 +284,44 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
     }
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //servicio de localizacion
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
+        //listener que detecta la ubicacion
+        listener = new LocationListener() {
 
+            @Override
+            public void onLocationChanged(Location location) {
+                latitud=location.getLatitude();
+                longitud=location.getLongitude();
+            }
 
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+                Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(i);
+
+            }
+        };
+        configuraPermisos();
+
+        //se apunta a la lista
         list = (ListView) findViewById(R.id.customListView);
+        //se crea y ejecuta hilo para pedir las gasolineras
         Hilo a = new Hilo(this);
         a.execute();
 
@@ -318,9 +358,36 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 10:
+                configuraPermisos();
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    private void configuraPermisos(){
+        // first check for permissions
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.INTERNET}
+                        ,10);
+            }
+            return;
+        }
+        // this code won't execute IF permissions are not allowed, because in the line above there is return statement.
 
 
 
+        //noinspection MissingPermission
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, listener);
+
+
+    }
 
 
 

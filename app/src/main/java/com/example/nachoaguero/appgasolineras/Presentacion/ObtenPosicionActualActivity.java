@@ -26,8 +26,6 @@ import com.example.nachoaguero.appgasolineras.R;
  */
 
 public class ObtenPosicionActualActivity extends AppCompatActivity {
-    private Button b;
-    private TextView t;
     private LocationManager locationManager;
     private LocationListener listener;
     private double latitud;
@@ -39,7 +37,6 @@ public class ObtenPosicionActualActivity extends AppCompatActivity {
 
         setContentView(R.layout.posicion_actual);
 
-        t = (TextView) findViewById(R.id.coordenadas);
 
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -51,7 +48,6 @@ public class ObtenPosicionActualActivity extends AppCompatActivity {
             public void onLocationChanged(Location location) {
                 latitud=location.getLatitude();
                 longitud=location.getLongitude();
-                t.setText("Coordenadas \n " +"Latitud:"+ location.getLatitude()+ " \n Longitud: " + location.getLongitude());
             }
 
             @Override
@@ -106,10 +102,5 @@ public class ObtenPosicionActualActivity extends AppCompatActivity {
     }
 
 
-    public double obtenLatitud(){
-        return latitud;
-    }
-    public double obtenLongitud(){
-        return longitud;
-    }
+
 }
