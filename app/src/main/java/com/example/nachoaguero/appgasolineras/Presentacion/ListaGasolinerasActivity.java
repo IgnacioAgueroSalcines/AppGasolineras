@@ -264,25 +264,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_activity_actions, menu);
-        return true; /** true -> el menú ya está visible */
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem menuItem) {
 
-        switch (menuItem.getItemId()) {
-            case R.id.detectar_ubicacion:
-                //metodoAdd()
-                Intent i= new Intent(this,ObtenPosicionActualActivity.class);
-                startActivity(i);
-                return true;
-            default:
-                return super.onOptionsItemSelected(menuItem);
-        }
-
-    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
