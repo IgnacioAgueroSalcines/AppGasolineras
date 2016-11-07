@@ -112,6 +112,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 res = gestionGasolinera.obtenGasolineras();
             } else {
                 if(conectadoDatos()){
+
                     res = gestionGasolinera.obtenGasolineras();
                 } else{
 

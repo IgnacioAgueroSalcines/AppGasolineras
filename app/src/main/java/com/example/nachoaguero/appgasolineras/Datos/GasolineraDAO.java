@@ -22,6 +22,7 @@ public class GasolineraDAO implements IGasolineraDAO{
 
 
 
+
     public GasolineraDAO(Context _context){
         remoteFetch = new RemoteFetch();
         context=_context;

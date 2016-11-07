@@ -30,7 +30,8 @@ public class ObtenPosicionActualActivity extends AppCompatActivity {
     private TextView t;
     private LocationManager locationManager;
     private LocationListener listener;
-
+    private double latitud;
+    private double longitud;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,15 +40,17 @@ public class ObtenPosicionActualActivity extends AppCompatActivity {
         setContentView(R.layout.posicion_actual);
 
         t = (TextView) findViewById(R.id.coordenadas);
-        b = (Button) findViewById(R.id.button);
+
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
 
         listener = new LocationListener() {
+
             @Override
             public void onLocationChanged(Location location) {
-
+                latitud=location.getLatitude();
+                longitud=location.getLongitude();
                 t.setText("Coordenadas \n " +"Latitud:"+ location.getLatitude()+ " \n Longitud: " + location.getLongitude());
             }
 
@@ -93,13 +96,20 @@ public class ObtenPosicionActualActivity extends AppCompatActivity {
             return;
         }
         // this code won't execute IF permissions are not allowed, because in the line above there is return statement.
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+
+
 
                 //noinspection MissingPermission
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, listener);
-            }
-        });
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, listener);
+
+
+    }
+
+
+    public double obtenLatitud(){
+        return latitud;
+    }
+    public double obtenLongitud(){
+        return longitud;
     }
 }
