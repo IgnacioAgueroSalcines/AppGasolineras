@@ -228,12 +228,18 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 nombre.setText(gasolinera.getRotulo());
             }
 
-            //Posicion ayuntamiento santander: 43.462175, -3.809989
-            //Posicion actual facultad de ciencias(de prueba): 43.471528, -3.801128
-            //Posicion santander = new Posicion(43.462175, -3.809989);
             Distancia gas = new Distancia();
-            distancia.setText(String.format("%.2f",gas.DistanciaKm(43.462175, -3.809989,
-                    gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
+
+            if(latitudActual==0 && longitudActual==0){
+                //Calculo de la distancia respecto al centro de Santander
+                //Posicion ayuntamiento santander: 43.462175, -3.809989
+                distancia.setText(String.format("%.2f",gas.DistanciaKm(43.462175, -3.809989,
+                        gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
+            }else{
+                //Calculo de la distancia respecto a la posición actual
+                distancia.setText(String.format("%.2f",gas.DistanciaKm(latitudActual, longitudActual,
+                        gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
+            }
 
             return view;
         }
