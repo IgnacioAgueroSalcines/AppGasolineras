@@ -7,33 +7,12 @@ package com.example.nachoaguero.appgasolineras.Utilities;
 /**
  * Clase para manejar posiciones geograficas
  */
-public class Posicion {
+public class Distancia {
 
-    double latitud;
-    double longitud;
+    public Distancia() {
+    }
+
     private static final double radioTierraKm = 6378.0;
-
-
-    public Posicion(double latitud, double longitud){
-        latitud = latitud;
-        longitud = longitud;
-    }
-
-    public double getLatitud() {
-        return latitud;
-    }
-
-    public void setLatitud(double latitud) {
-        this.latitud = latitud;
-    }
-
-    public double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
-    }
 
     public double DistanciaKm(double lat1, double lon1, double lat2, double lon2){
         double dLat = Math.toRadians(lat2 - lat1);

@@ -27,7 +27,7 @@ import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.GestionGasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.IGestionGasolinera;
 import com.example.nachoaguero.appgasolineras.R;
-import com.example.nachoaguero.appgasolineras.Utilities.Posicion;
+import com.example.nachoaguero.appgasolineras.Utilities.Distancia;
 
 
 import java.util.List;
@@ -35,8 +35,8 @@ import java.util.List;
 public class ListaGasolinerasActivity extends AppCompatActivity {
     ListView list;
     IGestionGasolinera gestionGasolinera =new GestionGasolinera(this);
-
-
+    double latitudActual;
+    double longitudActual;
 
     private class Hilo   extends AsyncTask<Void, Void, Boolean> {
         Context context;
@@ -231,7 +231,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             //Posicion ayuntamiento santander: 43.462175, -3.809989
             //Posicion actual facultad de ciencias(de prueba): 43.471528, -3.801128
             //Posicion santander = new Posicion(43.462175, -3.809989);
-            Posicion gas = new Posicion(gasolinera.getLatitud(), gasolinera.getLongitud());
+            Distancia gas = new Distancia();
             distancia.setText(String.format("%.2f",gas.DistanciaKm(43.462175, -3.809989,
                     gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
 
