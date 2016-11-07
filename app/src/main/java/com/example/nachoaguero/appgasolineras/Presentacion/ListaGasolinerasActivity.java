@@ -5,7 +5,6 @@ import android.app.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -27,7 +26,6 @@ import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.GestionGasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.IGestionGasolinera;
 import com.example.nachoaguero.appgasolineras.R;
-import com.example.nachoaguero.appgasolineras.Utilities.Distancia;
 
 
 import java.util.List;
@@ -228,16 +226,16 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 nombre.setText(gasolinera.getRotulo());
             }
 
-            Distancia gas = new Distancia();
+
 
             if(latitudActual==0 && longitudActual==0){
                 //Calculo de la distancia respecto al centro de Santander
                 //Posicion ayuntamiento santander: 43.462175, -3.809989
-                distancia.setText(String.format("%.2f",gas.DistanciaKm(43.462175, -3.809989,
+                distancia.setText(String.format("%.2f",gestionGasolinera.DistanciaKm(43.462175, -3.809989,
                         gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
             }else{
                 //Calculo de la distancia respecto a la posición actual
-                distancia.setText(String.format("%.2f",gas.DistanciaKm(latitudActual, longitudActual,
+                distancia.setText(String.format("%.2f",gestionGasolinera.DistanciaKm(latitudActual, longitudActual,
                         gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
             }
 
