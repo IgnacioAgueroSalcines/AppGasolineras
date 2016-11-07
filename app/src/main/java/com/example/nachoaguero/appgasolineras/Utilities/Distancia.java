@@ -5,7 +5,7 @@ package com.example.nachoaguero.appgasolineras.Utilities;
  */
 
 /**
- * Clase para manejar posiciones geograficas
+ * Clase para manejar posiciones
  */
 public class Distancia {
 
@@ -14,6 +14,14 @@ public class Distancia {
 
     private static final double radioTierraKm = 6378.0;
 
+    /**
+     * Calcula la distancia en linea recta entre dos posiciones geográficas
+     * @param lat1 latitud origen
+     * @param lon1 longitud origen
+     * @param lat2 latitud destino
+     * @param lon2 longitud destino
+     * @return distancia en km entre las dos posiciones
+     */
     public double DistanciaKm(double lat1, double lon1, double lat2, double lon2){
         double dLat = Math.toRadians(lat2 - lat1);
         double dLon = Math.toRadians(lon2 - lon1);
