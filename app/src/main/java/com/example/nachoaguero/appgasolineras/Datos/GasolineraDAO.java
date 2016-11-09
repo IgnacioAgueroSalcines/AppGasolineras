@@ -76,7 +76,7 @@ public class GasolineraDAO implements IGasolineraDAO{
             return true;
         }catch(RuntimeException e){
             Log.e("ERROR","Error en la obtención de gasolineras: "+e.getMessage());
-            e.printStackTrace();
+            
             throw e;
         }//try
         catch(Exception e){

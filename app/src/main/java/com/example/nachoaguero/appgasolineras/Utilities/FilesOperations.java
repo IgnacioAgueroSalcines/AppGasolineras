@@ -6,9 +6,12 @@ package com.example.nachoaguero.appgasolineras.Utilities;
 
 
 import android.content.Context;
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -18,30 +21,34 @@ import java.io.OutputStream;
 
 public class FilesOperations {
 
-    public static void writeInputStream(InputStream in, Context c){
+    public static void writeInputStream(InputStream in, Context c) {
         try {
             File file = new File(c.getFilesDir(), "inputStreamJson");
             OutputStream out = new FileOutputStream(file);
             byte[] buf = new byte[1024];
             int len;
-            while((len=in.read(buf))>0){
-                out.write(buf,0,len);
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
             }
             out.close();
             in.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }//try
     }//writeInputStream
 
-    public static InputStream readInputStream(Context c){
+    public static InputStream readInputStream(Context c) throws IOException {
         InputStream in = null;
         try {
             File file = new File(c.getFilesDir(), "inputStreamJson");
             in = new FileInputStream(file);
         } catch (Exception e) {
-            e.printStackTrace();
-        }//try
-        return in;
-    }//writeInputStream
+            throw new RuntimeException(e);
+        } finally {
+            if (in != null) {
+                in.close();
+            }
+            return in;
+        }//writeInputStream
+    }
 }

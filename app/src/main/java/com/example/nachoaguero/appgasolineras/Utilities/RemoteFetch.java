@@ -89,7 +89,7 @@ public class RemoteFetch {
     }//writebuffer
 
 
-    public void readBuffer(Context context){
+    public void readBuffer(Context context) throws IOException{
         InputStream res=FilesOperations.readInputStream(context);
         bufferedDataGasolineras= new BufferedInputStream(res);
 

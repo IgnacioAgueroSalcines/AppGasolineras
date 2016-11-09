@@ -48,32 +48,32 @@ public class InsertaDistanciaTest extends AndroidTestCase{
         //se comprueba que el parametro latitud cumple las restricciones propias de la ubicacion
         //lat1>=90
         res=gestion.DistanciaKm(91,-3.809989,43.471528,-3.801128);
-        assertTrue(res==0);
+        assertTrue(Math.abs(res-0.0)<0.000000001);
         //lat1<=-90
         res=gestion.DistanciaKm(-91,-3.809989,43.471528,-3.801128);
-        assertTrue(res==0);
+        assertTrue(Math.abs(res-0.0)<0.000000001);
         //se comprueba que el parametro longitud cumple las restricciones propias de la ubicacion
         //long1>=180
         res=gestion.DistanciaKm(43.462175,181,43.471528,-3.801128);
-        assertTrue(res==0);
+        assertTrue(Math.abs(res-0.0)<0.000000001);
         //long1<=-180
         res=gestion.DistanciaKm(43.462175,-181,43.471528,-3.801128);
-        assertTrue(res==0);
+        assertTrue(Math.abs(res-0.0)<0.000000001);
 
         //se comprueba que el parametro latitud cumple las restricciones propias de la ubicacion
         //lat2>=90
         res=gestion.DistanciaKm(43.462175,-3.809989,91,-3.801128);
-        assertTrue(res==0);
+        assertTrue(Math.abs(res-0.0)<0.000000001);
         //lat2<=-90
         res=gestion.DistanciaKm(43.462175,-3.809989,-91,-3.801128);
-        assertTrue(res==0);
+        assertTrue(Math.abs(res-0.0)<0.000000001);
         //se comprueba que el parametro longitud cumple las restricciones propias de la ubicacion
         //long2>=180
         res=gestion.DistanciaKm(43.462175,-3.809989,43.471528,181);
-        assertTrue(res==0);
+        assertTrue(Math.abs(res-0.0)<0.000000001);
         //long2<=-180
         res=gestion.DistanciaKm(43.462175,-3.809989,43.471528,-181);
-        assertTrue(res==0);
+        assertTrue(Math.abs(res-0.0)<0.000000001);
 
     }
 
