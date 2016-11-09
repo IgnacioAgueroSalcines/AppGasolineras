@@ -48,8 +48,9 @@ public class FilesOperations {
             if (in != null) {
                 in.close();
             }
-            return in;
+
         }//writeInputStream
+        return in;
     }
 
 }
