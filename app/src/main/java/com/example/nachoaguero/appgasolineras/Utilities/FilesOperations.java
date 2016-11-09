@@ -43,7 +43,6 @@ public class FilesOperations {
             File file = new File(c.getFilesDir(), "inputStreamJson");
             in = new FileInputStream(file);
         } catch (Exception e) {
-<<<<<<< HEAD
             throw new RuntimeException(e);
         } finally {
             if (in != null) {
@@ -52,10 +51,5 @@ public class FilesOperations {
             return in;
         }//writeInputStream
     }
-=======
-            e.printStackTrace();
-        }//try
-        return in;
-    }//readInputStream
->>>>>>> 15d5309398e4837546588f58f3646707691fca00
+
 }
