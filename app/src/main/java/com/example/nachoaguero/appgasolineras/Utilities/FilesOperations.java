@@ -43,5 +43,5 @@ public class FilesOperations {
             e.printStackTrace();
         }//try
         return in;
-    }//writeInputStream
+    }//readInputStream
 }

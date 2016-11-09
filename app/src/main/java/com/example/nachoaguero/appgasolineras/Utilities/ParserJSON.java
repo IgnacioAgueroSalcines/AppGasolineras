@@ -128,9 +128,6 @@ public class ParserJSON{
         return new Gasolinera(id,localidad,provincia,direccion,gasoleoA, sinplomo95,rotulo,gasolina98,horario, gasoleoSuper, longitud, latitud);
     }// readGasolinera
 
-    public static String getEstadoLectura(){
-        return estadoLectura.trim();
-    }
 
 
 }//ParserJSON
