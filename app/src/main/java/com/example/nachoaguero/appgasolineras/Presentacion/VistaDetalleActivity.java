@@ -75,6 +75,7 @@ public class VistaDetalleActivity extends AppCompatActivity {
         TextView precioDieselSuper = (TextView) findViewById(R.id.precioDieselSuper_valor);
         TextView horario = (TextView) findViewById(R.id.horario_valor);
         TextView direccion = (TextView) findViewById(R.id.direccionGasolinera_valor);
+        TextView coordenadas = (TextView) findViewById(R.id.coordenadas_valor);
         t = (TextView) findViewById(R.id.coordenadas_valor);
         TextView nombre = (TextView) findViewById(R.id.rotuloGasolinera);
 
@@ -128,13 +129,11 @@ public class VistaDetalleActivity extends AppCompatActivity {
             }
             nombre.setText(rotuloValor);
 
+            double latitud = (double) extras.get("latitud");
+            double longitud = (double) extras.get("longitud");
+            coordenadas.setText(String.valueOf(latitud) + "\n" + String.valueOf(longitud));
 
         }
-
-/////////////////////////////////////////////////////////////////////////////////////
-
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////
     }
 
 
