@@ -7,7 +7,9 @@ import java.util.List;
  */
 
 public interface IGasolineraDAO {
-    public boolean obtenGasolineras();
-    public List<Gasolinera> getListaGasolineras();
-    public boolean obtenGasolinerasSinconexion();
+     boolean obtenGasolineras();
+     List<Gasolinera> getListaGasolineras();
+     boolean obtenGasolinerasSinconexion();
+    double DistanciaKm(double lat1, double lon1, double lat2, double lon2);
+
 }

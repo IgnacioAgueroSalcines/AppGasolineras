@@ -41,4 +41,14 @@ public class GestionGasolinera implements IGestionGasolinera {
     }
 
     public boolean obtenGasolinerasSinconexion(){return gasolineraDAO.obtenGasolinerasSinconexion();}
+
+    private static final double radioTierraKm = 6378.0;
+
+
+    public double DistanciaKm(double lat1, double lon1, double lat2, double lon2){
+        return gasolineraDAO.DistanciaKm(lat1,lon1,lat2,lon2);
+
+    }
+
+
 }
