@@ -131,16 +131,7 @@
         android:layout_alignLeft="@+id/horario"
         android:layout_alignStart="@+id/horario"
         android:layout_marginTop="20dp" />
-    <TextView
-        android:text="Distancia :"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/distancia"
-        android:layout_below="@+id/coordenadas"
-        android:layout_marginTop="20dp"
-        android:layout_alignStart="@+id/coordenadas"
-        android:layout_alignLeft="@+id/coordenadas"
-        />
+
 
     <TextView
         android:text="No disponible"
@@ -151,17 +142,7 @@
         android:layout_alignBottom="@+id/coordenadas"
         android:layout_alignLeft="@+id/horario_valor"
         android:layout_alignStart="@+id/horario_valor" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/distancia_valor"
-        android:text="No disponible"
-        android:layout_alignBaseline="@+id/distancia"
-        android:layout_alignBottom="@+id/distancia"
-        android:layout_alignLeft="@+id/coordenadas_valor"
-        android:layout_alignStart="@+id/coordenadas_valor"
-        />
+    
 
     <TextView
         android:text="No disponible"
