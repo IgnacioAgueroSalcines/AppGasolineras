@@ -5,7 +5,6 @@ import android.app.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -27,30 +26,29 @@ import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.GestionGasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.IGestionGasolinera;
 import com.example.nachoaguero.appgasolineras.R;
-import com.example.nachoaguero.appgasolineras.Utilities.Distancia;
 
 
 import java.util.List;
 
 public class ListaGasolinerasActivity extends AppCompatActivity {
     ListView list;
-    IGestionGasolinera gestionGasolinera =new GestionGasolinera(this);
+    IGestionGasolinera gestionGasolinera = new GestionGasolinera(this);
     double latitudActual;
     double longitudActual;
 
-    private class Hilo   extends AsyncTask<Void, Void, Boolean> {
+    private class Hilo extends AsyncTask<Void, Void, Boolean> {
         Context context;
         ProgressDialog progress;
 
 
         public Hilo(Context context) {
             this.context = context;
-            progress=new ProgressDialog(context);
+            progress = new ProgressDialog(context);
             progress.setMessage("Cargando datos de las gasolineras");
 
         }
 
-        protected  Boolean conectadoWifi(){
+        protected Boolean conectadoWifi() {
 
             ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             if (connectivity != null) {
@@ -68,7 +66,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
         }
 
-        protected  Boolean conectadoDatos(){
+        protected Boolean conectadoDatos() {
             ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             if (connectivity != null) {
                 NetworkInfo info = connectivity.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
@@ -80,8 +78,9 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             }
             return false;
         }
+
         @Override
-        protected void onPreExecute(){
+        protected void onPreExecute() {
             progress.show();
 
         }
@@ -90,16 +89,16 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            boolean res=false;
-            if(conectadoWifi()) {
+            boolean res = false;
+            if (conectadoWifi()) {
 
                 res = gestionGasolinera.obtenGasolineras();
             } else {
-                if(conectadoDatos()){
+                if (conectadoDatos()) {
                     res = gestionGasolinera.obtenGasolineras();
-                } else{
+                } else {
 
-                    res=gestionGasolinera.obtenGasolinerasSinconexion();
+                    res = gestionGasolinera.obtenGasolinerasSinconexion();
                 }
 
             }
@@ -107,15 +106,13 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         }
 
 
-
-
         @Override
         protected void onPostExecute(Boolean b) {
             progress.dismiss();
             if (b) {
-                HiloLectura hilolectura=new HiloLectura(context);
+                HiloLectura hilolectura = new HiloLectura(context);
                 hilolectura.execute();
-                if(conectadoDatos()==false && conectadoWifi()==false){
+                if (conectadoDatos() == false && conectadoWifi() == false) {
                     TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
                     actualizado.setText("No Actualizado. Datos previos");
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion)
@@ -129,14 +126,14 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 if (conectadoDatos() || conectadoWifi()) {
                     TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
                     actualizado.setText("No Actualizado. Sin acceso a los datos");
-                    TextView gasolina=(TextView) findViewById(R.id.textTipoGasolina);
+                    TextView gasolina = (TextView) findViewById(R.id.textTipoGasolina);
                     gasolina.setText(" ");
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_SHORT).show();
 
                 } else {
                     TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
                     actualizado.setText("No Actualizado. Sin acceso a internet");
-                    TextView gasolina=(TextView) findViewById(R.id.textTipoGasolina);
+                    TextView gasolina = (TextView) findViewById(R.id.textTipoGasolina);
                     gasolina.setText(" ");
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_SHORT).show();
 
@@ -147,7 +144,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         }
     }
 
-    private class HiloLectura extends AsyncTask<Void,Void,ArrayAdapter> {
+    private class HiloLectura extends AsyncTask<Void, Void, ArrayAdapter> {
         Context context;
 
 
@@ -171,7 +168,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             if (adapter.isEmpty()) {
                 TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
                 actualizado.setText("Actualizado. No existen datos para esta búsqueda");
-                TextView gasolina=(TextView) findViewById(R.id.textTipoGasolina);
+                TextView gasolina = (TextView) findViewById(R.id.textTipoGasolina);
                 gasolina.setText(" ");
 
             }
@@ -180,7 +177,6 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
         }
     }
-
 
 
     class gasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
@@ -209,15 +205,15 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             TextView localidad = (TextView) view.findViewById(R.id.direccion);
             TextView distancia = (TextView) view.findViewById(R.id.distancia);
 
-            localidad.setText(gasolinera.getProvincia()+", "+gasolinera.getLocalidad());
+            localidad.setText(gasolinera.getProvincia() + ", " + gasolinera.getLocalidad());
 
 
-            if(((Double) gasolinera.getGasolina_95()).equals(10000.0)){
+            if (((Double) gasolinera.getGasolina_95()).equals(10000.0)) {
                 gasolina.setText("No disponible");
             } else {
                 gasolina.setText(String.valueOf(gasolinera.getGasolina_95()) + "€/L");
             }
-            int imageID = context.getResources().getIdentifier("drawable/"+gasolinera.getRotulo().toLowerCase().trim(), null, context.getPackageName());
+            int imageID = context.getResources().getIdentifier("drawable/" + gasolinera.getRotulo().toLowerCase().trim(), null, context.getPackageName());
 
             //El nombre (referencia de la marca de la gasolinera) sólo se muestra si la marca es desconocida.
             if (imageID == 0) {
@@ -229,16 +225,15 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 nombre.setText(gasolinera.getRotulo());
             }
 
-            Distancia gas = new Distancia();
 
-            if(latitudActual==0 && longitudActual==0){
+            if ((Math.abs(latitudActual-0.0)<0.000000001)&& (Math.abs(longitudActual-0.0)<0.000000001)) {
                 //Calculo de la distancia respecto al centro de Santander
                 //Posicion ayuntamiento santander: 43.462175, -3.809989
-                distancia.setText(String.format("%.2f",gas.DistanciaKm(43.462175, -3.809989,
+                distancia.setText(String.format("%.2f", gestionGasolinera.DistanciaKm(43.462175, -3.809989,
                         gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
-            }else{
+            } else {
                 //Calculo de la distancia respecto a la posición actual
-                distancia.setText(String.format("%.2f",gas.DistanciaKm(latitudActual, longitudActual,
+                distancia.setText(String.format("%.2f", gestionGasolinera.DistanciaKm(latitudActual, longitudActual,
                         gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
             }
 
@@ -246,8 +241,8 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         }
 
 
-
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -263,20 +258,20 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent;
-                intent=new Intent(getApplicationContext(),VistaDetalleActivity.class);
+                intent = new Intent(getApplicationContext(), VistaDetalleActivity.class);
                 Gasolinera listItem = (Gasolinera) list.getItemAtPosition(position);
-                String direccion=listItem.getDireccion();
-                double precioDiesel=listItem.getGasoleo_a();
-                double precioGasolina=listItem.getGasolina_95();
-                String horario=listItem.getHorario();
-                double precioGasolina98=listItem.getGasolina_98();
-                double precioGasoleoSuper= listItem.getGasoleoSuper();
-                double longitud=listItem.getLongitud();
-                double latitud=listItem.getLatitud();
-                String rotulo=listItem.getRotulo();
-                intent.putExtra("direccion",direccion);
+                String direccion = listItem.getDireccion();
+                double precioDiesel = listItem.getGasoleo_a();
+                double precioGasolina = listItem.getGasolina_95();
+                String horario = listItem.getHorario();
+                double precioGasolina98 = listItem.getGasolina_98();
+                double precioGasoleoSuper = listItem.getGasoleoSuper();
+                double longitud = listItem.getLongitud();
+                double latitud = listItem.getLatitud();
+                String rotulo = listItem.getRotulo();
+                intent.putExtra("direccion", direccion);
                 intent.putExtra("horario", horario);
-                intent.putExtra("longitud",longitud);
+                intent.putExtra("longitud", longitud);
                 intent.putExtra("latitud", latitud);
                 intent.putExtra("precioDiesel", precioDiesel);
                 intent.putExtra("precioGasolina", precioGasolina);
@@ -287,6 +282,4 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             }
         });
     }
-
 }
-

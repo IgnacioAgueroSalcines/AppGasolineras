@@ -1,5 +1,5 @@
 projectKey=app:gasolineras
 serverUrl=http://localhost:9000
 dashboardUrl=http://localhost:9000/dashboard/index/app:gasolineras
-ceTaskId=AVf8tRkKOxHYf7Wj-Zuy
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVf8tRkKOxHYf7Wj-Zuy
+ceTaskId=AVhJDiR4pQmKNXM5gTcS
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVhJDiR4pQmKNXM5gTcS
