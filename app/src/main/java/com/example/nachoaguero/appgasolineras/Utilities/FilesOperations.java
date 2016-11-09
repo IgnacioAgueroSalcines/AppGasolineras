@@ -33,7 +33,7 @@ public class FilesOperations {
             out.close();
             in.close();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }//try
     }//writeInputStream
 
@@ -43,14 +43,11 @@ public class FilesOperations {
             File file = new File(c.getFilesDir(), "inputStreamJson");
             in = new FileInputStream(file);
         } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-
-        }//writeInputStream
+            e.printStackTrace();
+        }
         return in;
+        //writeInputStream
+
     }
 
 }
