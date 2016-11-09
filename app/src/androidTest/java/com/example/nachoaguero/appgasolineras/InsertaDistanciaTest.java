@@ -19,6 +19,8 @@ import static org.junit.Assert.assertTrue;
 @RunWith(AndroidJUnit4.class)
 public class InsertaDistanciaTest extends AndroidTestCase{
 
+    IGestionGasolinera gestion;
+
     @Test
     public void calculaDistancia()  {
         //parametro a de calculo, ubicacion 1: Ayuntamiento Santander (43.462175,-3.809989)
@@ -32,8 +34,56 @@ public class InsertaDistanciaTest extends AndroidTestCase{
         //criterio de aproximacion
         double crt=0.100;
         //variable de respuesta de la ejecucion del calculo de la distancia
-        IGestionGasolinera gestion=new GestionGasolinera(this.getContext());
+        gestion=new GestionGasolinera(this.getContext());
         double res=gestion.DistanciaKm(lat1,lon1,lat2,lon2);
+        //assert con el resultado del calculo
+        assertTrue((distanciaReal-crt)<=res);
+        assertTrue(res<=distanciaReal+crt);
+
+
+        //prueba de calculo de distancia entre la torre eiffel y la casa blanca 6163.1584 km
+        //eiffel    48.857890, 2.295179
+        lat1=48.857890;
+        lon1=2.295179;
+        //casa blanca   38.898511, -77.036036
+        lat2=38.898511;
+        lon2=-77.036036;
+        res=gestion.DistanciaKm(lat1,lon1,lat2,lon2);
+        distanciaReal=6163.1584;
+        crt=6;//debido a la concavidad de la tierra, la distancia entre dos puntos varia, como las funtes de informacion
+        // de la distancia generalmente no las tienen en cuenta, se introduce un mayor crt
+        //assert con el resultado del calculo
+        assertTrue((distanciaReal-crt)<=res);
+        assertTrue(res<=distanciaReal+crt);
+
+
+        //prueba de calculo de distancia entre el ayuntamiento de santander y la plaza Dam amsterdam    1182.7113 km
+        //ayuntamiento 43.462175,-3.809989
+        lat1=43.462175;
+        lon1=-3.809989;
+        //plaza Dam   52.372949, 4.893444
+        lat2=52.372949;
+        lon2=4.893444;
+        res=gestion.DistanciaKm(lat1,lon1,lat2,lon2);
+        distanciaReal=1182.7113 ;
+        crt=10;//debido a la concavidad de la tierra, la distancia entre dos puntos varia, como las funtes de informacion
+        // de la distancia generalmente no las tienen en cuenta, se introduce un mayor crt
+        //assert con el resultado del calculo
+        assertTrue((distanciaReal-crt)<=res);
+        assertTrue(res<=distanciaReal+crt);
+
+
+        //prueba de calculo de distancia entre la sagrada familia de barcelona y el monte fuji  10402.1413 km
+        //sagrada familia 41.403308, 2.173937
+        lat1=41.403308;
+        lon1=2.173937;
+        //plaza Dam   35.358101, 138.731941
+        lat2=35.358101;
+        lon2=138.731941;
+        res=gestion.DistanciaKm(lat1,lon1,lat2,lon2);
+        distanciaReal=10402.1413 ;
+        crt=10;//debido a la concavidad de la tierra, la distancia entre dos puntos varia, como las funtes de informacion
+        // de la distancia generalmente no las tienen en cuenta, se introduce un mayor crt
         //assert con el resultado del calculo
         assertTrue((distanciaReal-crt)<=res);
         assertTrue(res<=distanciaReal+crt);
@@ -43,7 +93,7 @@ public class InsertaDistanciaTest extends AndroidTestCase{
 
     @Test
     public void CompruebaEntradas(){
-        IGestionGasolinera gestion = new GestionGasolinera(this.getContext());
+        gestion = new GestionGasolinera(this.getContext());
         double res=0;
         //se comprueba que el parametro latitud cumple las restricciones propias de la ubicacion
         //lat1>=90

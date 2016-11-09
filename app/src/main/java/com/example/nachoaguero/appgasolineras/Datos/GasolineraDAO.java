@@ -29,7 +29,7 @@ public class GasolineraDAO implements IGasolineraDAO{
      * @param lon2 longitud destino
      * @return distancia en km entre las dos posiciones
      */
-    public double DistanciaKm(double lat1, double lon1, double lat2, double lon2){
+    public double DistanciaKm(double lat1, double lon1, double lat2, double lon2){//mas casos de prueaba
         double c=0;
         if(compruebaEntradas(lat1,lon1,lat2,lon2)){
             double dLat = Math.toRadians(lat2 - lat1);
