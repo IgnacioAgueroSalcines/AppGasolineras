@@ -20,9 +20,6 @@
             android:label="Vista detalle">
         </activity>
 
-        <activity android:name=".Presentacion.ObtenPosicionActualActivity"
-            android:label="Vista Posicion actual">
-        </activity>
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
         <meta-data
