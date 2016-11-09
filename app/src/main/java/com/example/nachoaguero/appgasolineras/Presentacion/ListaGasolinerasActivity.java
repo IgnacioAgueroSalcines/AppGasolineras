@@ -56,20 +56,16 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
     double latitudActual;
     double longitudActual;
 
-<<<<<<< HEAD
     //bloque ubicacion
     private LocationManager locationManager;
     private LocationListener listener;
-    private double latitud;
-    private double longitud;
+
 
 
 
     private TextView t;
-    private class Hilo   extends AsyncTask<Void, Void, Boolean> {
-=======
+
     private class Hilo extends AsyncTask<Void, Void, Boolean> {
->>>>>>> US-InsertarDistancia
         Context context;
         ProgressDialog progress;
 
@@ -127,12 +123,8 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
                 res = gestionGasolinera.obtenGasolineras();
             } else {
-<<<<<<< HEAD
                 if(conectadoDatos()){
 
-=======
-                if (conectadoDatos()) {
->>>>>>> US-InsertarDistancia
                     res = gestionGasolinera.obtenGasolineras();
                 } else {
 
@@ -217,12 +209,9 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
     }
 
 
-<<<<<<< HEAD
 
     public class gasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
-=======
-    class gasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
->>>>>>> US-InsertarDistancia
+
 
         private Context context;
         private List<Gasolinera> gasolineras;
@@ -286,14 +275,6 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
     }
 
-<<<<<<< HEAD
-
-
-
-
-
-=======
->>>>>>> US-InsertarDistancia
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -307,8 +288,8 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
             @Override
             public void onLocationChanged(Location location) {
-                latitud=location.getLatitude();
-                longitud=location.getLongitude();
+                latitudActual=location.getLatitude();
+                longitudActual=location.getLongitude();
             }
 
             @Override
@@ -369,7 +350,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             }
         });
     }
-<<<<<<< HEAD
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode){
@@ -405,7 +386,3 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
 }
 
-
-=======
-}
->>>>>>> US-InsertarDistancia
