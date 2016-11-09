@@ -142,7 +142,7 @@
         android:layout_alignBottom="@+id/coordenadas"
         android:layout_alignLeft="@+id/horario_valor"
         android:layout_alignStart="@+id/horario_valor" />
-    
+
 
     <TextView
         android:text="No disponible"
