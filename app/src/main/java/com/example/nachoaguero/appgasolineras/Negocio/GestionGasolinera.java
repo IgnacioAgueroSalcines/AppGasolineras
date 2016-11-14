@@ -37,7 +37,13 @@ public class GestionGasolinera implements IGestionGasolinera {
 
     @Override
     public void ordenaGasolinerasPorPrecio(){
-        Collections.sort(getListaGasolineras());
+        gasolineraDAO.ordenaGasolinerasPorPrecio();
+
+    }
+
+    @Override
+    public void filtraPorCarburante(String carburante){
+        gasolineraDAO.filtraPorCarburante( carburante);
     }
 
     public boolean obtenGasolinerasSinconexion(){return gasolineraDAO.obtenGasolinerasSinconexion();}
@@ -50,5 +56,8 @@ public class GestionGasolinera implements IGestionGasolinera {
 
     }
 
-
+    @Override
+    public void listaResguardo(){
+        gasolineraDAO.listaResguardo();
+    }
 }

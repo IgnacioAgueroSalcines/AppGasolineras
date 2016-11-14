@@ -24,10 +24,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -382,7 +386,45 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_actions, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Boolean res=false;
+        if(item.getItemId()==R.id.filtro_setting){
+            displayPopupWindow();
+            res=true;
+        }
+        return res;
+    }
+
+    public void displayPopupWindow() {
+
+        //LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        //View popupView = layoutInflater.inflate(R.layout.popup, null);
+        PopupWindow popup = new PopupWindow();
+        View layout = getLayoutInflater().inflate(R.layout.popup, null);
+        popup.setContentView(layout);
+        popup.setOutsideTouchable(true);
+        popup.setFocusable(true);
+        popup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+        visualizaTiposCarburante(popup);
+        visualizaMarcas(popup);
+
+    }
+
+    public void visualizaTiposCarburante(PopupWindow popup){
+
+    }
+
+    public void visualizaMarcas(PopupWindow popup){
+
+    }
 
 }
 

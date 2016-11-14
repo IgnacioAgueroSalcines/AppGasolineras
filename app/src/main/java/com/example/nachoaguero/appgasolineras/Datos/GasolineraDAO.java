@@ -17,6 +17,7 @@ import java.util.List;
 
 public class GasolineraDAO implements IGasolineraDAO{
     private List<Gasolinera> listaGasolineras;
+    private List<Gasolinera> listaGasolinerasSoporte;
     private RemoteFetch remoteFetch;
     private Context context;
     private static final double radioTierraKm = 6378.0;
@@ -45,6 +46,50 @@ public class GasolineraDAO implements IGasolineraDAO{
 
     }
 
+    @Override
+    public void ordenaGasolinerasPorPrecio() {
+        Collections.sort(listaGasolineras);
+    }
+
+    @Override
+    public void listaResguardo(){
+        listaGasolinerasSoporte=listaGasolineras;
+    }
+
+    @Override
+    public void filtraPorCarburante(String carburante) {
+
+        for (Gasolinera gasolinera : listaGasolineras) {
+            switch(carburante){
+                case "gasolina95":
+                    if(gasolinera.getGasolina_95()==0){
+                        listaGasolineras.remove(gasolinera);
+                    }
+                    break;
+                case "gasolina98":
+                    if(gasolinera.getGasolina_98()==0){
+                        listaGasolineras.remove(gasolinera);
+                    }
+                    break;
+                case "diesel":
+                    if(gasolinera.getGasoleo_a()==0){
+                        listaGasolineras.remove(gasolinera);
+                    }
+                    break;
+                case "dieselSuper":
+                    if(gasolinera.getGasoleoSuper()==0){
+                        listaGasolineras.remove(gasolinera);
+                    }
+                    break;
+                default:
+
+            }
+
+        }
+        ordenaGasolinerasPorPrecio();
+
+    }
+
     public boolean compruebaEntradas(double lat1, double lon1, double lat2, double lon2){
         boolean res=false;
         if(lat1>=-90 && lat1<=90){
@@ -70,7 +115,7 @@ public class GasolineraDAO implements IGasolineraDAO{
             remoteFetch.getJSON();
             listaGasolineras = ParserJSON.readJsonStream(remoteFetch.getBufferedDataGasolineras());
             remoteFetch.writeBuffer(context);
-
+            listaResguardo();
 
 
             Log.d("ENTRA", "Obten gasolineras:"+listaGasolineras.size());
@@ -91,6 +136,7 @@ public class GasolineraDAO implements IGasolineraDAO{
             remoteFetch.readBuffer(context);
             BufferedInputStream buffer=remoteFetch.getBufferedDataGasolineras();
             listaGasolineras = ParserJSON.readJsonStream(buffer);
+            listaResguardo();
 
             Log.d("ENTRA", "Obten gasolineras:"+listaGasolineras.size());
             return true;
