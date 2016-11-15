@@ -1,6 +1,7 @@
 package com.example.nachoaguero.appgasolineras.Presentacion;
 
 import android.app.Activity;
+import android.text.Layout;
 import android.util.Log;
 
 import android.app.ProgressDialog;
@@ -32,6 +33,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -63,6 +65,9 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
     //bloque ubicacion
     private LocationManager locationManager;
     private LocationListener listener;
+
+    //spinners
+    private Spinner listaCarburantes;
 
 
 
@@ -403,16 +408,39 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         return res;
     }
 
-    public void displayPopupWindow() {
+    public void cargaSpinners(View view){
 
-        //LayoutInflater layoutInflater = (LayoutInflater)getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        //View popupView = layoutInflater.inflate(R.layout.popup, null);
-        PopupWindow popup = new PopupWindow();
+        listaCarburantes=(Spinner)view.findViewById(R.id.spinnerCarburante);
+
+       ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.tiposCarburante,
+                android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        listaCarburantes.setAdapter(adapter);
+/**
+        listaCarburantes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(ListaGasolinerasActivity.this,listaCarburantes.getSelectedItem().toString(),Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+ */
+    }
+
+    public void displayPopupWindow() {
+        PopupWindow popup = new PopupWindow(this);
+
         View layout = getLayoutInflater().inflate(R.layout.popup, null);
         popup.setContentView(layout);
         popup.setOutsideTouchable(true);
         popup.setFocusable(true);
         popup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+        cargaSpinners(popup.getContentView());
         visualizaTiposCarburante(popup);
         visualizaMarcas(popup);
 

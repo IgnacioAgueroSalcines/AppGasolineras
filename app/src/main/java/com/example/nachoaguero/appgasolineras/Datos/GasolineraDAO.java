@@ -58,26 +58,26 @@ public class GasolineraDAO implements IGasolineraDAO{
 
     @Override
     public void filtraPorCarburante(String carburante) {
-
+        listaGasolineras=listaGasolinerasSoporte;
         for (Gasolinera gasolinera : listaGasolineras) {
             switch(carburante){
                 case "gasolina95":
-                    if(gasolinera.getGasolina_95()==0){
+                    if(gasolinera.getGasolina_95()==Integer.MAX_VALUE){
                         listaGasolineras.remove(gasolinera);
                     }
                     break;
                 case "gasolina98":
-                    if(gasolinera.getGasolina_98()==0){
+                    if(gasolinera.getGasolina_98()==Integer.MAX_VALUE){
                         listaGasolineras.remove(gasolinera);
                     }
                     break;
                 case "diesel":
-                    if(gasolinera.getGasoleo_a()==0){
+                    if(gasolinera.getGasoleo_a()==Integer.MAX_VALUE){
                         listaGasolineras.remove(gasolinera);
                     }
                     break;
                 case "dieselSuper":
-                    if(gasolinera.getGasoleoSuper()==0){
+                    if(gasolinera.getGasoleoSuper()==Integer.MAX_VALUE){
                         listaGasolineras.remove(gasolinera);
                     }
                     break;
