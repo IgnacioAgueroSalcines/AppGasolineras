@@ -145,12 +145,12 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 if (conectadoDatos() == false && conectadoWifi() == false) {
                     TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
                     actualizado.setText("No Actualizado. Datos previos");
-<<<<<<< HEAD
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_SHORT).show();
-=======
+
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_LONG).show();
+
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion)
                             +getResources().getString(R.string.ubicacion_default), Toast.LENGTH_LONG).show();
->>>>>>> TICKET-InterfazS003
+
 
                 } else {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_obtenidos), Toast.LENGTH_LONG).show();
