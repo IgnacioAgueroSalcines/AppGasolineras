@@ -1,15 +1,5 @@
 projectKey=app:gasolineras
 serverUrl=http://localhost:9000
 dashboardUrl=http://localhost:9000/dashboard/index/app:gasolineras
-<<<<<<< HEAD
-<<<<<<< HEAD
-ceTaskId=AVgBr3F-PyBqSfRNZ_9J
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVgBr3F-PyBqSfRNZ_9J
-=======
-ceTaskId=AVf8tRkKOxHYf7Wj-Zuy
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVf8tRkKOxHYf7Wj-Zuy
->>>>>>> 43ac3736cc2b8b5a984a27ddbc432462af787506
-=======
-ceTaskId=AVhKR4H0DrXL_jpTMxoq
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVhKR4H0DrXL_jpTMxoq
->>>>>>> US-InsertarDistancia
+ceTaskId=AVhsSgV6XHg9qKIaCfuP
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVhsSgV6XHg9qKIaCfuP

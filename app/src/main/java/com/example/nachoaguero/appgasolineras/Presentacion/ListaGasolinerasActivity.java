@@ -171,7 +171,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             }
 
             //Comprobacion de que no se ha detectado correctamente la ubicacion
-            if(latitudActual==0 && longitudActual==0){
+            if((Math.abs(latitudActual-0.0)<0.000000001)&& (Math.abs(longitudActual-0.0)<0.000000001)){
                 Toast.makeText(getApplicationContext(), "Ubicacion no detectada \nSe mostrara la distancia respecto al ayto de Santander", Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(), "Pruebe a reiniciar la aplicacion para actualizar su ubicacion", Toast.LENGTH_SHORT).show();
             }
