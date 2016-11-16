@@ -149,7 +149,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_LONG).show();
 
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion)
-                            +getResources().getString(R.string.ubicacion_default), Toast.LENGTH_LONG).show();
+                            , Toast.LENGTH_LONG).show();
 
 
                 } else {
