@@ -33,7 +33,7 @@ public class FilesOperations {
             out.close();
             in.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("Error","ha fallado para escribir el Input Stream ",e);
         }//try
     }//writeInputStream
 
@@ -43,7 +43,7 @@ public class FilesOperations {
             File file = new File(c.getFilesDir(), "inputStreamJson");
             in = new FileInputStream(file);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("Error","ha fallado para leer el Input Stream ",e);
         }
         return in;
         //writeInputStream

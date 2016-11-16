@@ -33,14 +33,16 @@
     <TextView
         android:id="@+id/distancia"
         android:text="Distancia:"
+        android:textSize="15sp"
         android:textAlignment="textEnd"
         android:gravity="end"
-        android:textColor="@color/colorDireccion"
+        android:textColor="@color/colorDistancia"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/lowSection"
         android:layout_alignParentRight="true"
-        android:textSize="12sp" />
+        android:textStyle="bold"
+        />
 
     <LinearLayout
         android:id="@+id/infoSection"

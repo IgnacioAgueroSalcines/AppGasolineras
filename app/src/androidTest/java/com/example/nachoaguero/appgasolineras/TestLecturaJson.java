@@ -36,7 +36,7 @@ public class TestLecturaJson {
         }
     }
     @Test
-    public void testStatusConsulta() throws Exception{
+    public void testStatusConsulta() throws IOException{
         RemoteFetch r = new RemoteFetch();
         r.getJSON();
         String status = ParserJSON.checkStatus(r.getBufferedDataGasolineras());
@@ -44,7 +44,7 @@ public class TestLecturaJson {
     }
 
     @Test
-    public void useAppContext() throws Exception {
+    public void useAppContext() throws IOException {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 

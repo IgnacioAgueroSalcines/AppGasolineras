@@ -146,10 +146,10 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                     TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
                     actualizado.setText("No Actualizado. Datos previos");
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion)
-                            +getResources().getString(R.string.ubicacion_default), Toast.LENGTH_SHORT).show();
+                            +getResources().getString(R.string.ubicacion_default), Toast.LENGTH_LONG).show();
 
                 } else {
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_obtenidos), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_obtenidos), Toast.LENGTH_LONG).show();
                 }
 
             } else {
@@ -158,14 +158,14 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                     actualizado.setText("No Actualizado. Sin acceso a los datos");
                     TextView gasolina = (TextView) findViewById(R.id.textTipoGasolina);
                     gasolina.setText(" ");
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_no_obtenidos), Toast.LENGTH_LONG).show();
 
                 } else {
                     TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
                     actualizado.setText("No Actualizado. Sin acceso a internet");
                     TextView gasolina = (TextView) findViewById(R.id.textTipoGasolina);
                     gasolina.setText(" ");
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_LONG).show();
 
 
                 }
