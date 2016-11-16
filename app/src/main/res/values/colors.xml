@@ -6,4 +6,6 @@
 
     <color name="colorPrice">#0226da</color>
     <color name="colorDireccion">#aeb7ae</color>
+    <color name="colorDistancia">#ffae00</color>
+
 </resources>
