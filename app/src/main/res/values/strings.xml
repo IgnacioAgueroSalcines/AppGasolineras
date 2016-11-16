@@ -3,5 +3,5 @@
     <string name="datos_no_obtenidos">Datos no obtenidos.</string>
     <string name="no_conexion">No hay conexión disponible para obtener los datos.</string>
     <string name="datos_obtenidos">Datos obtenidos con éxito.</string>
-    <string name="ubicacion_default">Se tomará como ubicación actual el ayuntamiento de Santander.</string>
+
 </resources>

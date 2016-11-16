@@ -145,8 +145,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 if (conectadoDatos() == false && conectadoWifi() == false) {
                     TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
                     actualizado.setText("No Actualizado. Datos previos");
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion)
-                            +getResources().getString(R.string.ubicacion_default), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_SHORT).show();
 
                 } else {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_obtenidos), Toast.LENGTH_SHORT).show();
@@ -169,6 +168,12 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
 
                 }
+            }
+
+            //Comprobacion de que no se ha detectado correctamente la ubicacion
+            if(latitudActual==0 && longitudActual==0){
+                Toast.makeText(getApplicationContext(), "Ubicacion no detectada \nSe mostrara la distancia respecto al ayto de Santander", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Pruebe a reiniciar la aplicacion para actualizar su ubicacion", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -261,6 +266,10 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             if ((Math.abs(latitudActual-0.0)<0.000000001)&& (Math.abs(longitudActual-0.0)<0.000000001)) {
                 //Calculo de la distancia respecto al centro de Santander
                 //Posicion ayuntamiento santander: 43.462175, -3.809989
+                //Toast.makeText(getApplicationContext(), "Ubicacion no detectada \nSe mostrara la distancia respecto al ayto de Santander", Toast.LENGTH_SHORT).show();
+                distancia.setText(String.format("%.2f", gestionGasolinera.DistanciaKm(43.462175, -3.809989,
+                        gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
+                //Toast.makeText(getApplicationContext(), "Pruebe a reiniciar la aplicacion para actualizar su ubicacion", Toast.LENGTH_SHORT).show();
                 distancia.setText(String.format("%.2f", gestionGasolinera.DistanciaKm(43.462175, -3.809989,
                         gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
             } else {
@@ -385,4 +394,3 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
 
 }
-
