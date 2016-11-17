@@ -86,7 +86,7 @@ public class ParserJSON{
         boolean add = false;
         String rotulo="", localidad ="", provincia="",direccion="", horario="";
         int id = -1;
-        double gasoleoA = Integer.MAX_VALUE, sinplomo95 =Integer.MAX_VALUE, gasoleoSuper=Integer.MAX_VALUE, gasolina98=Integer.MAX_VALUE,longitud=Integer.MAX_VALUE, latitud=Integer.MAX_VALUE;
+        double gasoleoA = Double.MAX_VALUE, sinplomo95 =Double.MAX_VALUE, gasoleoSuper=Double.MAX_VALUE, gasolina98=Double.MAX_VALUE,longitud=Double.MAX_VALUE, latitud=10000;
 
         while(reader.hasNext()){
             String name = reader.nextName();

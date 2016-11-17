@@ -67,6 +67,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
     private LocationListener listener;
 
     //spinners
+    private Spinner listaMarcas;
     private Spinner listaCarburantes;
     private int check=0;
     //popup
@@ -428,10 +429,10 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 check=check+1;
                 if(check>2) {
                     Toast.makeText(ListaGasolinerasActivity.this, listaCarburantes.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
-                    gestionGasolinera.filtraPorCarburante(listaCarburantes.getSelectedItem().toString());
-                    List<Gasolinera> gas = gestionGasolinera.getListaGasolineras();
+                    List<Gasolinera> gas = gestionGasolinera.filtraPorCarburante(listaCarburantes.getSelectedItem().toString());
                     ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(ListaGasolinerasActivity.this, 0, gas);
                     list.setAdapter(adapter);
+                    popup.dismiss();
                     check=0;
                 }
             }
@@ -449,20 +450,20 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
 
 
-        listaCarburantes=(Spinner)view.findViewById(R.id.spinnerMarca);
+        listaMarcas=(Spinner)view.findViewById(R.id.spinnerMarca);
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.marcas,
                 android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        listaCarburantes.setAdapter(adapter);
-        listaCarburantes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        listaMarcas.setAdapter(adapter);
+        listaMarcas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 check=check+1;
                 if(check>2){
-                    Toast.makeText(ListaGasolinerasActivity.this,listaCarburantes.getSelectedItem().toString(),Toast.LENGTH_LONG).show();
-                    List<Gasolinera> gas = gestionGasolinera.filtraPorMarca(listaCarburantes.getSelectedItem().toString());
+                    Toast.makeText(ListaGasolinerasActivity.this,listaMarcas.getSelectedItem().toString(),Toast.LENGTH_LONG).show();
+                    List<Gasolinera> gas = gestionGasolinera.filtraPorMarca(listaMarcas.getSelectedItem().toString());
                     ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(ListaGasolinerasActivity.this, 0, gas);
                     list.setAdapter(adapter);
                     popup.dismiss();

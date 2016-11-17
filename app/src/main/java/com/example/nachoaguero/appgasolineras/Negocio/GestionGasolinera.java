@@ -48,30 +48,28 @@ public class GestionGasolinera implements IGestionGasolinera {
         listaGasolinerasSoporte=gasolineraDAO.getListaGasolineras();
     }
 
-    public void filtraPorCarburante(String carburante) {
+    public List<Gasolinera> filtraPorCarburante(String carburante) {
         gasolineraDAO.setListaGasolineras(listaGasolinerasSoporte);
         List<Gasolinera> listaGasolineras=gasolineraDAO.getListaGasolineras();
+        List<Gasolinera> filtrada=new ArrayList<Gasolinera>();
         for (int i=0;i<listaGasolineras.size();i++) {
             switch(carburante){
                 case "Gasolina 95":
-                    if(listaGasolineras.get(i).getGasolina_95()==Integer.MAX_VALUE){
-                        listaGasolineras.remove(listaGasolineras.get(i));
+                    if(listaGasolineras.get(i).getGasolina_95()!=Double.MAX_VALUE){
+                        filtrada.add(listaGasolineras.get(i));
                     }
                     break;
                 case "Gasolina 98":
-                    if(listaGasolineras.get(i).getGasolina_98()==Integer.MAX_VALUE){
-                        listaGasolineras.remove(listaGasolineras.get(i));
-                    }
+                    if(listaGasolineras.get(i).getGasolina_98()!=Double.MAX_VALUE){
+                        filtrada.add(listaGasolineras.get(i));                    }
                     break;
                 case "Diésel":
-                    if(listaGasolineras.get(i).getGasoleo_a()==Integer.MAX_VALUE){
-                        listaGasolineras.remove(listaGasolineras.get(i));
-                    }
+                    if(listaGasolineras.get(i).getGasoleo_a()!=Double.MAX_VALUE){
+                        filtrada.add(listaGasolineras.get(i));                    }
                     break;
                 case "Diésel Super":
-                    if(listaGasolineras.get(i).getGasoleoSuper()==Integer.MAX_VALUE){
-                        listaGasolineras.remove(listaGasolineras.get(i));
-                    }
+                    if(listaGasolineras.get(i).getGasoleoSuper()!=Double.MAX_VALUE){
+                        filtrada.add(listaGasolineras.get(i));                    }
                     break;
                 default:
 
@@ -79,7 +77,7 @@ public class GestionGasolinera implements IGestionGasolinera {
 
         }
        // ordenaGasolinerasPorPrecio();
-
+        return filtrada;
     }
 
     public List<Gasolinera> filtraPorMarca(String marca){
@@ -93,40 +91,33 @@ public class GestionGasolinera implements IGestionGasolinera {
                     }
                     break;
                 case "Avia":
-                    if(!listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("avia")){
-                        listaGasolineras.remove(i);
-                    }
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("avia")){
+                        filtrada.add(listaGasolineras.get(i));                    }
                     break;
                 case "Campsa":
-                    if(!listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("campsa")){
-                        listaGasolineras.remove(i);
-                    }
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("campsa")){
+                        filtrada.add(listaGasolineras.get(i));                    }
                     break;
                 case "Carrefour":
-                    if(!listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("carrefour")){
-                        listaGasolineras.remove(i);
-                    }
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("carrefour")){
+                        filtrada.add(listaGasolineras.get(i));                    }
                     break;
                 case "Cepsa":
-                    if(!listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("cepsa")){
-                        listaGasolineras.remove(i);
-                    }
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("cepsa")){
+                        filtrada.add(listaGasolineras.get(i));                    }
                     break;
                 case "Galp":
-                    if(!listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("galp")){
-                        listaGasolineras.remove(i);
-                    }
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("galp")){
+                        filtrada.add(listaGasolineras.get(i));                    }
                     break;
                 case "Petronor":
-                    if(!listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("petronor")){
-                        listaGasolineras.remove(i);
-                    }
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("petronor")){
+                        filtrada.add(listaGasolineras.get(i));                    }
                     break;
                 case "Shell":
-                    if(!listaGasolineras.get(i).getRotulo().trim().toLowerCase()
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase()
                             .equals("shell")){
-                        listaGasolineras.remove(i);
-                    }
+                        filtrada.add(listaGasolineras.get(i));                    }
                     break;
                 default:
                     break;
