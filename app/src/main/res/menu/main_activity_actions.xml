@@ -2,10 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
     <!-- Search, should appear as action button -->
-    <item android:id="@+id/detectar_ubicacion"
+    <item android:id="@+id/ordenarKm"
 
-        android:title="detectar ubicacion"
+        android:title="OrdenKm"
+        android:icon="@drawable/km"
         android:orderInCategory="1"
+        yourapp:showAsAction="ifRoom"  />
+
+    <item android:id="@+id/ordenarPrecio"
+
+        android:title="Orden€"
+        android:icon="@drawable/euro"
+        android:orderInCategory="2"
         yourapp:showAsAction="ifRoom"  />
 
     ...
