@@ -149,7 +149,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_LONG).show();
 
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion)
-                            +getResources().getString(R.string.ubicacion_default), Toast.LENGTH_LONG).show();
+                            , Toast.LENGTH_LONG).show();
 
 
                 } else {
@@ -177,8 +177,8 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
             //Comprobacion de que no se ha detectado correctamente la ubicacion
             if(latitudActual==0 && longitudActual==0){
-                Toast.makeText(getApplicationContext(), "Ubicacion no detectada \nSe mostrara la distancia respecto al ayto de Santander", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), "Pruebe a reiniciar la aplicacion para actualizar su ubicacion", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Ubicacion no detectada \nSe mostrara la distancia respecto al ayto de Santander", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Pruebe a reiniciar la aplicacion para actualizar su ubicacion", Toast.LENGTH_LONG).show();
             }
 
         }
