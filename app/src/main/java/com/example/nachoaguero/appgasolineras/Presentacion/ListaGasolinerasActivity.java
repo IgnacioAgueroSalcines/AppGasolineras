@@ -405,10 +405,18 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Boolean res=false;
-        if(item.getItemId()==R.id.filtro_setting){
-            displayPopupWindow();
-            res=true;
+        switch (item.getItemId()){
+            case R.id.filtro_setting:
+                displayPopupWindow();
+                res=true;
+            break;
+            case R.id.recarga:
+                visualizaListaInicial();
+                res=true;
+            break;
+            default:
         }
+
         return res;
     }
 
@@ -493,6 +501,12 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         cargaSpinnerCarburantes(popup.getContentView());
         cargaSpinnerMarcas(popup.getContentView());
 
+    }
+
+    public void visualizaListaInicial(){
+        List<Gasolinera> gas = gestionGasolinera.getListaResguardo();
+        ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(ListaGasolinerasActivity.this, 0, gas);
+        list.setAdapter(adapter);
     }
 
 }

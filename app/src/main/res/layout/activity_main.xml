@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="textEnd"
         android:gravity="end"
-        android:text="Gasolina"
+        android:text="Carburante"
         android:textSize="17sp"
         android:id="@+id/textTipoGasolina"
         android:layout_alignParentTop="true"

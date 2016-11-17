@@ -19,7 +19,7 @@ public interface IGestionGasolinera {
     List<Gasolinera> filtraPorCarburante(String carburante);
     List<Gasolinera> filtraPorMarca(String marca);
     void listaResguardo();
-
+    List<Gasolinera> getListaResguardo();
 
     double DistanciaKm(double lat1, double lon1, double lat2, double lon2);
 

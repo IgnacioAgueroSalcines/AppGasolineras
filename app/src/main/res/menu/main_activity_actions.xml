@@ -9,4 +9,9 @@
         android:title="Filtros"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/recarga"
+        android:title="Recargar Lista"
+        app:showAsAction="never" />
+
 </menu>

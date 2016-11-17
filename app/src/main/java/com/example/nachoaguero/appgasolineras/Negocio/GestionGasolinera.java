@@ -48,8 +48,11 @@ public class GestionGasolinera implements IGestionGasolinera {
         listaGasolinerasSoporte=gasolineraDAO.getListaGasolineras();
     }
 
+    public List<Gasolinera> getListaResguardo(){
+        return listaGasolinerasSoporte;
+    }
+
     public List<Gasolinera> filtraPorCarburante(String carburante) {
-        gasolineraDAO.setListaGasolineras(listaGasolinerasSoporte);
         List<Gasolinera> listaGasolineras=gasolineraDAO.getListaGasolineras();
         List<Gasolinera> filtrada=new ArrayList<Gasolinera>();
         for (int i=0;i<listaGasolineras.size();i++) {
@@ -72,11 +75,12 @@ public class GestionGasolinera implements IGestionGasolinera {
                         filtrada.add(listaGasolineras.get(i));                    }
                     break;
                 default:
-
+                    break;
             }
 
         }
-       // ordenaGasolinerasPorPrecio();
+       ordenaGasolinerasPorPrecio();
+        gasolineraDAO.setListaGasolineras(filtrada);
         return filtrada;
     }
 
@@ -119,12 +123,27 @@ public class GestionGasolinera implements IGestionGasolinera {
                             .equals("shell")){
                         filtrada.add(listaGasolineras.get(i));                    }
                     break;
+                case "Otros":
+                    if(!listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("petronor") &&
+                    !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("repsol")   &&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("avia")&&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("campsa")&&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("carrefour")&&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("cepsa")&&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("galp")&&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("petronor")&&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("shell")
+                            ){
+                        filtrada.add(listaGasolineras.get(i));
+                    }
+                    break;
                 default:
                     break;
             }
 
         }
-       // ordenaGasolinerasPorPrecio();
+        ordenaGasolinerasPorPrecio();
+        gasolineraDAO.setListaGasolineras(filtrada);
         return filtrada;
     }
 

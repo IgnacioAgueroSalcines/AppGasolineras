@@ -1,7 +1,5 @@
 package com.example.nachoaguero.appgasolineras.Datos;
 
-import java.util.Comparator;
-
 /**
  * Created by deivid on 18/10/16.
  */
@@ -31,12 +29,13 @@ public class Gasolinera implements Comparable<Gasolinera> {
         this.gasoleo_a = gasoleo_a;
         this.gasolina_95 = gasolina_95;
         this.rotulo = rotulo;
-        this.gasolina_98=gasolina_98;
-        this.horario=horario;
-        this.gasoleoSuper=gasoleoSuper;
-        this.latitud=latitud;
-        this.longitud=longitud;
+        this.gasolina_98 = gasolina_98;
+        this.horario = horario;
+        this.gasoleoSuper = gasoleoSuper;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
+
     public int getIDEESS()
     {
         return IDEESS;
@@ -142,20 +141,45 @@ public class Gasolinera implements Comparable<Gasolinera> {
         this.longitud = longitud;
     }
 
+
+
+
     @Override
     public int compareTo(Gasolinera another) {
-
-            if(this.getGasolina_95()>another.getGasolina_95())
-                return 1;
-            else if(this.getGasolina_95()<another.getGasolina_95())
-                return -1;
-            else
-                return 0;
-
+        String tipo = "gasolina95";
+        switch (tipo) {
+            case ("gasolina95"):
+                if (this.getGasolina_95() > another.getGasolina_95())
+                    return 1;
+                else if (this.getGasolina_95() < another.getGasolina_95())
+                    return -1;
+                else
+                    return 0;
+            case ("gasolina98"):
+                if (this.getGasolina_98() > another.getGasolina_98())
+                    return 1;
+                else if (this.getGasolina_98() < another.getGasolina_98())
+                    return -1;
+                else
+                    return 0;
+            case ("diesel"):
+                if (this.getGasoleo_a() > another.getGasoleo_a())
+                    return 1;
+                else if (this.getGasoleo_a() < another.getGasoleo_a())
+                    return -1;
+                else
+                    return 0;
+            case ("super"):
+                if (this.getGasoleoSuper() > another.getGasoleoSuper())
+                    return 1;
+                else if (this.getGasoleoSuper() < another.getGasoleoSuper())
+                    return -1;
+                else
+                    return 0;
+        }
+        return 0;
     }
-}
-
-
+    }
 
 
 
