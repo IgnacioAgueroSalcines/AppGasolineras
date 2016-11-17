@@ -68,6 +68,9 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
     //spinners
     private Spinner listaCarburantes;
+    private int check=0;
+    //popup
+    private PopupWindow popup;
 
 
 
@@ -408,20 +411,29 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         return res;
     }
 
-    public void cargaSpinners(View view){
+    public void cargaSpinnerCarburantes(View view){
+
+
 
         listaCarburantes=(Spinner)view.findViewById(R.id.spinnerCarburante);
 
-       ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.tiposCarburante,
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.tiposCarburante,
                 android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         listaCarburantes.setAdapter(adapter);
-/**
         listaCarburantes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ListaGasolinerasActivity.this,listaCarburantes.getSelectedItem().toString(),Toast.LENGTH_LONG).show();
+                check=check+1;
+                if(check>2) {
+                    Toast.makeText(ListaGasolinerasActivity.this, listaCarburantes.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+                    gestionGasolinera.filtraPorCarburante(listaCarburantes.getSelectedItem().toString());
+                    List<Gasolinera> gas = gestionGasolinera.getListaGasolineras();
+                    ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(ListaGasolinerasActivity.this, 0, gas);
+                    list.setAdapter(adapter);
+                    check=0;
+                }
             }
 
             @Override
@@ -429,28 +441,56 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
             }
         });
- */
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+    }
+
+    public void cargaSpinnerMarcas(View view){
+
+
+
+        listaCarburantes=(Spinner)view.findViewById(R.id.spinnerMarca);
+
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.marcas,
+                android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        listaCarburantes.setAdapter(adapter);
+        listaCarburantes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                check=check+1;
+                if(check>2){
+                    Toast.makeText(ListaGasolinerasActivity.this,listaCarburantes.getSelectedItem().toString(),Toast.LENGTH_LONG).show();
+                    List<Gasolinera> gas = gestionGasolinera.filtraPorMarca(listaCarburantes.getSelectedItem().toString());
+                    ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(ListaGasolinerasActivity.this, 0, gas);
+                    list.setAdapter(adapter);
+                    popup.dismiss();
+                    check=0;
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
     }
 
     public void displayPopupWindow() {
-        PopupWindow popup = new PopupWindow(this);
+         popup = new PopupWindow(this);
 
         View layout = getLayoutInflater().inflate(R.layout.popup, null);
         popup.setContentView(layout);
         popup.setOutsideTouchable(true);
         popup.setFocusable(true);
         popup.showAtLocation(layout, Gravity.CENTER, 0, 0);
-        cargaSpinners(popup.getContentView());
-        visualizaTiposCarburante(popup);
-        visualizaMarcas(popup);
-
-    }
-
-    public void visualizaTiposCarburante(PopupWindow popup){
-
-    }
-
-    public void visualizaMarcas(PopupWindow popup){
+        cargaSpinnerCarburantes(popup.getContentView());
+        cargaSpinnerMarcas(popup.getContentView());
 
     }
 

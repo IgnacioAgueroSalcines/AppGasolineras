@@ -17,92 +17,11 @@ import java.util.List;
 
 public class GasolineraDAO implements IGasolineraDAO{
     private List<Gasolinera> listaGasolineras;
-    private List<Gasolinera> listaGasolinerasSoporte;
     private RemoteFetch remoteFetch;
     private Context context;
-    private static final double radioTierraKm = 6378.0;
 
-    /**
-     * Calcula la distancia en linea recta entre dos posiciones geográficas
-     * @param lat1 latitud origen
-     * @param lon1 longitud origen
-     * @param lat2 latitud destino
-     * @param lon2 longitud destino
-     * @return distancia en km entre las dos posiciones
-     */
-    public double DistanciaKm(double lat1, double lon1, double lat2, double lon2){//mas casos de prueaba
-        double c=0;
-        if(compruebaEntradas(lat1,lon1,lat2,lon2)){
-            double dLat = Math.toRadians(lat2 - lat1);
-            double dLon = Math.toRadians(lon2 - lon1);
-            lat1 = Math.toRadians(lat1);
-            lat2 = Math.toRadians(lat2);
 
-            double a = Math.pow(Math.sin(dLat / 2),2) + Math.pow(Math.sin(dLon / 2),2) * Math.cos(lat1) * Math.cos(lat2);
-            c = 2 * Math.asin(Math.sqrt(a));
-        }
 
-        return radioTierraKm * c;
-
-    }
-
-    @Override
-    public void ordenaGasolinerasPorPrecio() {
-        Collections.sort(listaGasolineras);
-    }
-
-    @Override
-    public void listaResguardo(){
-        listaGasolinerasSoporte=listaGasolineras;
-    }
-
-    @Override
-    public void filtraPorCarburante(String carburante) {
-        listaGasolineras=listaGasolinerasSoporte;
-        for (Gasolinera gasolinera : listaGasolineras) {
-            switch(carburante){
-                case "gasolina95":
-                    if(gasolinera.getGasolina_95()==Integer.MAX_VALUE){
-                        listaGasolineras.remove(gasolinera);
-                    }
-                    break;
-                case "gasolina98":
-                    if(gasolinera.getGasolina_98()==Integer.MAX_VALUE){
-                        listaGasolineras.remove(gasolinera);
-                    }
-                    break;
-                case "diesel":
-                    if(gasolinera.getGasoleo_a()==Integer.MAX_VALUE){
-                        listaGasolineras.remove(gasolinera);
-                    }
-                    break;
-                case "dieselSuper":
-                    if(gasolinera.getGasoleoSuper()==Integer.MAX_VALUE){
-                        listaGasolineras.remove(gasolinera);
-                    }
-                    break;
-                default:
-
-            }
-
-        }
-        ordenaGasolinerasPorPrecio();
-
-    }
-
-    public boolean compruebaEntradas(double lat1, double lon1, double lat2, double lon2){
-        boolean res=false;
-        if(lat1>=-90 && lat1<=90){
-            if(lat2>=-90 && lat2<=90){
-                if(lon1>=-180 && lon1<=180){
-                    if(lon2>=-180 && lon2<=180){
-                        res = true;
-                    }
-                }
-            }
-        }
-        return res;
-    }
 
 
     public GasolineraDAO(Context _context){
@@ -115,7 +34,6 @@ public class GasolineraDAO implements IGasolineraDAO{
             remoteFetch.getJSON();
             listaGasolineras = ParserJSON.readJsonStream(remoteFetch.getBufferedDataGasolineras());
             remoteFetch.writeBuffer(context);
-            listaResguardo();
 
 
             Log.d("ENTRA", "Obten gasolineras:"+listaGasolineras.size());
@@ -136,7 +54,7 @@ public class GasolineraDAO implements IGasolineraDAO{
             remoteFetch.readBuffer(context);
             BufferedInputStream buffer=remoteFetch.getBufferedDataGasolineras();
             listaGasolineras = ParserJSON.readJsonStream(buffer);
-            listaResguardo();
+
 
             Log.d("ENTRA", "Obten gasolineras:"+listaGasolineras.size());
             return true;
@@ -149,5 +67,9 @@ public class GasolineraDAO implements IGasolineraDAO{
 
     public List<Gasolinera> getListaGasolineras(){
         return listaGasolineras;
+    }
+
+    public void setListaGasolineras(List<Gasolinera> lista) {
+        listaGasolineras=lista;
     }
 }

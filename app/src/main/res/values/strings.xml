@@ -5,11 +5,21 @@
     <string name="datos_obtenidos">Datos obtenidos con éxito.</string>
     <string name="ubicacion_default">Se tomará como ubicación actual el ayuntamiento de Santander.</string>
     <string name="action_settings"></string>
-    <string name="textoCarburantes">Opciones</string>
     <string-array name="tiposCarburante">
         <item>Gasolina 95</item>
         <item>Gasolina 98</item>
         <item>Diésel</item>
         <item>Diésel Super</item>
+    </string-array>
+    <string-array name="marcas">
+        <item>Carrefour</item>
+        <item>Campsa</item>
+        <item>Avia</item>
+        <item>Cepsa</item>
+        <item>Galp</item>
+        <item>Petronor</item>
+        <item>Repsol</item>
+        <item>Shell</item>
+        <item>Otros</item>
     </string-array>
 </resources>

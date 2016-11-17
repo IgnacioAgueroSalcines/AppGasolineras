@@ -17,6 +17,7 @@ public interface IGestionGasolinera {
 
     void ordenaGasolinerasPorPrecio();
     void filtraPorCarburante(String carburante);
+    List<Gasolinera> filtraPorMarca(String marca);
     void listaResguardo();
 
 

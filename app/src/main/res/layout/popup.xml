@@ -3,6 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:background="@android:color/white"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="vertical" >
+
     <TextView
         android:text="Elija el tipo de carburante:"
         android:layout_width="wrap_content"
@@ -14,10 +27,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinnerCarburante"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:entries="@array/tiposCarburante">
-    </Spinner>
+        android:spinnerMode="dialog"/>
+
+
 
     <TextView
         android:text="Elija la marca:"
@@ -26,4 +38,12 @@
         android:id="@+id/marcaText"
         android:layout_weight="1" />
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerMarca"
+        android:spinnerMode="dialog"/>
+
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
