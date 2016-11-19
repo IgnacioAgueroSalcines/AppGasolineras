@@ -13,6 +13,7 @@ import java.util.List;
 import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 import com.example.nachoaguero.appgasolineras.Datos.GasolineraDAO;
 import com.example.nachoaguero.appgasolineras.Datos.IGasolineraDAO;
+import com.example.nachoaguero.appgasolineras.Utilities.ObjetoComparable;
 import com.example.nachoaguero.appgasolineras.Utilities.ParserJSON;
 import com.example.nachoaguero.appgasolineras.Utilities.RemoteFetch;
 
@@ -22,9 +23,10 @@ public class GestionGasolinera implements IGestionGasolinera {
     private IGasolineraDAO gasolineraDAO;
     private List<Gasolinera> listaGasolinerasSoporte;
     private static final double radioTierraKm = 6378.0;
+    private String tipoCarburanteActivo;
 
     public GestionGasolinera(Context context){
-
+        tipoCarburanteActivo="gasolina95";
         gasolineraDAO=new GasolineraDAO(context);
     }
 
@@ -39,9 +41,13 @@ public class GestionGasolinera implements IGestionGasolinera {
         return gasolineraDAO.getListaGasolineras();
     }//getListadoGasolineras
 
+    public void setListaGasolineras(List<Gasolinera> lista) {
+         gasolineraDAO.setListaGasolineras(lista);
+    }
 
-    public void ordenaGasolinerasPorPrecio(){
-        Collections.sort(gasolineraDAO.getListaGasolineras());
+    public void ordenaGasolinerasPorPrecio(String tipo){
+       ObjetoComparable o= new ObjetoComparable(tipo);
+       Collections.sort(gasolineraDAO.getListaGasolineras(),o);
     }
 
     public void listaResguardo(){
@@ -79,7 +85,7 @@ public class GestionGasolinera implements IGestionGasolinera {
             }
 
         }
-       ordenaGasolinerasPorPrecio();
+        tipoCarburanteActivo=quitaEspacioAcentos(carburante);
         gasolineraDAO.setListaGasolineras(filtrada);
         return filtrada;
     }
@@ -142,7 +148,7 @@ public class GestionGasolinera implements IGestionGasolinera {
             }
 
         }
-        ordenaGasolinerasPorPrecio();
+        ordenaGasolinerasPorPrecio(tipoCarburanteActivo);
         gasolineraDAO.setListaGasolineras(filtrada);
         return filtrada;
     }
@@ -185,4 +191,18 @@ public class GestionGasolinera implements IGestionGasolinera {
         return res;
     }
 
+    public String getTipoCarburanteActivo(){
+        return tipoCarburanteActivo;
+    }
+
+    public String quitaEspacioAcentos(String carburante){
+         String s=carburante.toLowerCase();
+        s=s.replace(" ","");
+        s=s.replace("é","e");
+        return s;
+    }
+
+    public void setTipoCarburanteActivo(String tipo){
+        tipoCarburanteActivo=tipo;
+    }
 }

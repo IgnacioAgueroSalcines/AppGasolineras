@@ -11,7 +11,7 @@
 
     <item
         android:id="@+id/recarga"
-        android:title="Recargar Lista"
+        android:title="Limpia Filtros"
         app:showAsAction="never" />
 
 </menu>

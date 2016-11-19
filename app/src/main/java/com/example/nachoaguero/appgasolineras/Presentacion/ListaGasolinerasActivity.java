@@ -1,9 +1,6 @@
 package com.example.nachoaguero.appgasolineras.Presentacion;
 
 import android.app.Activity;
-import android.text.Layout;
-import android.util.Log;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,15 +8,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,27 +24,23 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.PopupWindow;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.GestionGasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.IGestionGasolinera;
 import com.example.nachoaguero.appgasolineras.R;
 
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -58,6 +48,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
     //atributos de la activity principal
     ListView list;
+    TextView tipoText;
     IGestionGasolinera gestionGasolinera = new GestionGasolinera(this);
     double latitudActual;
     double longitudActual;
@@ -72,11 +63,6 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
     private int check=0;
     //popup
     private PopupWindow popup;
-
-
-
-
-    private TextView t;
 
     private class Hilo extends AsyncTask<Void, Void, Boolean> {
         Context context;
@@ -198,7 +184,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
         @Override
         protected ArrayAdapter<Gasolinera> doInBackground(Void... voids) {
-            gestionGasolinera.ordenaGasolinerasPorPrecio();
+            gestionGasolinera.ordenaGasolinerasPorPrecio(gestionGasolinera.getTipoCarburanteActivo());
             List<Gasolinera> gas = gestionGasolinera.getListaGasolineras();
             ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(context, 0, gas);
             return adapter;
@@ -252,12 +238,8 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
             localidad.setText(gasolinera.getProvincia() + ", " + gasolinera.getLocalidad());
 
+            muestraTipoGasolina(gestionGasolinera.getTipoCarburanteActivo(),gasolina,gasolinera);
 
-            if (((Double) gasolinera.getGasolina_95()).equals(10000.0)) {
-                gasolina.setText("No disponible");
-            } else {
-                gasolina.setText(String.valueOf(gasolinera.getGasolina_95()) + "€/L");
-            }
             int imageID = context.getResources().getIdentifier("drawable/" + gasolinera.getRotulo().toLowerCase().trim(), null, context.getPackageName());
 
             //El nombre (referencia de la marca de la gasolinera) sólo se muestra si la marca es desconocida.
@@ -326,6 +308,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
         //se apunta a la lista
         list = (ListView) findViewById(R.id.customListView);
+        tipoText=(TextView)findViewById(R.id.textTipoGasolina);
         //se crea y ejecuta hilo para pedir las gasolineras
         Hilo a = new Hilo(this);
         a.execute();
@@ -438,7 +421,11 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 if(check>2) {
                     Toast.makeText(ListaGasolinerasActivity.this, listaCarburantes.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
                     List<Gasolinera> gas = gestionGasolinera.filtraPorCarburante(listaCarburantes.getSelectedItem().toString());
-                    ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(ListaGasolinerasActivity.this, 0, gas);
+                    gestionGasolinera.setListaGasolineras(gas);
+                    gestionGasolinera.ordenaGasolinerasPorPrecio(gestionGasolinera.getTipoCarburanteActivo());
+                    TextView text=(TextView)tipoText.findViewById(R.id.textTipoGasolina);
+                    text.setText(gestionGasolinera.getTipoCarburanteActivo());
+                    ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(ListaGasolinerasActivity.this, 0, gestionGasolinera.getListaGasolineras());
                     list.setAdapter(adapter);
                     popup.dismiss();
                     check=0;
@@ -505,9 +492,47 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
     public void visualizaListaInicial(){
         List<Gasolinera> gas = gestionGasolinera.getListaResguardo();
+        gestionGasolinera.setListaGasolineras(gas);
         ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(ListaGasolinerasActivity.this, 0, gas);
         list.setAdapter(adapter);
     }
 
+
+    public void muestraTipoGasolina(String tipo,TextView gasolina,Gasolinera gasolinera){
+        String t=gestionGasolinera.quitaEspacioAcentos(tipo.toLowerCase().trim());
+        switch (t) {
+            case "gasolina95":
+                if(gasolinera.getGasolina_95()!=Double.MAX_VALUE){
+                    gasolina.setText(String.valueOf(gasolinera.getGasolina_95()) + "€/L");
+                }else{
+                    gasolina.setText("No disponible");
+                }
+                break;
+            case "gasolina98":
+                if(gasolinera.getGasolina_98()!=Double.MAX_VALUE){
+                    gasolina.setText(String.valueOf(gasolinera.getGasolina_98()) + "€/L");
+                }else{
+                    gasolina.setText("No disponible");
+                }
+                break;
+            case "diesel":
+                if(gasolinera.getGasoleo_a()!=Double.MAX_VALUE){
+                    gasolina.setText(String.valueOf(gasolinera.getGasoleo_a()) + "€/L");
+                }else{
+                    gasolina.setText("No disponible");
+                }
+                break;
+            case "dieselsuper":
+                if(gasolinera.getGasoleoSuper()!=Double.MAX_VALUE){
+                    gasolina.setText(String.valueOf(gasolinera.getGasoleoSuper()) + "€/L");
+                }else{
+                    gasolina.setText("No disponible");
+                }
+                break;
+            default:
+
+        }
+
+    }
 }
 
