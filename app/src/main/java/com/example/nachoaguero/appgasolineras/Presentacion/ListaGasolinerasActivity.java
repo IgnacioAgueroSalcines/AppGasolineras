@@ -479,7 +479,6 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
     public void displayPopupWindow() {
          popup = new PopupWindow(this);
-
         View layout = getLayoutInflater().inflate(R.layout.popup, null);
         popup.setContentView(layout);
         popup.setOutsideTouchable(true);
@@ -492,6 +491,9 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
     public void visualizaListaInicial(){
         List<Gasolinera> gas = gestionGasolinera.getListaResguardo();
+        gestionGasolinera.setTipoCarburanteActivo("Gasolina 95");
+        TextView text=(TextView)tipoText.findViewById(R.id.textTipoGasolina);
+        text.setText(gestionGasolinera.getTipoCarburanteActivo());
         gestionGasolinera.setListaGasolineras(gas);
         ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(ListaGasolinerasActivity.this, 0, gas);
         list.setAdapter(adapter);

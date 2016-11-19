@@ -16,11 +16,17 @@ public class ObjetoComparable implements Comparator<Gasolinera>{
         this.tipo=tipo;
     }
 
+    public String quitaEspacioAcentos(String carburante){
+        String s=carburante.toLowerCase();
+        s=s.replace(" ","");
+        s=s.replace("é","e");
+        return s;
+    }
 
 
 
     public int compare(Gasolinera o1, Gasolinera o2) {
-        switch (tipo) {
+        switch (quitaEspacioAcentos(tipo)) {
             case ("gasolina95"):
                 if (o1.getGasolina_95() > o2.getGasolina_95())
                     return 1;

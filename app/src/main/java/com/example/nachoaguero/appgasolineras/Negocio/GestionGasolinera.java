@@ -62,21 +62,21 @@ public class GestionGasolinera implements IGestionGasolinera {
         List<Gasolinera> listaGasolineras=gasolineraDAO.getListaGasolineras();
         List<Gasolinera> filtrada=new ArrayList<Gasolinera>();
         for (int i=0;i<listaGasolineras.size();i++) {
-            switch(carburante){
-                case "Gasolina 95":
+            switch(quitaEspacioAcentos(carburante)){
+                case "gasolina95":
                     if(listaGasolineras.get(i).getGasolina_95()!=Double.MAX_VALUE){
                         filtrada.add(listaGasolineras.get(i));
                     }
                     break;
-                case "Gasolina 98":
+                case "gasolina98":
                     if(listaGasolineras.get(i).getGasolina_98()!=Double.MAX_VALUE){
                         filtrada.add(listaGasolineras.get(i));                    }
                     break;
-                case "Diésel":
+                case "diesel":
                     if(listaGasolineras.get(i).getGasoleo_a()!=Double.MAX_VALUE){
                         filtrada.add(listaGasolineras.get(i));                    }
                     break;
-                case "Diésel Super":
+                case "dieselsuper":
                     if(listaGasolineras.get(i).getGasoleoSuper()!=Double.MAX_VALUE){
                         filtrada.add(listaGasolineras.get(i));                    }
                     break;
@@ -85,8 +85,7 @@ public class GestionGasolinera implements IGestionGasolinera {
             }
 
         }
-        tipoCarburanteActivo=quitaEspacioAcentos(carburante);
-        gasolineraDAO.setListaGasolineras(filtrada);
+        tipoCarburanteActivo=carburante;
         return filtrada;
     }
 
