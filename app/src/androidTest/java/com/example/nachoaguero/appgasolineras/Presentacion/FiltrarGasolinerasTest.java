@@ -31,7 +31,7 @@ public class FiltrarGasolinerasTest extends AndroidTestCase{
 
 
     /**
-     * Test de filtrar por carburante 
+     * Test de filtrar por carburante
      */
     @Test
     public void filtrarCarburanteDiesel()  {
