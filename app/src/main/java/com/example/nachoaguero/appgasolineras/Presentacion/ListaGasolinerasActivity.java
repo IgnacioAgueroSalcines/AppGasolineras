@@ -235,7 +235,9 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             //gestionGasolinera.ordenaGasolinerasPorPrecio();
             //List<Gasolinera> gas = gestionGasolinera.getListaGasolineras();
             gasolinerasTotal = gestionGasolinera.getListaGasolineras();
-            return new gasolineraArrayAdapter(context, 0, gasolinerasTotal);
+            calculaDistancias(gestionGasolinera.getListaGasolineras(),context);
+            gasolineraArrayAdapter adapter= new gasolineraArrayAdapter(context, 0, gasolinerasTotal);
+            return adapter;
         }
 
         @Override
@@ -302,21 +304,8 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 nombre.setText(gasolinera.getRotulo());
             }
 
+            distancia.setText(String.format("%.2f", gasolinera.getDistancia()) + "Km");
 
-            if ((Math.abs(latitudActual - 0.0) < 0.000000001) && (Math.abs(longitudActual - 0.0) < 0.000000001)) {
-                //Calculo de la distancia respecto al centro de Santander
-                //Posicion ayuntamiento santander: 43.462175, -3.809989
-                distanciaFinal = gestionGasolinera.DistanciaKm(43.462175, -3.809989,
-                        gasolinera.getLatitud(), gasolinera.getLongitud());
-                gasolinera.setDistancia(distanciaFinal);
-                distancia.setText(String.format("%.2f", gasolinera.getDistancia()) + "Km");
-            } else {
-                //Calculo de la distancia respecto a la posición actual
-                distanciaFinal = gestionGasolinera.DistanciaKm(latitudActual, longitudActual,
-                        gasolinera.getLatitud(), gasolinera.getLongitud());
-                gasolinera.setDistancia(distanciaFinal);
-                distancia.setText(String.format("%.2f", gasolinera.getDistancia()) + "Km");
-            }
 
             return view;
         }
@@ -423,6 +412,28 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         //noinspection MissingPermission
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 0, listener);
 
+
+    }
+
+
+    public void calculaDistancias(List<Gasolinera> lista,Context context){
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.interfaz_lista, null);
+
+        for (Gasolinera gasolinera : lista) {
+            if ((Math.abs(latitudActual - 0.0) < 0.000000001) && (Math.abs(longitudActual - 0.0) < 0.000000001)) {
+                //Calculo de la distancia respecto al centro de Santander
+                //Posicion ayuntamiento santander: 43.462175, -3.809989
+                distanciaFinal = gestionGasolinera.DistanciaKm(43.462175, -3.809989,
+                        gasolinera.getLatitud(), gasolinera.getLongitud());
+                gasolinera.setDistancia(distanciaFinal);
+            } else {
+                //Calculo de la distancia respecto a la posición actual
+                distanciaFinal = gestionGasolinera.DistanciaKm(latitudActual, longitudActual,
+                        gasolinera.getLatitud(), gasolinera.getLongitud());
+                gasolinera.setDistancia(distanciaFinal);
+            }
+        }
 
     }
 
