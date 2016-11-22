@@ -42,38 +42,9 @@ public class ListaGasolinerasActivityTestOrdenarDistancia {
 
     @Test
     public void listaGasolinerasActivityTestOrdenarDistancia() {
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.ordenarKm), withContentDescription("OrdenKm"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.action_bar),
-                                        1),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(isDisplayed()));
-
         ViewInteraction actionMenuItemView = onView(
                 allOf(withId(R.id.ordenarKm), withContentDescription("OrdenKm"), isDisplayed()));
         actionMenuItemView.perform(click());
-
-        DataInteraction textView2 = onData(
-                allOf(withId(R.id.distancia), withText("0,83Km"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.customListView),
-                                        0),
-                                3),
-                        isDisplayed()));
-
-
-        DataInteraction textView3 = onData(
-                allOf(withId(R.id.distancia), withText("1,10Km"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.customListView),
-                                        1),
-                                3),
-                        isDisplayed()));
 
         //Obtenemos la lista
         ListView list = (ListView) mActivityTestRule.getActivity().findViewById(R.id.customListView);

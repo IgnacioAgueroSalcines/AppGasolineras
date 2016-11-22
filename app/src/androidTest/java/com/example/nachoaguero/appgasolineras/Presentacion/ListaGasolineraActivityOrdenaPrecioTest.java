@@ -8,12 +8,15 @@ import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.nachoaguero.appgasolineras.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,45 +43,34 @@ public class ListaGasolineraActivityOrdenaPrecioTest {
                 allOf(withId(R.id.ordenarPrecio), withContentDescription("Orden€"), isDisplayed()));
         actionMenuItemView.perform(click());
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.precio), withText("0.999€/L"), withContentDescription("Precio"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.customListView),
-                                        0),
-                                2),
-                        isDisplayed()));
-        textView.check(matches(withText("0.999€/L")));
 
-        ViewInteraction textView2 = onView(
-                allOf(withId(R.id.precio), withText("1.049€/L"), withContentDescription("Precio"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.customListView),
-                                        1),
-                                2),
-                        isDisplayed()));
-        textView2.check(matches(withText("1.049€/L")));
+        //Obtenemos la lista
+        ListView list = (ListView) mActivityTestRule.getActivity().findViewById(R.id.customListView);
+        //Comprobamos que no sea nula
+        Assert.assertNotNull(list);
 
-        ViewInteraction textView3 = onView(
-                allOf(withId(R.id.precio), withText("1.049€/L"), withContentDescription("Precio"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.customListView),
-                                        2),
-                                2),
-                        isDisplayed()));
-        textView3.check(matches(withText("1.049€/L")));
+        for (int i=0;i<list.getCount();i++){
+            Double res=0.0;
+            Double res2=0.0;
+            if(list.getChildAt(i+1)!=null) {
+                //Obtenemos la View de la primera fila
+                View vPosition0 = list.getChildAt(i);
+                //Para obtener el numero de filas-->list.getChildCount()
+                TextView textViewDistancia = (TextView) vPosition0.findViewById(R.id.precio);
+                String resString = textViewDistancia.getText().subSequence(0, textViewDistancia.getText().length() - 3).toString();
+                res = Double.parseDouble(resString);
 
-        ViewInteraction textView4 = onView(
-                allOf(withId(R.id.precio), withText("1.059€/L"), withContentDescription("Precio"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.customListView),
-                                        3),
-                                2),
-                        isDisplayed()));
-        textView4.check(matches(withText("1.059€/L")));
+                View vPosition1 = list.getChildAt(i + 1);
+                //Para obtener el numero de filas-->list.getChildCount()
+                TextView textViewDistancia2 = (TextView) vPosition1.findViewById(R.id.precio);
+                String resString2 = textViewDistancia2.getText().subSequence(0, textViewDistancia2.getText().length() - 3).toString();
+                res2 = Double.parseDouble(resString2);
+
+                Assert.assertTrue(res <= res2);
+            }
+
+
+        }
 
     }
 
