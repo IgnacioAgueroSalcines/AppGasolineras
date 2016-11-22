@@ -46,7 +46,7 @@ public class ObjetoComparablePrecio implements Comparator<Gasolinera> {
                     return -1;
                 else
                     return 0;
-            case("super"):
+            case("dieselsuper"):
                 if(gas1.getGasoleoSuper()>gas2.getGasoleoSuper())
                     return 1;
                 else if(gas1.getGasoleoSuper()<gas2.getGasoleoSuper())

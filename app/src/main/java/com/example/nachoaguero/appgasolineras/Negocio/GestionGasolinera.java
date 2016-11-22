@@ -23,7 +23,6 @@ public class GestionGasolinera implements IGestionGasolinera {
     private List<Gasolinera> listaGasolineras;
 
     public GestionGasolinera(Context context){
-
         gasolineraDAO=new GasolineraDAO(context);
     }
 
@@ -42,7 +41,9 @@ public class GestionGasolinera implements IGestionGasolinera {
 
     @Override
     public List<Gasolinera> getListaGasolineras() {
-        return gasolineraDAO.getListaGasolineras();
+        listaGasolineras=gasolineraDAO.getListaGasolineras();
+        return listaGasolineras;
+        //return gasolineraDAO.getListaGasolineras();
     }//getListadoGasolineras
 
     public void setListaGasolineras(List<Gasolinera> lista) {
@@ -51,12 +52,12 @@ public class GestionGasolinera implements IGestionGasolinera {
 
     public void ordenaGasolinerasPorPrecio(String tipo){
         ObjetoComparablePrecio o = new ObjetoComparablePrecio(tipo);
-        Collections.sort(getListaGasolineras(), o);
+        Collections.sort(listaGasolineras, o);
     }
 
     public void ordenaGasolinerasPorDistancia(){
         ObjetoComparableDistancia o = new ObjetoComparableDistancia();
-        Collections.sort(getListaGasolineras(), o);
+        Collections.sort(listaGasolineras, o);
     }
 
     public boolean obtenGasolinerasSinconexion(){return gasolineraDAO.obtenGasolinerasSinconexion();}
