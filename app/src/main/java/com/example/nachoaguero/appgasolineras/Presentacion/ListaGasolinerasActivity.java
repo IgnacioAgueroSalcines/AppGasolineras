@@ -84,6 +84,8 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 gasolinerasTotal = gestionGasolinera.getListaGasolineras();
                 ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(ListaGasolinerasActivity.this, 0, gasolinerasTotal);
                 list.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                list.invalidateViews();
                 return true;
             }
 
@@ -94,10 +96,14 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         b2.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                ListaGasolinerasActivity.this.gestionGasolinera.ordenaGasolinerasPorPrecio();
+                TextView text = (TextView) findViewById(R.id.textTipoGasolina);
+                String tipo = String.valueOf(text.getText());
+                ListaGasolinerasActivity.this.gestionGasolinera.ordenaGasolinerasPorPrecio(tipo);
                 gasolinerasTotal = gestionGasolinera.getListaGasolineras();
                 ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(ListaGasolinerasActivity.this, 0, gasolinerasTotal);
                 list.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                list.invalidateViews();
                 return true;
             }
 

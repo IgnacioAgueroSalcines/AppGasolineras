@@ -12,10 +12,15 @@ public interface IGestionGasolinera {
     ;
      boolean obtenGasolinerasSinconexion();
 
+    String getTipoCarburanteActivo();
+
+    void setTipoCarburanteActivo(String tipo);
+
     List<Gasolinera> getListaGasolineras()//getListadoGasolineras
     ;
+    void setListaGasolineras(List<Gasolinera> lista);
 
-    void ordenaGasolinerasPorPrecio();
+    void ordenaGasolinerasPorPrecio(String tipo);
 
     void ordenaGasolinerasPorDistancia();
 

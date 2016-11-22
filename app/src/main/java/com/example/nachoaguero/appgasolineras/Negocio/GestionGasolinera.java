@@ -4,7 +4,6 @@ package com.example.nachoaguero.appgasolineras.Negocio;
  * Created by deivid on 18/10/16.
  */
 import android.content.Context;
-import android.util.Log;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,13 +12,15 @@ import java.util.List;
 import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 import com.example.nachoaguero.appgasolineras.Datos.GasolineraDAO;
 import com.example.nachoaguero.appgasolineras.Datos.IGasolineraDAO;
-import com.example.nachoaguero.appgasolineras.Utilities.ParserJSON;
-import com.example.nachoaguero.appgasolineras.Utilities.RemoteFetch;
+import com.example.nachoaguero.appgasolineras.Utilities.ObjetoComparableDistancia;
+import com.example.nachoaguero.appgasolineras.Utilities.ObjetoComparablePrecio;
 
 
 public class GestionGasolinera implements IGestionGasolinera {
 
     private IGasolineraDAO gasolineraDAO;
+    private String tipoCarburanteActivo;
+    private List<Gasolinera> listaGasolineras;
 
     public GestionGasolinera(Context context){
 
@@ -31,32 +32,31 @@ public class GestionGasolinera implements IGestionGasolinera {
         return gasolineraDAO.obtenGasolineras();
     }//obtenGasolineras
 
+    public String getTipoCarburanteActivo() {
+        return tipoCarburanteActivo;
+    }
+
+    public void setTipoCarburanteActivo(String tipoCarburanteActivo) {
+        this.tipoCarburanteActivo = tipoCarburanteActivo;
+    }
+
     @Override
     public List<Gasolinera> getListaGasolineras() {
         return gasolineraDAO.getListaGasolineras();
     }//getListadoGasolineras
 
-    @Override
-    public void ordenaGasolinerasPorPrecio(){
-        Collections.sort(getListaGasolineras());
+    public void setListaGasolineras(List<Gasolinera> lista) {
+        listaGasolineras=lista;
     }
 
-    private class DistanceComparator implements Comparator<Gasolinera> {
-
-        @Override
-        public int compare(Gasolinera gas1, Gasolinera gas2) {
-            if(gas1.getDistancia()>gas2.getDistancia())
-                return 1;
-            else if(gas1.getDistancia()<gas2.getDistancia())
-                return -1;
-            else
-                return 0;
-        }
+    public void ordenaGasolinerasPorPrecio(String tipo){
+        ObjetoComparablePrecio o = new ObjetoComparablePrecio(tipo);
+        Collections.sort(getListaGasolineras(), o);
     }
 
-    @Override
     public void ordenaGasolinerasPorDistancia(){
-        Collections.sort(getListaGasolineras(), new DistanceComparator());
+        ObjetoComparableDistancia o = new ObjetoComparableDistancia();
+        Collections.sort(getListaGasolineras(), o);
     }
 
     public boolean obtenGasolinerasSinconexion(){return gasolineraDAO.obtenGasolinerasSinconexion();}

@@ -146,39 +146,9 @@ public class Gasolinera implements Comparable<Gasolinera> {
 
     public void setDistancia(double distancia){ this.distancia = distancia; }
 
+
     @Override
-    public int compareTo(Gasolinera another) {
-        String tipo = "gasolina95";
-        switch(tipo){
-            case("gasolina95"):
-                if(this.getGasolina_95()>another.getGasolina_95())
-                    return 1;
-                else if(this.getGasolina_95()<another.getGasolina_95())
-                    return -1;
-                else
-                    return 0;
-            case("gasolina98"):
-                if(this.getGasolina_98()>another.getGasolina_98())
-                    return 1;
-                else if(this.getGasolina_98()<another.getGasolina_98())
-                    return -1;
-                else
-                    return 0;
-            case("diesel"):
-                if(this.getGasoleo_a()>another.getGasoleo_a())
-                    return 1;
-                else if(this.getGasoleo_a()<another.getGasoleo_a())
-                    return -1;
-                else
-                    return 0;
-            case("super"):
-                if(this.getGasoleoSuper()>another.getGasoleoSuper())
-                    return 1;
-                else if(this.getGasoleoSuper()<another.getGasoleoSuper())
-                    return -1;
-                else
-                    return 0;
-        }
+    public int compareTo(Gasolinera gasolinera) {
         return 0;
     }
 }
