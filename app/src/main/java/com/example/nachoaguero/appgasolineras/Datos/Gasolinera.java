@@ -20,6 +20,7 @@ public class Gasolinera implements Comparable<Gasolinera> {
     private double gasoleoSuper;
     private double latitud;
     private double longitud;
+    private double distancia;
 
 
 
@@ -36,6 +37,7 @@ public class Gasolinera implements Comparable<Gasolinera> {
         this.gasoleoSuper=gasoleoSuper;
         this.latitud=latitud;
         this.longitud=longitud;
+        this.distancia=0.0;
     }
     public int getIDEESS()
     {
@@ -122,9 +124,9 @@ public class Gasolinera implements Comparable<Gasolinera> {
         return latitud;
     }
 
-    public double getLongitud() {
-        return longitud;
-    }
+    public double getLongitud() { return longitud; }
+
+    public double getDistancia() { return distancia; }
 
     public void setGasoleoSuper(double gasoleoSuper) {
         this.gasoleoSuper = gasoleoSuper;
@@ -142,16 +144,12 @@ public class Gasolinera implements Comparable<Gasolinera> {
         this.longitud = longitud;
     }
 
+    public void setDistancia(double distancia){ this.distancia = distancia; }
+
+
     @Override
-    public int compareTo(Gasolinera another) {
-
-            if(this.getGasolina_95()>another.getGasolina_95())
-                return 1;
-            else if(this.getGasolina_95()<another.getGasolina_95())
-                return -1;
-            else
-                return 0;
-
+    public int compareTo(Gasolinera gasolinera) {
+        return 0;
     }
 }
 

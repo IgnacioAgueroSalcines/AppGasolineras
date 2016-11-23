@@ -10,6 +10,4 @@ public interface IGasolineraDAO {
      boolean obtenGasolineras();
      List<Gasolinera> getListaGasolineras();
      boolean obtenGasolinerasSinconexion();
-    double DistanciaKm(double lat1, double lon1, double lat2, double lon2);
-
 }

@@ -12,10 +12,17 @@ public interface IGestionGasolinera {
     ;
      boolean obtenGasolinerasSinconexion();
 
+    String getTipoCarburanteActivo();
+
+    void setTipoCarburanteActivo(String tipo);
+
     List<Gasolinera> getListaGasolineras()//getListadoGasolineras
     ;
+    void setListaGasolineras(List<Gasolinera> lista);
 
-    void ordenaGasolinerasPorPrecio();
+    void ordenaGasolinerasPorPrecio(String tipo);
+
+    void ordenaGasolinerasPorDistancia();
 
 
     double DistanciaKm(double lat1, double lon1, double lat2, double lon2);

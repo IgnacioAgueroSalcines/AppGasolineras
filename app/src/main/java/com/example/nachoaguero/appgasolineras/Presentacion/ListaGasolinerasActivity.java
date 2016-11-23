@@ -1,6 +1,8 @@
 package com.example.nachoaguero.appgasolineras.Presentacion;
 
 import android.app.Activity;
+import android.net.Uri;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import android.app.ProgressDialog;
@@ -44,8 +46,14 @@ import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.GestionGasolinera;
 import com.example.nachoaguero.appgasolineras.Negocio.IGestionGasolinera;
 import com.example.nachoaguero.appgasolineras.R;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ListaGasolinerasActivity extends AppCompatActivity {
@@ -53,17 +61,58 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
     //atributos de la activity principal
     ListView list;
     IGestionGasolinera gestionGasolinera = new GestionGasolinera(this);
+    private List<Gasolinera> gasolinerasTotal;
+
     double latitudActual;
     double longitudActual;
+    double distanciaFinal;
 
     //bloque ubicacion
     private LocationManager locationManager;
     private LocationListener listener;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_activity_actions, menu);
 
+        //Boton Ordenar por distancia de la toolbar
+        MenuItem b1 =  menu.findItem(R.id.ordenarKm);
+        b1.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                ListaGasolinerasActivity.this.gestionGasolinera.ordenaGasolinerasPorDistancia();
+                gasolinerasTotal = gestionGasolinera.getListaGasolineras();
+                ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(ListaGasolinerasActivity.this, 0, gasolinerasTotal);
+                list.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                list.invalidateViews();
+                return true;
+            }
 
+        });
 
-    private TextView t;
+        //Boton Ordenar por precio de la toolbar
+        MenuItem b2 =  menu.findItem(R.id.ordenarPrecio);
+        b2.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                TextView text = (TextView) findViewById(R.id.textTipoGasolina);
+                String tipo = String.valueOf(text.getText());
+                ListaGasolinerasActivity.this.gestionGasolinera.ordenaGasolinerasPorPrecio(tipo);
+                gasolinerasTotal = gestionGasolinera.getListaGasolineras();
+                ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(ListaGasolinerasActivity.this, 0, gasolinerasTotal);
+                list.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                list.invalidateViews();
+                return true;
+            }
+
+        });
+
+        return true;    // true -> el menú ya está visible
+
+    }
+
 
     private class Hilo extends AsyncTask<Void, Void, Boolean> {
         Context context;
@@ -111,7 +160,6 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             progress.show();
-
         }
 
 
@@ -123,11 +171,9 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
                 res = gestionGasolinera.obtenGasolineras();
             } else {
-                if(conectadoDatos()){
-
+                if (conectadoDatos()) {
                     res = gestionGasolinera.obtenGasolineras();
                 } else {
-
                     res = gestionGasolinera.obtenGasolinerasSinconexion();
                 }
 
@@ -145,12 +191,8 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 if (conectadoDatos() == false && conectadoWifi() == false) {
                     TextView actualizado = (TextView) findViewById(R.id.textFechaActualizacion);
                     actualizado.setText("No Actualizado. Datos previos");
-
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion), Toast.LENGTH_LONG).show();
-
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_conexion)
-                            , Toast.LENGTH_LONG).show();
-
+                            + getResources().getString(R.string.ubicacion_default), Toast.LENGTH_SHORT).show();
 
                 } else {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.datos_obtenidos), Toast.LENGTH_LONG).show();
@@ -193,14 +235,15 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
         }
 
+
         @Override
         protected ArrayAdapter<Gasolinera> doInBackground(Void... voids) {
-            gestionGasolinera.ordenaGasolinerasPorPrecio();
-            List<Gasolinera> gas = gestionGasolinera.getListaGasolineras();
-            ArrayAdapter<Gasolinera> adapter = new gasolineraArrayAdapter(context, 0, gas);
+            //gestionGasolinera.ordenaGasolinerasPorPrecio();
+            //List<Gasolinera> gas = gestionGasolinera.getListaGasolineras();
+            gasolinerasTotal = gestionGasolinera.getListaGasolineras();
+            calculaDistancias(gestionGasolinera.getListaGasolineras(),context);
+            gasolineraArrayAdapter adapter= new gasolineraArrayAdapter(context, 0, gasolinerasTotal);
             return adapter;
-
-
         }
 
         @Override
@@ -219,7 +262,6 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
     }
 
 
-
     public class gasolineraArrayAdapter extends ArrayAdapter<Gasolinera> {
 
 
@@ -230,6 +272,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             super(context, resource, objects);
             this.context = context;
             this.gasolineras = objects;
+            gasolinerasTotal = objects;
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -250,7 +293,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
             localidad.setText(gasolinera.getProvincia() + ", " + gasolinera.getLocalidad());
 
 
-            if (((Double) gasolinera.getGasolina_95()).equals(10000.0)) {
+            if (((Double) gasolinera.getGasolina_95()).equals(Double.MAX_VALUE)) {
                 gasolina.setText("No disponible");
             } else {
                 gasolina.setText(String.valueOf(gasolinera.getGasolina_95()) + "€/L");
@@ -267,26 +310,10 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
                 nombre.setText(gasolinera.getRotulo());
             }
 
-
-            if ((Math.abs(latitudActual-0.0)<0.000000001)&& (Math.abs(longitudActual-0.0)<0.000000001)) {
-                //Calculo de la distancia respecto al centro de Santander
-                //Posicion ayuntamiento santander: 43.462175, -3.809989
-                //Toast.makeText(getApplicationContext(), "Ubicacion no detectada \nSe mostrara la distancia respecto al ayto de Santander", Toast.LENGTH_SHORT).show();
-                distancia.setText(String.format("%.2f", gestionGasolinera.DistanciaKm(43.462175, -3.809989,
-                        gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
-                //Toast.makeText(getApplicationContext(), "Pruebe a reiniciar la aplicacion para actualizar su ubicacion", Toast.LENGTH_SHORT).show();
-                distancia.setText(String.format("%.2f", gestionGasolinera.DistanciaKm(43.462175, -3.809989,
-                        gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
-            } else {
-                //Calculo de la distancia respecto a la posición actual
-                distancia.setText(String.format("%.2f", gestionGasolinera.DistanciaKm(latitudActual, longitudActual,
-                        gasolinera.getLatitud(), gasolinera.getLongitud())) + "Km");
-            }
+            distancia.setText(String.format("%.2f", gasolinera.getDistancia()) + "Km");
 
             return view;
         }
-
-
     }
 
     @Override
@@ -302,8 +329,8 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
             @Override
             public void onLocationChanged(Location location) {
-                latitudActual=location.getLatitude();
-                longitudActual=location.getLongitude();
+                latitudActual = location.getLatitude();
+                longitudActual = location.getLongitude();
             }
 
             @Override
@@ -325,15 +352,13 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
         };
         configuraPermisos();
 
+
+
         //se apunta a la lista
         list = (ListView) findViewById(R.id.customListView);
         //se crea y ejecuta hilo para pedir las gasolineras
         Hilo a = new Hilo(this);
         a.execute();
-
-
-
-
 
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -367,7 +392,7 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
+        switch (requestCode) {
             case 10:
                 configuraPermisos();
                 break;
@@ -377,17 +402,16 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
     }
 
 
-    private void configuraPermisos(){
+    private void configuraPermisos() {
         // first check for permissions
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.INTERNET}
-                        ,10);
+                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET}
+                        , 10);
             }
             return;
         }
         // this code won't execute IF permissions are not allowed, because in the line above there is return statement.
-
 
 
         //noinspection MissingPermission
@@ -396,6 +420,27 @@ public class ListaGasolinerasActivity extends AppCompatActivity {
 
     }
 
+
+    public void calculaDistancias(List<Gasolinera> lista,Context context){
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.interfaz_lista, null);
+
+        for (Gasolinera gasolinera : lista) {
+            if ((Math.abs(latitudActual - 0.0) < 0.000000001) && (Math.abs(longitudActual - 0.0) < 0.000000001)) {
+                //Calculo de la distancia respecto al centro de Santander
+                //Posicion ayuntamiento santander: 43.462175, -3.809989
+                distanciaFinal = gestionGasolinera.DistanciaKm(43.462175, -3.809989,
+                        gasolinera.getLatitud(), gasolinera.getLongitud());
+                gasolinera.setDistancia(distanciaFinal);
+            } else {
+                //Calculo de la distancia respecto a la posición actual
+                distanciaFinal = gestionGasolinera.DistanciaKm(latitudActual, longitudActual,
+                        gasolinera.getLatitud(), gasolinera.getLongitud());
+                gasolinera.setDistancia(distanciaFinal);
+            }
+        }
+
+    }
 
 
 }

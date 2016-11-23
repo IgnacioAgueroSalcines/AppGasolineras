@@ -1,9 +1,5 @@
 package com.example.nachoaguero.appgasolineras.Utilities;
 
-/**
- * Created by NachoAguero on 25/10/2016.
- */
-
 
 import android.content.Context;
 import android.util.Log;
@@ -33,7 +29,8 @@ public class FilesOperations {
             out.close();
             in.close();
         } catch (Exception e) {
-            Log.e("Error","ha fallado para escribir el Input Stream ",e);
+            throw new RuntimeException(e);
+            //e.printStackTrace();//pre-sonar
         }//try
     }//writeInputStream
 
@@ -42,9 +39,12 @@ public class FilesOperations {
         try {
             File file = new File(c.getFilesDir(), "inputStreamJson");
             in = new FileInputStream(file);
+
         } catch (Exception e) {
-            Log.e("Error","ha fallado para leer el Input Stream ",e);
+            throw new RuntimeException(e);
+            //e.printStackTrace(); //pre-sonar
         }
+
         return in;
         //writeInputStream
 
