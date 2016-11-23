@@ -8,7 +8,7 @@
         android:id="@+id/filtro_setting"
         android:title="Filtros"
         app:showAsAction="never" />
-
+    
     <item
         android:id="@+id/recarga"
         android:title="Limpia Filtros"

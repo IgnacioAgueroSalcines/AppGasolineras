@@ -91,29 +91,31 @@ public class VistaDetalleActivity extends AppCompatActivity {
             double precioDieselValor = (double) extras.get("precioDiesel");
             String unidadesPrecio = "€/L";
             if (Double.compare(precioDieselValor, 0.0) != 0) {
-                precioDiesel.setText(String.valueOf(precioDieselValor) + unidadesPrecio);
+                if (Double.compare(precioDieselValor, Double.MAX_VALUE) == 0) {
+                    precioGasolina95.setText("No disponible");
+                } else {
+                    precioDiesel.setText(String.valueOf(precioDieselValor) + unidadesPrecio);
+                }
             }
             double precioGasolina95Valor = (double) extras.get("precioGasolina");
             if (Double.compare(precioGasolina95Valor, 0.0) != 0) {
-                if (Double.compare(precioGasolina95Valor, 10000.0) == 0) {
+                if (Double.compare(precioGasolina95Valor, Double.MAX_VALUE) == 0) {
                     precioGasolina95.setText("No disponible");
                 } else {
                     precioGasolina95.setText(String.valueOf(precioGasolina95Valor) + unidadesPrecio);
                 }
             }
             double precioGasolina98Valor = (double) extras.get("precioGasolina98");
-            if (Double.compare(precioGasolina98Valor, 0.0) == 0) {
-
-                precioGasolina98.setText("No disponible");
-
-            } else {
-
-                precioGasolina98.setText(String.valueOf(precioGasolina98Valor) + unidadesPrecio);
-
+            if (Double.compare(precioGasolina98Valor, 0.0) != 0) {
+                if (Double.compare(precioGasolina98Valor, Double.MAX_VALUE) == 0) {
+                    precioGasolina98.setText("No disponible");
+                } else {
+                    precioGasolina98.setText(String.valueOf(precioGasolina98Valor) + unidadesPrecio);
+                }
             }
             double precioDieselSuperValor = (double) extras.get("precioGasoleoSuper");
             if (Double.compare(precioDieselSuperValor, 0.0) != 0) {
-                if (Double.compare(precioDieselSuperValor, 10000.0) == 0) {
+                if (Double.compare(precioDieselSuperValor, Double.MAX_VALUE) == 0) {
                     precioDieselSuper.setText("No disponible");
                 } else {
                     precioDieselSuper.setText(String.valueOf(precioDieselSuperValor) + unidadesPrecio);

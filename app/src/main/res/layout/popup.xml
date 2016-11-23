@@ -29,7 +29,9 @@
         android:id="@+id/spinnerCarburante"
         android:spinnerMode="dialog"/>
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:text="Elija la marca:"
