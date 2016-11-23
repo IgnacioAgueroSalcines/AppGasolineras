@@ -33,7 +33,8 @@ public class FilesOperations {
             out.close();
             in.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
+            //e.printStackTrace();//pre-sonar
         }//try
     }//writeInputStream
 
@@ -42,9 +43,12 @@ public class FilesOperations {
         try {
             File file = new File(c.getFilesDir(), "inputStreamJson");
             in = new FileInputStream(file);
+
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
+            //e.printStackTrace(); //pre-sonar
         }
+
         return in;
         //writeInputStream
 
