@@ -21,7 +21,6 @@ public class GasolineraDAO implements IGasolineraDAO{
     private Context context;
 
 
-
     public GasolineraDAO(Context _context){
         remoteFetch = new RemoteFetch();
         context=_context;
@@ -32,7 +31,6 @@ public class GasolineraDAO implements IGasolineraDAO{
             remoteFetch.getJSON();
             listaGasolineras = ParserJSON.readJsonStream(remoteFetch.getBufferedDataGasolineras());
             remoteFetch.writeBuffer(context);
-
 
 
             Log.d("ENTRA", "Obten gasolineras:"+listaGasolineras.size());
@@ -54,6 +52,7 @@ public class GasolineraDAO implements IGasolineraDAO{
             BufferedInputStream buffer=remoteFetch.getBufferedDataGasolineras();
             listaGasolineras = ParserJSON.readJsonStream(buffer);
 
+
             Log.d("ENTRA", "Obten gasolineras:"+listaGasolineras.size());
             return true;
         }catch(Exception e){
@@ -65,5 +64,10 @@ public class GasolineraDAO implements IGasolineraDAO{
 
     public List<Gasolinera> getListaGasolineras(){
         return listaGasolineras;
+    }
+
+
+    public void setListaGasolineras(List<Gasolinera> lista) {
+        listaGasolineras=lista;
     }
 }

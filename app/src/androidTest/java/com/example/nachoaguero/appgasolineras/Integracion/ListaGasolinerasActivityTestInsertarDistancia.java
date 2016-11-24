@@ -1,4 +1,4 @@
-package com.example.nachoaguero.appgasolineras.Presentacion;
+package com.example.nachoaguero.appgasolineras.Integracion;
 
 
 import android.support.test.espresso.ViewInteraction;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import com.example.nachoaguero.appgasolineras.Presentacion.ListaGasolinerasActivity;
 import com.example.nachoaguero.appgasolineras.R;
 
 import org.hamcrest.Description;

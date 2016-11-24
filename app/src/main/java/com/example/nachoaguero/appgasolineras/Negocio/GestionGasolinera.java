@@ -5,8 +5,8 @@ package com.example.nachoaguero.appgasolineras.Negocio;
  */
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.example.nachoaguero.appgasolineras.Datos.Gasolinera;
@@ -20,16 +20,20 @@ public class GestionGasolinera implements IGestionGasolinera {
 
     private IGasolineraDAO gasolineraDAO;
     private String tipoCarburanteActivo;
-    private List<Gasolinera> listaGasolineras;
+    private List<Gasolinera> listaGasolinerasSoporte;
+    private static final double radioTierraKm = 6378.0;
 
     public GestionGasolinera(Context context){
+        tipoCarburanteActivo="gasolina95";
         gasolineraDAO=new GasolineraDAO(context);
     }
 
-    @Override
     public boolean obtenGasolineras(){
-        return gasolineraDAO.obtenGasolineras();
+        boolean res= gasolineraDAO.obtenGasolineras();
+        listaResguardo();
+        return res;
     }//obtenGasolineras
+
 
     public String getTipoCarburanteActivo() {
         return tipoCarburanteActivo;
@@ -39,31 +43,65 @@ public class GestionGasolinera implements IGestionGasolinera {
         this.tipoCarburanteActivo = tipoCarburanteActivo;
     }
 
-    @Override
     public List<Gasolinera> getListaGasolineras() {
-        listaGasolineras=gasolineraDAO.getListaGasolineras();
-        return listaGasolineras;
+        return gasolineraDAO.getListaGasolineras();
         //return gasolineraDAO.getListaGasolineras();
     }//getListadoGasolineras
 
     public void setListaGasolineras(List<Gasolinera> lista) {
-        listaGasolineras=lista;
+        gasolineraDAO.setListaGasolineras(lista);
     }
 
     public void ordenaGasolinerasPorPrecio(String tipo){
         ObjetoComparablePrecio o = new ObjetoComparablePrecio(tipo);
-        Collections.sort(listaGasolineras, o);
+        Collections.sort(gasolineraDAO.getListaGasolineras(), o);
     }
 
     public void ordenaGasolinerasPorDistancia(){
         ObjetoComparableDistancia o = new ObjetoComparableDistancia();
-        Collections.sort(listaGasolineras, o);
+        Collections.sort(gasolineraDAO.getListaGasolineras(), o);
     }
 
-    public boolean obtenGasolinerasSinconexion(){return gasolineraDAO.obtenGasolinerasSinconexion();}
 
-    private static final double radioTierraKm = 6378.0;
 
+    public void listaResguardo(){
+        listaGasolinerasSoporte=gasolineraDAO.getListaGasolineras();
+    }
+
+    public List<Gasolinera> getListaResguardo(){
+        return listaGasolinerasSoporte;
+    }
+
+    public List<Gasolinera> filtraPorCarburante(String carburante) {
+        List<Gasolinera> listaGasolineras=gasolineraDAO.getListaGasolineras();
+        List<Gasolinera> filtrada=new ArrayList<Gasolinera>();
+        for (int i=0;i<listaGasolineras.size();i++) {
+            switch(quitaEspacioAcentos(carburante)){
+                case "gasolina95":
+                    if(listaGasolineras.get(i).getGasolina_95()!=Double.MAX_VALUE){
+                        filtrada.add(listaGasolineras.get(i));
+                    }
+                    break;
+                case "gasolina98":
+                    if(listaGasolineras.get(i).getGasolina_98()!=Double.MAX_VALUE){
+                        filtrada.add(listaGasolineras.get(i));                    }
+                    break;
+                case "diesel":
+                    if(listaGasolineras.get(i).getGasoleo_a()!=Double.MAX_VALUE){
+                        filtrada.add(listaGasolineras.get(i));                    }
+                    break;
+                case "dieselsuper":
+                    if(listaGasolineras.get(i).getGasoleoSuper()!=Double.MAX_VALUE){
+                        filtrada.add(listaGasolineras.get(i));                    }
+                    break;
+                default:
+                    break;
+            }
+
+        }
+        tipoCarburanteActivo=carburante;
+        return filtrada;
+    }
 
     public boolean compruebaEntradas(double lat1, double lon1, double lat2, double lon2){
         boolean res=false;
@@ -79,23 +117,86 @@ public class GestionGasolinera implements IGestionGasolinera {
         return res;
     }
 
-    /**
-     * Calcula la distancia en linea recta entre dos posiciones geográficas
-     * @param lat1 latitud origen
-     * @param lon1 longitud origen
-     * @param lat2 latitud destino
-     * @param lon2 longitud destino
-     * @return distancia en km entre las dos posiciones
-     */
+
+    public List<Gasolinera> filtraPorMarca(String marca){
+        List<Gasolinera> listaGasolineras=listaGasolinerasSoporte;
+        List<Gasolinera> filtrada=new ArrayList<Gasolinera>();
+        for (int i=0;i<listaGasolineras.size();i++) {
+            switch(marca){
+                case "Repsol":
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("repsol")){
+                        filtrada.add(listaGasolineras.get(i));
+                    }
+                    break;
+                case "Avia":
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("avia")){
+                        filtrada.add(listaGasolineras.get(i));                    }
+                    break;
+                case "Campsa":
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("campsa")){
+                        filtrada.add(listaGasolineras.get(i));                    }
+                    break;
+                case "Carrefour":
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("carrefour")){
+                        filtrada.add(listaGasolineras.get(i));                    }
+                    break;
+                case "Cepsa":
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("cepsa")){
+                        filtrada.add(listaGasolineras.get(i));                    }
+                    break;
+                case "Galp":
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("galp")){
+                        filtrada.add(listaGasolineras.get(i));                    }
+                    break;
+                case "Petronor":
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("petronor")){
+                        filtrada.add(listaGasolineras.get(i));                    }
+                    break;
+                case "Shell":
+                    if(listaGasolineras.get(i).getRotulo().trim().toLowerCase()
+                            .equals("shell")){
+                        filtrada.add(listaGasolineras.get(i));                    }
+                    break;
+                case "Otros":
+                    if(!listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("petronor") &&
+                    !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("repsol")   &&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("avia")&&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("campsa")&&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("carrefour")&&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("cepsa")&&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("galp")&&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("petronor")&&
+                            !listaGasolineras.get(i).getRotulo().trim().toLowerCase().equals("shell")
+                            ){
+                        filtrada.add(listaGasolineras.get(i));
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+        }
+        ordenaGasolinerasPorPrecio(tipoCarburanteActivo);
+        gasolineraDAO.setListaGasolineras(filtrada);
+        return filtrada;
+    }
+
+    public boolean obtenGasolinerasSinconexion(){
+        boolean res= gasolineraDAO.obtenGasolinerasSinconexion();
+        listaResguardo();
+        return res;
+    }
+
+
     public double DistanciaKm(double lat1, double lon1, double lat2, double lon2){//mas casos de prueaba
         double c=0;
         if(compruebaEntradas(lat1,lon1,lat2,lon2)){
             double dLat = Math.toRadians(lat2 - lat1);
             double dLon = Math.toRadians(lon2 - lon1);
-            double latitud1 = Math.toRadians(lat1);
-            double latitud2 = Math.toRadians(lat2);
+            lat1 = Math.toRadians(lat1);
+            lat2 = Math.toRadians(lat2);
 
-            double a = Math.pow(Math.sin(dLat / 2),2) + Math.pow(Math.sin(dLon / 2),2) * Math.cos(latitud1) * Math.cos(latitud2);
+            double a = Math.pow(Math.sin(dLat / 2),2) + Math.pow(Math.sin(dLon / 2),2) * Math.cos(lat1) * Math.cos(lat2);
             c = 2 * Math.asin(Math.sqrt(a));
         }
 
@@ -103,5 +204,12 @@ public class GestionGasolinera implements IGestionGasolinera {
 
     }
 
+
+    public String quitaEspacioAcentos(String carburante){
+         String s=carburante.toLowerCase();
+        s=s.replace(" ","");
+        s=s.replace("é","e");
+        return s;
+    }
 
 }

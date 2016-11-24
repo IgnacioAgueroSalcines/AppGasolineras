@@ -9,5 +9,6 @@ import java.util.List;
 public interface IGasolineraDAO {
      boolean obtenGasolineras();
      List<Gasolinera> getListaGasolineras();
+     void setListaGasolineras(List<Gasolinera> lista);
      boolean obtenGasolinerasSinconexion();
 }

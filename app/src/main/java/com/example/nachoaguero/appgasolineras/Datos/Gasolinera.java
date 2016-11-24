@@ -1,12 +1,10 @@
 package com.example.nachoaguero.appgasolineras.Datos;
 
-import java.util.Comparator;
-
 /**
  * Created by deivid on 18/10/16.
  */
 
-public class Gasolinera implements Comparable<Gasolinera> {
+public class Gasolinera{
 
     private int IDEESS;
     private String localidad;
@@ -38,7 +36,13 @@ public class Gasolinera implements Comparable<Gasolinera> {
         this.latitud=latitud;
         this.longitud=longitud;
         this.distancia=0.0;
+        this.gasolina_98 = gasolina_98;
+        this.horario = horario;
+        this.gasoleoSuper = gasoleoSuper;
+        this.latitud = latitud;
+        this.longitud = longitud;
     }
+
     public int getIDEESS()
     {
         return IDEESS;
@@ -144,16 +148,10 @@ public class Gasolinera implements Comparable<Gasolinera> {
         this.longitud = longitud;
     }
 
+
     public void setDistancia(double distancia){ this.distancia = distancia; }
 
-
-    @Override
-    public int compareTo(Gasolinera gasolinera) {
-        return 0;
-    }
 }
-
-
 
 
 

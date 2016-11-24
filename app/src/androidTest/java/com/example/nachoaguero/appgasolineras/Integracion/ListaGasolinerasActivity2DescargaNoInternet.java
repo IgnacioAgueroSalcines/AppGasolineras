@@ -1,4 +1,4 @@
-package com.example.nachoaguero.appgasolineras.Presentacion;
+package com.example.nachoaguero.appgasolineras.Integracion;
 
 
 import android.support.test.espresso.ViewInteraction;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
+import com.example.nachoaguero.appgasolineras.Presentacion.ListaGasolinerasActivity;
 import com.example.nachoaguero.appgasolineras.R;
 
 import org.hamcrest.Description;
@@ -20,7 +21,6 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -29,18 +29,34 @@ import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-/**
- * Clase de Test para verificar el comportamiento de la aplicación en su caso de éxito.
- */
-public class ListaGasolinerasActivityTest {
+public class ListaGasolinerasActivity2DescargaNoInternet {
+
+    /**
+     * Clase de Test para verificar "teóricamente" el caso de fallo en el que no se completa la descarga
+     * de datos pero existen datos previos para mostrar. Esta comprobación requiere una apertura de la
+     * app con acceso a internet, y una segunda apertura sin acceso, y nos es imposible generar esa
+     * "interacción" a través de este test.
+     */
 
     @Rule
     public ActivityTestRule<ListaGasolinerasActivity> mActivityTestRule = new ActivityTestRule<>(ListaGasolinerasActivity.class);
 
+    /*
+    Este test solo funcionaría si la herramienta espresso dejase quitar el wifi y la
+    conexion de datos del dispositivo previo a la ejecución
+     */
     @Test
-    public void listaGasolinerasActivityTest() {
-        onView(withId(R.id.textFechaActualizacion)).check(matches(childAtPosition(hasDescendant
-                (withText("Actualizado")),0)));
+    public void ListaGasolinerasActivity2DescargaNoInternet() {
+        /*ViewInteraction textView = onView(
+                allOf(withId(R.id.textFechaActualizacion), withText("No Actualizado. Datos previos"),
+                        childAtPosition(
+                                allOf(withId(R.id.activity_main),
+                                        childAtPosition(
+                                                withId(android.R.id.content),
+                                                0)),
+                                1),
+                        isDisplayed()));
+        textView.check(matches(withText("No Actualizado. Datos previos")));
 
         ViewInteraction imageView = onView(
                 allOf(withId(R.id.image), withContentDescription("Logo"),
@@ -52,10 +68,16 @@ public class ListaGasolinerasActivityTest {
                         isDisplayed()));
         imageView.check(matches(isDisplayed()));
 
-
-        onView(withId(R.id.textFechaActualizacion)).check(matches(childAtPosition(hasDescendant
-                (isDisplayed()),0)));
-
+        ViewInteraction linearLayout = onView(
+                allOf(withId(R.id.infoSection),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.customListView),
+                                        0),
+                                1),
+                        isDisplayed()));
+        linearLayout.check(matches(isDisplayed()));
+*/
     }
 
     private static Matcher<View> childAtPosition(
